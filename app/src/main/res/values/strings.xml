@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Bees</string>
+    <!--底部bar-->
+    <string name="title_news">新闻</string>
+    <string name="title_photo">图片</string>
+    <string name="title_video">视频</string>
+    <string name="title_media">头条号</string>
+
+    <!--toolbar-->
+    <string name="action_search">搜索</string>
+    <string name="action_setting">设置</string>
+    <string name="drawer_open">打开侧栏</string>
+    <string name="drawer_close">关闭侧栏</string>
+</resources>
