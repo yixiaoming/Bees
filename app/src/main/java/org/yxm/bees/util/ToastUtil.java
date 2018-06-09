@@ -8,7 +8,7 @@ import android.widget.Toast;
  * Created by yixiaoming on 2018/4/6.
  */
 
-public class T {
+public class ToastUtil {
 
     public static void s(Context context, @StringRes int strid) {
         String msg = context.getResources().getString(strid);

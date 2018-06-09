@@ -8,7 +8,7 @@ import org.yxm.bees.config.AppConfig;
  * Created by yixiaoming on 2018/4/6.
  */
 
-public class L {
+public class LogUtil {
 
     private static final boolean DEBUG = AppConfig.DEBUG;
     public static String TAG = "Bees";
