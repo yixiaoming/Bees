@@ -20,16 +20,13 @@ import org.yxm.bees.main.presenter.MainPresenter;
 
 public class MainActivity extends BaseActivity {
 
-    private ActionBar mActionBar;
-    private Toolbar mToolbar;
+
     private MainContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
-
-        initToolbar();
 
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.main_framelayout);
@@ -44,12 +41,6 @@ public class MainActivity extends BaseActivity {
         mPresenter = new MainPresenter(mainFragment);
     }
 
-    private void initToolbar() {
-        mToolbar = findViewById(R.id.main_toolbar);
-        setSupportActionBar(mToolbar);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(true);
-    }
+
 
 }
