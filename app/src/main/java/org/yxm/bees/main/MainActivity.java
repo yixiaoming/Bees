@@ -3,14 +3,10 @@ package org.yxm.bees.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseActivity;
-import org.yxm.bees.main.contract.MainContract;
-import org.yxm.bees.main.fragments.MainFragment;
-import org.yxm.bees.main.presenter.MainPresenter;
+import org.yxm.bees.main.fragments.NewsFragment;
 
 
 /**
@@ -20,27 +16,19 @@ import org.yxm.bees.main.presenter.MainPresenter;
 
 public class MainActivity extends BaseActivity {
 
-
-    private MainContract.Presenter mPresenter;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.main_framelayout);
-        if (mainFragment == null) {
-            mainFragment = MainFragment.newInstance();
+        NewsFragment newsFragment = (NewsFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.main_content_framelayout);
+        if (newsFragment == null) {
+            newsFragment = NewsFragment.newInstance();
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.main_framelayout, mainFragment);
+            transaction.add(R.id.main_content_framelayout, newsFragment);
             transaction.commit();
         }
-
-        mPresenter = new MainPresenter(mainFragment);
     }
-
-
-
 }

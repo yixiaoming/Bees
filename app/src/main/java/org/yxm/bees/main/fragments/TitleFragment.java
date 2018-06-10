@@ -63,11 +63,6 @@ public class TitleFragment extends Fragment implements TitleContract.View {
     }
 
     @Override
-    public void setPresenter(TitleContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-    @Override
     public void initDatas(List<String> datas) {
 
         mAdapter = new TitleRecyclerAdapter(datas);

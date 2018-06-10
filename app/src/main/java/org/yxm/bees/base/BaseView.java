@@ -5,5 +5,4 @@ package org.yxm.bees.base;
  */
 
 public interface BaseView<T> {
-    void setPresenter(T presenter);
 }

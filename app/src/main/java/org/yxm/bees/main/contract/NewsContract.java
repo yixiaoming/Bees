@@ -9,9 +9,9 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public interface MainContract {
+public interface NewsContract {
 
-    interface Repository {
+    interface Model {
 
         void initTitles(OnLoadTitlesListener listener);
 

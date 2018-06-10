@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
-import org.yxm.bees.main.contract.MainContract;
-import org.yxm.bees.main.adapter.MainViewPagerAdapter;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.bees.main.contract.NewsContract;
+import org.yxm.bees.main.adapter.NewsPagerAdapter;
+import org.yxm.bees.main.presenter.NewsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +22,24 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class MainFragment extends Fragment
-        implements MainContract.View, ViewPager.OnPageChangeListener {
+public class NewsFragment extends Fragment
+        implements NewsContract.View, ViewPager.OnPageChangeListener {
 
     public static final String MAIN_FRAGMENT_ID = "main_fragment_id";
 
     private TabLayout mTablayout;
     private ViewPager mViewpager;
 
-    private MainViewPagerAdapter mViewpagerAdapter;
+    private NewsPagerAdapter mViewpagerAdapter;
 
-    private MainContract.Presenter mPresenter;
+    private NewsContract.Presenter mPresenter;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mPresenter = new NewsPresenter(this);
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
         initViews(view);
         return view;
@@ -55,13 +56,8 @@ public class MainFragment extends Fragment
         mViewpager = root.findViewById(R.id.main_viewpager);
     }
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
-
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-        mPresenter = presenter;
+    public static NewsFragment newInstance() {
+        return new NewsFragment();
     }
 
     @Override
@@ -71,7 +67,7 @@ public class MainFragment extends Fragment
             fragments.add(TitleFragment.newInstance(title));
         }
 
-        mViewpagerAdapter = new MainViewPagerAdapter(getFragmentManager(), titles, fragments);
+        mViewpagerAdapter = new NewsPagerAdapter(getFragmentManager(), titles, fragments);
         mTablayout.setTabsFromPagerAdapter(mViewpagerAdapter);
         mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTablayout.setupWithViewPager(mViewpager);

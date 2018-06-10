@@ -1,6 +1,6 @@
 package org.yxm.bees.main.repository;
 
-import org.yxm.bees.main.contract.MainContract;
+import org.yxm.bees.main.contract.NewsContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public class MainRepository implements MainContract.Repository {
+public class MainRepository implements NewsContract.Model {
 
     @Override
     public void initTitles(OnLoadTitlesListener listener) {

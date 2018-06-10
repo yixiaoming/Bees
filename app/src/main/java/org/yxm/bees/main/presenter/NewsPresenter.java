@@ -2,7 +2,7 @@ package org.yxm.bees.main.presenter;
 
 import android.util.Log;
 
-import org.yxm.bees.main.contract.MainContract;
+import org.yxm.bees.main.contract.NewsContract;
 import org.yxm.bees.main.repository.MainRepository;
 
 import java.util.List;
@@ -11,22 +11,21 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public class MainPresenter implements MainContract.Presenter {
+public class NewsPresenter implements NewsContract.Presenter {
 
-    public static final String TAG = "MainPresenter";
+    public static final String TAG = "NewsPresenter";
 
-    private MainContract.View mView;
-    private MainContract.Repository mRepository;
+    private NewsContract.View mView;
+    private NewsContract.Model mRepository;
 
-    public MainPresenter(MainContract.View mView) {
+    public NewsPresenter(NewsContract.View mView) {
         this.mView = mView;
         this.mRepository = new MainRepository();
-        mView.setPresenter(this);
     }
 
     @Override
     public void start() {
-        mRepository.initTitles(new MainContract.Repository.OnLoadTitlesListener() {
+        mRepository.initTitles(new NewsContract.Model.OnLoadTitlesListener() {
             @Override
             public void onSuccess(List<String> datas) {
                 mView.initDataView(datas);
