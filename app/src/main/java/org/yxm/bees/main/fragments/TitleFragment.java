@@ -3,17 +3,14 @@ package org.yxm.bees.main.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
+import org.yxm.bees.base.MvpFragment;
 import org.yxm.bees.main.adapter.TitleRecyclerAdapter;
 import org.yxm.bees.main.contract.TitleContract;
 import org.yxm.bees.main.presenter.TitlePresenter;
@@ -24,13 +21,18 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class TitleFragment extends Fragment implements TitleContract.View {
+public class TitleFragment extends MvpFragment<TitlePresenter> implements TitleContract.View {
 
     public static final String ARGS_TITLE = "title";
 
     private RecyclerView mRecyclerview;
+
     private TitleRecyclerAdapter mAdapter;
-    private TitleContract.Presenter mPresenter;
+
+    @Override
+    protected TitlePresenter createPresenter() {
+        return new TitlePresenter(this);
+    }
 
     public static TitleFragment newInstance(String title) {
         TitleFragment fragment = new TitleFragment();
@@ -54,8 +56,7 @@ public class TitleFragment extends Fragment implements TitleContract.View {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter = new TitlePresenter(this);
-        mPresenter.start();
+        mPresenter.get().start();
     }
 
     private void initViews(View root) {
