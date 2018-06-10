@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseActivity;
+import org.yxm.bees.main.contract.MainContract;
+import org.yxm.bees.main.fragments.MainFragment;
+import org.yxm.bees.main.presenter.MainPresenter;
 
 
 /**
@@ -39,7 +42,6 @@ public class MainActivity extends BaseActivity {
         }
 
         mPresenter = new MainPresenter(mainFragment);
-        mPresenter.start();
     }
 
     private void initToolbar() {
