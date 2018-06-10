@@ -14,11 +14,11 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/10.
  */
 
-public class TitleRecyclerAdapter extends RecyclerView.Adapter<TitleRecyclerAdapter.ViewHolder> {
+public class NewsPageItemRecyclerAdapter extends RecyclerView.Adapter<NewsPageItemRecyclerAdapter.ViewHolder> {
 
     private List<String> mDatas;
 
-    public TitleRecyclerAdapter(List<String> datas) {
+    public NewsPageItemRecyclerAdapter(List<String> datas) {
         this.mDatas = datas;
     }
 

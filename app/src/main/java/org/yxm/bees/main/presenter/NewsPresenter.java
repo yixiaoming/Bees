@@ -3,7 +3,7 @@ package org.yxm.bees.main.presenter;
 import android.util.Log;
 
 import org.yxm.bees.main.contract.NewsContract;
-import org.yxm.bees.main.repository.MainRepository;
+import org.yxm.bees.main.repository.NewsModel;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     public NewsPresenter(NewsContract.View mView) {
         this.mView = mView;
-        this.mRepository = new MainRepository();
+        this.mRepository = new NewsModel();
     }
 
     @Override

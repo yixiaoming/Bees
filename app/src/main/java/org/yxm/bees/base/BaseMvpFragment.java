@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
  * Created by yixiaoming on 2018/4/6.
  */
 
-public abstract class MvpFragment<T> extends Fragment {
+public abstract class BaseMvpFragment<T> extends Fragment {
 
     protected WeakReference<T> mPresenter;
 

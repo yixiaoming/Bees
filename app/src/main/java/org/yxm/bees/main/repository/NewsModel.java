@@ -9,7 +9,7 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public class MainRepository implements NewsContract.Model {
+public class NewsModel implements NewsContract.Model {
 
     @Override
     public void initTitles(OnLoadTitlesListener listener) {

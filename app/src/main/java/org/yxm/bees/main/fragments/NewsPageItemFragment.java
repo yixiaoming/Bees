@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.MvpFragment;
-import org.yxm.bees.main.adapter.TitleRecyclerAdapter;
-import org.yxm.bees.main.contract.TitleContract;
-import org.yxm.bees.main.presenter.TitlePresenter;
+import org.yxm.bees.base.BaseMvpFragment;
+import org.yxm.bees.main.adapter.NewsPageItemRecyclerAdapter;
+import org.yxm.bees.main.contract.NewsPageItemContract;
+import org.yxm.bees.main.presenter.NewsPageItemPresenter;
 
 import java.util.List;
 
@@ -21,21 +21,21 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class TitleFragment extends MvpFragment<TitlePresenter> implements TitleContract.View {
+public class NewsPageItemFragment extends BaseMvpFragment<NewsPageItemPresenter> implements NewsPageItemContract.View {
 
     public static final String ARGS_TITLE = "title";
 
     private RecyclerView mRecyclerview;
 
-    private TitleRecyclerAdapter mAdapter;
+    private NewsPageItemRecyclerAdapter mAdapter;
 
     @Override
-    protected TitlePresenter createPresenter() {
-        return new TitlePresenter(this);
+    protected NewsPageItemPresenter createPresenter() {
+        return new NewsPageItemPresenter(this);
     }
 
-    public static TitleFragment newInstance(String title) {
-        TitleFragment fragment = new TitleFragment();
+    public static NewsPageItemFragment newInstance(String title) {
+        NewsPageItemFragment fragment = new NewsPageItemFragment();
 
         Bundle args = new Bundle();
         args.putString(ARGS_TITLE, title);
@@ -66,7 +66,7 @@ public class TitleFragment extends MvpFragment<TitlePresenter> implements TitleC
     @Override
     public void initDatas(List<String> datas) {
 
-        mAdapter = new TitleRecyclerAdapter(datas);
+        mAdapter = new NewsPageItemRecyclerAdapter(datas);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
     }

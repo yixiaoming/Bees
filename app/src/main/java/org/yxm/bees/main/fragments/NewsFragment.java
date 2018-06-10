@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.MvpFragment;
+import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.main.contract.NewsContract;
 import org.yxm.bees.main.adapter.NewsPagerAdapter;
 import org.yxm.bees.main.presenter.NewsPresenter;
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class NewsFragment extends MvpFragment<NewsPresenter>
+public class NewsFragment extends BaseMvpFragment<NewsPresenter>
         implements NewsContract.View, ViewPager.OnPageChangeListener {
 
     public static final String MAIN_FRAGMENT_ID = "main_fragment_id";
@@ -66,7 +66,7 @@ public class NewsFragment extends MvpFragment<NewsPresenter>
     public void initDataView(List<String> titles) {
         List<Fragment> fragments = new ArrayList<>();
         for (String title : titles) {
-            fragments.add(TitleFragment.newInstance(title));
+            fragments.add(NewsPageItemFragment.newInstance(title));
         }
 
         mViewpagerAdapter = new NewsPagerAdapter(getFragmentManager(), titles, fragments);

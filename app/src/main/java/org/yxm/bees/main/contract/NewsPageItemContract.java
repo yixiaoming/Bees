@@ -8,7 +8,7 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/10.
  */
 
-public interface TitleContract {
+public interface NewsPageItemContract {
 
     interface Model {
 
