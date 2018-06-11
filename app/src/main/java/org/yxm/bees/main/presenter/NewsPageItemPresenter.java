@@ -1,7 +1,9 @@
 package org.yxm.bees.main.presenter;
 
-import org.yxm.bees.main.contract.NewsPageItemContract;
-import org.yxm.bees.main.repository.NewsPageItemModel;
+import org.yxm.bees.base.BasePresenter;
+import org.yxm.bees.main.model.INewsPageItemModel;
+import org.yxm.bees.main.model.NewsPageItemModel;
+import org.yxm.bees.main.view.INewsPageItemView;
 
 import java.util.List;
 
@@ -9,23 +11,21 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/10.
  */
 
-public class NewsPageItemPresenter implements NewsPageItemContract.Presenter {
+public class NewsPageItemPresenter extends BasePresenter<INewsPageItemView> {
 
-    private NewsPageItemContract.Model mModel;
-    private NewsPageItemContract.View mView;
+    private INewsPageItemModel mModel;
 
-    public NewsPageItemPresenter(NewsPageItemContract.View mView) {
-        this.mView = mView;
+    public NewsPageItemPresenter() {
         this.mModel = new NewsPageItemModel();
     }
 
-
-    @Override
     public void start() {
-        mModel.initDatas(new NewsPageItemContract.Model.OnLoadTitleDataListener() {
+        mModel.initDatas(new INewsPageItemModel.OnLoadTitleDataListener() {
             @Override
             public void onSuccess(List<String> datas) {
-                mView.initDatas(datas);
+                if (mView.get() != null) {
+                    mView.get().initDatas(datas);
+                }
             }
 
             @Override

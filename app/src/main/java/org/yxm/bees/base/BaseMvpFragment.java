@@ -3,28 +3,26 @@ package org.yxm.bees.base;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Created by yixiaoming on 2018/4/6.
  */
 
-public abstract class BaseMvpFragment<T> extends Fragment {
+public abstract class BaseMvpFragment<V, T extends BasePresenter<V>> extends Fragment {
 
-    protected WeakReference<T> mPresenter;
+    protected T mPresenter;
 
     protected abstract T createPresenter();
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mPresenter = new WeakReference<T>(createPresenter());
+        mPresenter = createPresenter();
+        mPresenter.attachView((V) this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mPresenter.clear();
+        mPresenter.detachView();
     }
-
 }

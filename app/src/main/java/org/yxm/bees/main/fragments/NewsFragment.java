@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.main.contract.NewsContract;
 import org.yxm.bees.main.adapter.NewsPagerAdapter;
 import org.yxm.bees.main.presenter.NewsPresenter;
+import org.yxm.bees.main.view.INewsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,8 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class NewsFragment extends BaseMvpFragment<NewsPresenter>
-        implements NewsContract.View, ViewPager.OnPageChangeListener {
+public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
+        implements INewsView {
 
     public static final String MAIN_FRAGMENT_ID = "main_fragment_id";
 
@@ -39,7 +39,7 @@ public class NewsFragment extends BaseMvpFragment<NewsPresenter>
 
     @Override
     protected NewsPresenter createPresenter() {
-        return new NewsPresenter(this);
+        return new NewsPresenter();
     }
 
     @Nullable
@@ -54,7 +54,7 @@ public class NewsFragment extends BaseMvpFragment<NewsPresenter>
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.get().start();
+        mPresenter.start();
     }
 
     private void initViews(View root) {
@@ -76,18 +76,5 @@ public class NewsFragment extends BaseMvpFragment<NewsPresenter>
 
         mViewpager.setAdapter(mViewpagerAdapter);
         mViewpager.setOffscreenPageLimit(5);
-        mViewpager.setOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
     }
 }

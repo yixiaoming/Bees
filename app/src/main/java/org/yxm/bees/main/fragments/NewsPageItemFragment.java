@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
+import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.adapter.NewsPageItemRecyclerAdapter;
-import org.yxm.bees.main.contract.NewsPageItemContract;
 import org.yxm.bees.main.presenter.NewsPageItemPresenter;
+import org.yxm.bees.main.view.INewsPageItemView;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/9.
  */
 
-public class NewsPageItemFragment extends BaseMvpFragment<NewsPageItemPresenter> implements NewsPageItemContract.View {
+public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, NewsPageItemPresenter>
+        implements INewsPageItemView {
 
     public static final String ARGS_TITLE = "title";
 
@@ -31,7 +33,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<NewsPageItemPresenter>
 
     @Override
     protected NewsPageItemPresenter createPresenter() {
-        return new NewsPageItemPresenter(this);
+        return new NewsPageItemPresenter();
     }
 
     public static NewsPageItemFragment newInstance(String title) {
@@ -56,7 +58,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<NewsPageItemPresenter>
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.get().start();
+        mPresenter.start();
     }
 
     private void initViews(View root) {
@@ -65,7 +67,6 @@ public class NewsPageItemFragment extends BaseMvpFragment<NewsPageItemPresenter>
 
     @Override
     public void initDatas(List<String> datas) {
-
         mAdapter = new NewsPageItemRecyclerAdapter(datas);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

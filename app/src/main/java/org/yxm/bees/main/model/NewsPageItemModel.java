@@ -1,6 +1,4 @@
-package org.yxm.bees.main.repository;
-
-import org.yxm.bees.main.contract.NewsPageItemContract;
+package org.yxm.bees.main.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +7,7 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/10.
  */
 
-public class NewsPageItemModel implements NewsPageItemContract.Model {
+public class NewsPageItemModel implements INewsPageItemModel {
 
     @Override
     public void initDatas(OnLoadTitleDataListener listener) {

@@ -2,8 +2,10 @@ package org.yxm.bees.main.presenter;
 
 import android.util.Log;
 
-import org.yxm.bees.main.contract.NewsContract;
-import org.yxm.bees.main.repository.NewsModel;
+import org.yxm.bees.base.BasePresenter;
+import org.yxm.bees.main.model.INewsModel;
+import org.yxm.bees.main.model.NewsModel;
+import org.yxm.bees.main.view.INewsView;
 
 import java.util.List;
 
@@ -11,24 +13,23 @@ import java.util.List;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public class NewsPresenter implements NewsContract.Presenter {
+public class NewsPresenter extends BasePresenter<INewsView> {
 
     public static final String TAG = "NewsPresenter";
 
-    private NewsContract.View mView;
-    private NewsContract.Model mRepository;
+    private INewsModel mModel;
 
-    public NewsPresenter(NewsContract.View mView) {
-        this.mView = mView;
-        this.mRepository = new NewsModel();
+    public NewsPresenter() {
+        this.mModel = new NewsModel();
     }
 
-    @Override
     public void start() {
-        mRepository.initTitles(new NewsContract.Model.OnLoadTitlesListener() {
+        mModel.initTitles(new INewsModel.OnLoadTitlesListener() {
             @Override
             public void onSuccess(List<String> datas) {
-                mView.initDataView(datas);
+                if (mView.get() != null) {
+                    mView.get().initDataView(datas);
+                }
             }
 
             @Override
