@@ -20,7 +20,7 @@
         android:title="@string/title_video"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_media"
+        android:id="@+id/action_personal"
         android:enabled="true"
         android:icon="@drawable/ic_bottom_item_news"
         android:title="@string/title_media"

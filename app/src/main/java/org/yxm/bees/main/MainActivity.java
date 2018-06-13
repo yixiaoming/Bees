@@ -1,9 +1,13 @@
 package org.yxm.bees.main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import org.yxm.bees.R;
 import org.yxm.bees.main.fragments.NewsFragment;
@@ -16,19 +20,75 @@ import org.yxm.bees.main.fragments.NewsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView mBottomNavView;
+    private Fragment mCurrentFragment;
+
+    public static final String TAG_FRAGMENT_NEWS = "tag_fragment_news";
+    public static final String TAG_FRAGMENT_PHOTO = "tag_fragment_photo";
+    public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
+    public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
-        NewsFragment newsFragment = (NewsFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.main_content_framelayout);
-        if (newsFragment == null) {
-            newsFragment = NewsFragment.newInstance();
+        initViews();
+    }
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.main_content_framelayout, newsFragment);
-            transaction.commit();
+    private void initViews() {
+        mBottomNavView = findViewById(R.id.main_bottom_nav_bar);
+        mBottomNavView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_news:
+                                showFragment(TAG_FRAGMENT_NEWS);
+                                return true;
+                            case R.id.action_photo:
+                                showFragment(TAG_FRAGMENT_PHOTO);
+                                return true;
+                            case R.id.action_video:
+                                showFragment(TAG_FRAGMENT_VIDEO);
+                                return true;
+                            case R.id.action_personal:
+                                showFragment(TAG_FRAGMENT_PERSONAL);
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+        mBottomNavView.getMenu().getItem(0).setCheckable(true);
+        showFragment(TAG_FRAGMENT_NEWS);
+    }
+
+    private void showFragment(String fragmentTag) {
+        if (fragmentTag.isEmpty()) {
+            return;
         }
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (fragment == null) {
+            if (fragmentTag.equals(TAG_FRAGMENT_NEWS)) {
+                fragment = NewsFragment.newInstance();
+                transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+            } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
+                fragment = NewsFragment.newInstance();
+                transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+            } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
+                fragment = NewsFragment.newInstance();
+                transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+            } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {
+                fragment = NewsFragment.newInstance();
+                transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+            }
+        }
+        if (mCurrentFragment != null) {
+            transaction.hide(mCurrentFragment);
+        }
+        transaction.show(fragment);
+        mCurrentFragment = fragment;
+        transaction.commit();
     }
 }

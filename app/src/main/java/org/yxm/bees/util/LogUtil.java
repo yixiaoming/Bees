@@ -22,4 +22,14 @@ public class LogUtil {
     public static void d(String msg) {
         d(TAG, msg);
     }
+
+    public static void e(String tag, String msg) {
+        if (DEBUG) {
+            Log.e(tag, msg);
+        }
+    }
+
+    public static void e(String msg) {
+        e(TAG, msg);
+    }
 }

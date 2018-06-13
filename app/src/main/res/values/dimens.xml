@@ -6,4 +6,6 @@
     <dimen name="textSizeNormal">16dp</dimen>
     <dimen name="textSmallNormal">12dp</dimen>
 
+    <dimen name="main_bottom_nav_bar_height">40dp</dimen>
+
 </resources>

@@ -4,7 +4,7 @@
     <string name="title_news">新闻</string>
     <string name="title_photo">图片</string>
     <string name="title_video">视频</string>
-    <string name="title_media">头条号</string>
+    <string name="title_media">我的</string>
 
     <!--toolbar-->
     <string name="action_search">搜索</string>
