@@ -1,5 +1,7 @@
 package org.yxm.bees.main.view;
 
+import org.yxm.bees.pojo.TabInfo;
+
 import java.util.List;
 
 /**
@@ -7,5 +9,5 @@ import java.util.List;
  */
 
 public interface INewsView {
-    void initDataView(List<String> titles);
+    void initDataView(List<TabInfo> titles);
 }

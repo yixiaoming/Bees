@@ -19,7 +19,7 @@ public class NewsPageItemPresenter extends BasePresenter<INewsPageItemView> {
         this.mModel = new NewsPageItemModel();
     }
 
-    public void start() {
+    public void loadData() {
         mModel.initDatas(new INewsPageItemModel.OnLoadTitleDataListener() {
             @Override
             public void onSuccess(List<String> datas) {

@@ -6,6 +6,7 @@ import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.model.INewsModel;
 import org.yxm.bees.main.model.NewsModel;
 import org.yxm.bees.main.view.INewsView;
+import org.yxm.bees.pojo.TabInfo;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ public class NewsPresenter extends BasePresenter<INewsView> {
         this.mModel = new NewsModel();
     }
 
-    public void start() {
+    public void loadData() {
         mModel.initTitles(new INewsModel.OnLoadTitlesListener() {
             @Override
-            public void onSuccess(List<String> datas) {
+            public void onSuccess(List<TabInfo> datas) {
                 if (mView.get() != null) {
                     mView.get().initDataView(datas);
                 }

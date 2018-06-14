@@ -1,5 +1,7 @@
 package org.yxm.bees.main.model;
 
+import org.yxm.bees.pojo.TabInfo;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ public interface INewsModel {
     void initTitles(OnLoadTitlesListener listener);
 
     interface OnLoadTitlesListener {
-        void onSuccess(List<String> datas);
+        void onSuccess(List<TabInfo> datas);
 
         void onFailed(int status);
     }

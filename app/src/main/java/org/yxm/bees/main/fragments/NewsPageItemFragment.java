@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.adapter.NewsPageItemRecyclerAdapter;
 import org.yxm.bees.main.presenter.NewsPageItemPresenter;
 import org.yxm.bees.main.view.INewsPageItemView;
+import org.yxm.bees.pojo.TabInfo;
+import org.yxm.bees.util.LogUtil;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ import java.util.List;
 
 public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, NewsPageItemPresenter>
         implements INewsPageItemView {
+
+    public static final String TAG = "NewsPageItemFragment";
 
     public static final String ARGS_TITLE = "title";
 
@@ -36,11 +39,11 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
         return new NewsPageItemPresenter();
     }
 
-    public static NewsPageItemFragment newInstance(String title) {
+    public static NewsPageItemFragment newInstance(TabInfo tabInfo) {
         NewsPageItemFragment fragment = new NewsPageItemFragment();
 
         Bundle args = new Bundle();
-        args.putString(ARGS_TITLE, title);
+        args.putString(ARGS_TITLE, tabInfo.name);
         fragment.setArguments(args);
 
         return fragment;
@@ -50,6 +53,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        LogUtil.e(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.main_title_fragment_layout, container, false);
         initViews(view);
         return view;
@@ -58,7 +62,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.start();
+        mPresenter.loadData();
     }
 
     private void initViews(View root) {
