@@ -12,9 +12,21 @@ public interface INewsPageItemModel {
 
     void initDatas(OnLoadTitleDataListener listener);
 
+    void onRefreshDatas(OnRefreshListener listener);
+
+    void onLoadMoreDatas(OnLoadMoreListener listener);
+
     interface OnLoadTitleDataListener {
         void onSuccess(List<Blog> datas);
 
         void onFailed(int status);
+    }
+
+    interface OnRefreshListener {
+        void onSuccess(List<Blog> datas);
+    }
+
+    interface OnLoadMoreListener {
+        void onSuccess(List<Blog> datas);
     }
 }

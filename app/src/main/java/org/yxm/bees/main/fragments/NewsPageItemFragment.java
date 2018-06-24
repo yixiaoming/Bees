@@ -3,6 +3,7 @@ package org.yxm.bees.main.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import org.yxm.bees.main.view.INewsPageItemView;
 import org.yxm.bees.pojo.Blog;
 import org.yxm.bees.pojo.TabInfo;
 import org.yxm.bees.util.LogUtil;
+import org.yxm.bees.util.ToastUtil;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
 
     public static final String ARGS_TITLE = "title";
 
+    private SwipeRefreshLayout mSwipeLayout;
     private RecyclerView mRecyclerview;
 
     private NewsPageItemRecyclerAdapter mAdapter;
@@ -67,7 +70,17 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
     }
 
     private void initViews(View root) {
+        mSwipeLayout = root.findViewById(R.id.news_swiperefresh_layout);
         mRecyclerview = root.findViewById(R.id.title_recyclerview);
+
+        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.onRefresh();
+            }
+        });
     }
 
     @Override
@@ -75,5 +88,33 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
         mAdapter = new NewsPageItemRecyclerAdapter(datas);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!mRecyclerview.canScrollVertically(1)) {
+                    mPresenter.onLoadMore();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRefreshDatas(List<Blog> datas) {
+        mAdapter.insertFront(datas);
+        mAdapter.notifyDataSetChanged();
+        mSwipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoadMoreDatas(List<Blog> datas) {
+        mAdapter.insertEnd(datas);
+        mAdapter.notifyDataSetChanged();
+        ToastUtil.s(getContext(), "加载更多数据成功");
     }
 }

@@ -29,7 +29,58 @@ public class NewsPageItemModel implements INewsPageItemModel {
 
     @Override
     public void initDatas(final OnLoadTitleDataListener listener) {
-        Log.d(TAG, "initDatas: ");
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd hh:mm:ss")
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        BlogService service = retrofit.create(BlogService.class);
+        Call<BaseEntity<List<Blog>>> call = service.getBlogs();
+        call.enqueue(new Callback<BaseEntity<List<Blog>>>() {
+            @Override
+            public void onResponse(Call<BaseEntity<List<Blog>>> call, Response<BaseEntity<List<Blog>>> response) {
+                BaseEntity<List<Blog>> baseEntity = response.body();
+                listener.onSuccess(baseEntity.data);
+            }
+
+            @Override
+            public void onFailure(Call<BaseEntity<List<Blog>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t);
+            }
+        });
+    }
+
+    @Override
+    public void onRefreshDatas(final OnRefreshListener listener) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd hh:mm:ss")
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        BlogService service = retrofit.create(BlogService.class);
+        Call<BaseEntity<List<Blog>>> call = service.getBlogs();
+        call.enqueue(new Callback<BaseEntity<List<Blog>>>() {
+            @Override
+            public void onResponse(Call<BaseEntity<List<Blog>>> call, Response<BaseEntity<List<Blog>>> response) {
+                BaseEntity<List<Blog>> baseEntity = response.body();
+                listener.onSuccess(baseEntity.data);
+            }
+
+            @Override
+            public void onFailure(Call<BaseEntity<List<Blog>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t);
+            }
+        });
+    }
+
+    @Override
+    public void onLoadMoreDatas(final OnLoadMoreListener listener) {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd hh:mm:ss")
                 .create();

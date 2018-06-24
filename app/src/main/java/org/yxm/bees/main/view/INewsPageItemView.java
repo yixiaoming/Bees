@@ -10,4 +10,8 @@ import java.util.List;
 
 public interface INewsPageItemView {
     void initDatas(List<Blog> datas);
+
+    void onRefreshDatas(List<Blog> datas);
+
+    void onLoadMoreDatas(List<Blog> datas);
 }

@@ -47,6 +47,14 @@ public class NewsPageItemRecyclerAdapter extends RecyclerView.Adapter<NewsPageIt
         return mDatas.size();
     }
 
+    public void insertFront(List<Blog> datas) {
+        mDatas.addAll(0, datas);
+    }
+
+    public void insertEnd(List<Blog> datas) {
+        mDatas.addAll(datas);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mBlogTitle;

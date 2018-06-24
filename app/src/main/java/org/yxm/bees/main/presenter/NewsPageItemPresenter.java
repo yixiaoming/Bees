@@ -35,4 +35,26 @@ public class NewsPageItemPresenter extends BasePresenter<INewsPageItemView> {
             }
         });
     }
+
+    public void onRefresh() {
+        mModel.onRefreshDatas(new INewsPageItemModel.OnRefreshListener() {
+            @Override
+            public void onSuccess(List<Blog> datas) {
+                if (mView.get() != null) {
+                    mView.get().onRefreshDatas(datas);
+                }
+            }
+        });
+    }
+
+    public void onLoadMore() {
+        mModel.onLoadMoreDatas(new INewsPageItemModel.OnLoadMoreListener() {
+            @Override
+            public void onSuccess(List<Blog> datas) {
+                if (mView.get() != null) {
+                    mView.get().onLoadMoreDatas(datas);
+                }
+            }
+        });
+    }
 }
