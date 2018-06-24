@@ -1,5 +1,7 @@
 package org.yxm.bees.main.view;
 
+import org.yxm.bees.pojo.Blog;
+
 import java.util.List;
 
 /**
@@ -7,5 +9,5 @@ import java.util.List;
  */
 
 public interface INewsPageItemView {
-    void initDatas(List<String> datas);
+    void initDatas(List<Blog> datas);
 }

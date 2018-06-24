@@ -14,6 +14,7 @@ import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.main.adapter.NewsPageItemRecyclerAdapter;
 import org.yxm.bees.main.presenter.NewsPageItemPresenter;
 import org.yxm.bees.main.view.INewsPageItemView;
+import org.yxm.bees.pojo.Blog;
 import org.yxm.bees.pojo.TabInfo;
 import org.yxm.bees.util.LogUtil;
 
@@ -70,7 +71,7 @@ public class NewsPageItemFragment extends BaseMvpFragment<INewsPageItemView, New
     }
 
     @Override
-    public void initDatas(List<String> datas) {
+    public void initDatas(List<Blog> datas) {
         mAdapter = new NewsPageItemRecyclerAdapter(datas);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

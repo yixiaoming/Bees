@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.yxm.bees.R;
+import org.yxm.bees.pojo.Blog;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -16,23 +18,28 @@ import java.util.List;
 
 public class NewsPageItemRecyclerAdapter extends RecyclerView.Adapter<NewsPageItemRecyclerAdapter.ViewHolder> {
 
-    private List<String> mDatas;
+    private List<Blog> mDatas;
 
-    public NewsPageItemRecyclerAdapter(List<String> datas) {
+    public NewsPageItemRecyclerAdapter(List<Blog> datas) {
         this.mDatas = datas;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.title_recycler_item, parent, false);
+                .inflate(R.layout.blog_recycler_item_view, parent, false);
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mText.setText(mDatas.get(position));
+        Blog blog = mDatas.get(position);
+        holder.mBlogTitle.setText(blog.title);
+        holder.mBlogContent.setText(blog.content);
+        holder.mBlogAuthor.setText(blog.author);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        holder.mBlogDate.setText(sdf.format(blog.date));
     }
 
     @Override
@@ -42,11 +49,17 @@ public class NewsPageItemRecyclerAdapter extends RecyclerView.Adapter<NewsPageIt
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mText;
+        public TextView mBlogTitle;
+        public TextView mBlogContent;
+        public TextView mBlogAuthor;
+        public TextView mBlogDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mText = itemView.findViewById(R.id.title_item_text);
+            mBlogTitle = itemView.findViewById(R.id.blog_title_text);
+            mBlogContent = itemView.findViewById(R.id.blog_content_text);
+            mBlogAuthor = itemView.findViewById(R.id.blog_author_text);
+            mBlogDate = itemView.findViewById(R.id.blog_date_text);
         }
     }
 }

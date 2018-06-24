@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/blog_item_height"
+                android:padding="@dimen/blog_item_padding">
+
+    <ImageView
+        android:id="@+id/blog_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/blog_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/blog_photo"
+        android:text="title"
+        android:textSize="@dimen/blog_title_text_size"/>
+
+    <TextView
+        android:id="@+id/blog_content_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/blog_title_text"
+        android:layout_marginLeft="@dimen/blog_text_margin"
+        android:layout_toRightOf="@id/blog_title_text"
+        android:text="content"
+        android:textSize="@dimen/blog_content_text_size"/>
+
+
+    <TextView
+        android:id="@+id/blog_author_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/blog_photo"
+        android:text="author"
+        android:textSize="@dimen/blog_content_text_size"/>
+
+    <TextView
+        android:id="@+id/blog_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/blog_author_text"
+        android:layout_marginLeft="@dimen/blog_text_margin"
+        android:layout_toRightOf="@id/blog_author_text"
+        android:text="date"
+        android:textSize="@dimen/blog_content_text_size"/>
+
+
+</RelativeLayout>

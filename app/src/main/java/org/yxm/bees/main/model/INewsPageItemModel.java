@@ -1,5 +1,7 @@
 package org.yxm.bees.main.model;
 
+import org.yxm.bees.pojo.Blog;
+
 import java.util.List;
 
 /**
@@ -11,8 +13,8 @@ public interface INewsPageItemModel {
     void initDatas(OnLoadTitleDataListener listener);
 
     interface OnLoadTitleDataListener {
-        void onSuccess(List<String> datas);
+        void onSuccess(List<Blog> datas);
 
-        void onFailed(int statu);
+        void onFailed(int status);
     }
 }

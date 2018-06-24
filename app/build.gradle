@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 
-ext {
-    SUPPORT_LIBRARY_VERSION = '27.0.2'
-}
+
 
 android {
     compileSdkVersion 27
@@ -27,7 +25,7 @@ android {
     }
 
     flavorDimensions "money"
-    productFlavors{
+    productFlavors {
         free {
             dimension "money"
             applicationId "org.yxm.bees.free"
@@ -38,6 +36,11 @@ android {
             applicationId "org.yxm.bees.paid"
         }
     }
+}
+
+ext {
+    SUPPORT_LIBRARY_VERSION = '27.0.2'
+    RETROFIT_VERSION = '2.4.0'
 }
 
 dependencies {
@@ -54,4 +57,8 @@ dependencies {
     implementation "com.android.support:support-annotations:${SUPPORT_LIBRARY_VERSION}"
     //    implementation "com.android.support:customtabs:$SUPPORT_LIBRARY_VERSION"
     //    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
 }

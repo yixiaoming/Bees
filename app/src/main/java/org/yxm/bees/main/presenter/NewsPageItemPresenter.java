@@ -4,6 +4,7 @@ import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.model.INewsPageItemModel;
 import org.yxm.bees.main.model.NewsPageItemModel;
 import org.yxm.bees.main.view.INewsPageItemView;
+import org.yxm.bees.pojo.Blog;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ public class NewsPageItemPresenter extends BasePresenter<INewsPageItemView> {
     public void loadData() {
         mModel.initDatas(new INewsPageItemModel.OnLoadTitleDataListener() {
             @Override
-            public void onSuccess(List<String> datas) {
+            public void onSuccess(List<Blog> datas) {
                 if (mView.get() != null) {
                     mView.get().initDatas(datas);
                 }
             }
 
             @Override
-            public void onFailed(int statu) {
+            public void onFailed(int status) {
 
             }
         });
