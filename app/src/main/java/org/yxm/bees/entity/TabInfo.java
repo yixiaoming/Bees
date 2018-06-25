@@ -1,4 +1,4 @@
-package org.yxm.bees.pojo;
+package org.yxm.bees.entity;
 
 /**
  * tab 原始类型

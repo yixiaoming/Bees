@@ -1,4 +1,4 @@
-package org.yxm.bees.pojo;
+package org.yxm.bees.entity;
 
 public class BaseEntity<T> {
 

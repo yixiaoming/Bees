@@ -15,7 +15,7 @@ import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.main.adapter.NewsPagerAdapter;
 import org.yxm.bees.main.presenter.NewsPresenter;
 import org.yxm.bees.main.view.INewsView;
-import org.yxm.bees.pojo.TabInfo;
+import org.yxm.bees.entity.TabInfo;
 import org.yxm.bees.util.LogUtil;
 
 import java.util.ArrayList;

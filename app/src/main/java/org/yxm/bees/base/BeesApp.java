@@ -3,25 +3,23 @@ package org.yxm.bees.base;
 import android.app.Application;
 import android.content.Context;
 
+import org.yxm.bees.db.AppDatabase;
+
 /**
  * Created by yixiaoming on 2018/4/6.
  */
 
-public class BaseApp extends Application {
+public class BeesApp extends Application {
 
-    private static BaseApp instance;
+    private static BeesApp instance;
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        if (instance == null) {
-            synchronized (BaseApp.class) {
-                instance = new BaseApp();
-            }
-        }
+        instance = this;
     }
 
-    public static BaseApp getInstance() {
+    public static BeesApp getInstance() {
         return instance;
     }
 }

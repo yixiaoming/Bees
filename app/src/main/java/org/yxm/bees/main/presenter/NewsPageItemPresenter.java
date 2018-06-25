@@ -4,7 +4,7 @@ import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.model.INewsPageItemModel;
 import org.yxm.bees.main.model.NewsPageItemModel;
 import org.yxm.bees.main.view.INewsPageItemView;
-import org.yxm.bees.pojo.Blog;
+import org.yxm.bees.entity.Blog;
 
 import java.util.List;
 

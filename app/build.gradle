@@ -36,11 +36,16 @@ android {
             applicationId "org.yxm.bees.paid"
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 ext {
     SUPPORT_LIBRARY_VERSION = '27.0.2'
     RETROFIT_VERSION = '2.4.0'
+    ROOM_VERSION = "1.1.1"
 }
 
 dependencies {
@@ -61,4 +66,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
+
+    implementation "android.arch.persistence.room:runtime:${ROOM_VERSION}"
+    annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
+    implementation "android.arch.lifecycle:reactivestreams:${ROOM_VERSION}"
 }

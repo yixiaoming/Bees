@@ -1,7 +1,7 @@
 package org.yxm.bees.service;
 
-import org.yxm.bees.pojo.BaseEntity;
-import org.yxm.bees.pojo.Blog;
+import org.yxm.bees.entity.BaseEntity;
+import org.yxm.bees.entity.Blog;
 
 import java.util.List;
 

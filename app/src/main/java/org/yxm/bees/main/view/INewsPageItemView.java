@@ -1,6 +1,6 @@
 package org.yxm.bees.main.view;
 
-import org.yxm.bees.pojo.Blog;
+import org.yxm.bees.entity.Blog;
 
 import java.util.List;
 

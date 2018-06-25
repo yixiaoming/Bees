@@ -15,8 +15,8 @@ import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.main.adapter.NewsPageItemRecyclerAdapter;
 import org.yxm.bees.main.presenter.NewsPageItemPresenter;
 import org.yxm.bees.main.view.INewsPageItemView;
-import org.yxm.bees.pojo.Blog;
-import org.yxm.bees.pojo.TabInfo;
+import org.yxm.bees.entity.Blog;
+import org.yxm.bees.entity.TabInfo;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
 

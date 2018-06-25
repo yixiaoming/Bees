@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.yxm.bees.R;
-import org.yxm.bees.pojo.Blog;
+import org.yxm.bees.entity.Blog;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

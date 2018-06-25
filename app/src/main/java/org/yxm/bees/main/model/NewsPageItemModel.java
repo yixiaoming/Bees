@@ -5,8 +5,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.yxm.bees.pojo.BaseEntity;
-import org.yxm.bees.pojo.Blog;
+import org.yxm.bees.dao.BlogDao;
+import org.yxm.bees.db.AppDatabase;
+import org.yxm.bees.entity.BaseEntity;
+import org.yxm.bees.entity.Blog;
 import org.yxm.bees.service.BlogService;
 
 import java.util.List;
@@ -41,9 +43,20 @@ public class NewsPageItemModel implements INewsPageItemModel {
         Call<BaseEntity<List<Blog>>> call = service.getBlogs();
         call.enqueue(new Callback<BaseEntity<List<Blog>>>() {
             @Override
-            public void onResponse(Call<BaseEntity<List<Blog>>> call, Response<BaseEntity<List<Blog>>> response) {
+            public void onResponse(Call<BaseEntity<List<Blog>>> call, final Response<BaseEntity<List<Blog>>> response) {
                 BaseEntity<List<Blog>> baseEntity = response.body();
                 listener.onSuccess(baseEntity.data);
+
+                new Thread(() -> {
+                    BlogDao dao = AppDatabase.getInstance().blogDao();
+                    dao.add(response.body().data);
+
+                    List<Blog> blogs = dao.list();
+                    for (Blog item : blogs) {
+                        Log.d(TAG, "onResponse: " + item);
+                    }
+                }).start();
+
             }
 
             @Override

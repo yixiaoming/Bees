@@ -6,7 +6,7 @@ import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.main.model.INewsModel;
 import org.yxm.bees.main.model.NewsModel;
 import org.yxm.bees.main.view.INewsView;
-import org.yxm.bees.pojo.TabInfo;
+import org.yxm.bees.entity.TabInfo;
 
 import java.util.List;
 

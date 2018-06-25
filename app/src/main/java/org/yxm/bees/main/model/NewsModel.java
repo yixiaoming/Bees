@@ -1,6 +1,6 @@
 package org.yxm.bees.main.model;
 
-import org.yxm.bees.pojo.TabInfo;
+import org.yxm.bees.entity.TabInfo;
 
 import java.util.ArrayList;
 import java.util.List;
