@@ -1,4 +1,4 @@
-package org.yxm.bees.main.fragments;
+package org.yxm.bees.module.news;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,25 +12,18 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.main.adapter.NewsPagerAdapter;
-import org.yxm.bees.main.presenter.NewsPresenter;
-import org.yxm.bees.main.view.INewsView;
-import org.yxm.bees.entity.TabInfo;
-import org.yxm.bees.util.LogUtil;
+import org.yxm.bees.entity.gankio.GankCategoryEntity;
+import org.yxm.bees.entity.gankio.GankTabEntity;
+import org.yxm.bees.entity.toutiao.ToutiaoTab;
+import org.yxm.bees.module.news.tab.NewsTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by yixiaoming on 2018/6/9.
- */
 
 public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
         implements INewsView {
 
     private static final String TAG = "NewsFragment";
-
-    public static final String MAIN_FRAGMENT_ID = "main_fragment_id";
 
     private TabLayout mTablayout;
     private ViewPager mViewpager;
@@ -50,7 +43,6 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        LogUtil.e(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.main_fragment_layout, container, false);
         initViews(view);
         return view;
@@ -59,7 +51,6 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtil.e(TAG, "onViewCreated");
         mPresenter.loadData();
     }
 
@@ -69,13 +60,12 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
     }
 
     @Override
-    public void initDataView(List<TabInfo> tabInfos) {
-        LogUtil.e(TAG, "initDataView:");
+    public void initDataView(List<GankTabEntity> tabInfos) {
         List<String> titles = new ArrayList<>();
         List<Fragment> fragments = new ArrayList<>();
-        for (TabInfo tabinfo : tabInfos) {
+        for (GankTabEntity tabinfo : tabInfos) {
             titles.add(tabinfo.name);
-            fragments.add(NewsPageItemFragment.newInstance(tabinfo));
+            fragments.add(NewsTabFragment.newInstance(tabinfo));
         }
         // getChildFragmentManager()：fragment下面的子fragment，child的fragmentmanager
         mViewpagerAdapter = new NewsPagerAdapter(getChildFragmentManager(), titles, fragments);

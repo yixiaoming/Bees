@@ -1,24 +1,19 @@
-package org.yxm.bees.main;
+package org.yxm.bees.module.main;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 import org.yxm.bees.R;
-import org.yxm.bees.main.fragments.NewsFragment;
+import org.yxm.bees.base.BaseMvpActivity;
+import org.yxm.bees.base.BasePresenter;
+import org.yxm.bees.main.fragments.NormalNewsFragment;
+import org.yxm.bees.module.news.NewsFragment;
 
-
-/**
- * 主Activity
- * Created by yixiaoming on 2018/4/6.
- */
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseMvpActivity
+        implements IMainView {
 
     private BottomNavigationView mBottomNavView;
     private Fragment mCurrentFragment;
@@ -39,25 +34,22 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         mBottomNavView = findViewById(R.id.main_bottom_nav_bar);
         mBottomNavView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_news:
-                                showFragment(TAG_FRAGMENT_NEWS);
-                                return true;
-                            case R.id.action_photo:
-                                showFragment(TAG_FRAGMENT_PHOTO);
-                                return true;
-                            case R.id.action_video:
-                                showFragment(TAG_FRAGMENT_VIDEO);
-                                return true;
-                            case R.id.action_personal:
-                                showFragment(TAG_FRAGMENT_PERSONAL);
-                                return true;
-                        }
-                        return false;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.action_news:
+                            showFragment(TAG_FRAGMENT_NEWS);
+                            return true;
+                        case R.id.action_photo:
+                            showFragment(TAG_FRAGMENT_PHOTO);
+                            return true;
+                        case R.id.action_video:
+                            showFragment(TAG_FRAGMENT_VIDEO);
+                            return true;
+                        case R.id.action_personal:
+                            showFragment(TAG_FRAGMENT_PERSONAL);
+                            return true;
                     }
+                    return false;
                 });
         mBottomNavView.getMenu().getItem(0).setCheckable(true);
         showFragment(TAG_FRAGMENT_NEWS);
@@ -74,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
-                fragment = NewsFragment.newInstance();
+                fragment = NormalNewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
-                fragment = NewsFragment.newInstance();
+                fragment = NormalNewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {
-                fragment = NewsFragment.newInstance();
+                fragment = NormalNewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             }
         }
@@ -90,5 +82,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.show(fragment);
         mCurrentFragment = fragment;
         transaction.commit();
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return new MainPresenter();
     }
 }
