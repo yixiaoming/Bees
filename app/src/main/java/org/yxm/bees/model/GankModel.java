@@ -85,7 +85,9 @@ public class GankModel implements IGankModel {
             @Override
             public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
                                    Response<GankBaseEntity<List<GankEntity>>> response) {
-                listener.onSuccess(response.body().results);
+                if (response.body() != null) {
+                    listener.onSuccess(response.body().results);
+                }
             }
 
             @Override

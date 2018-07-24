@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.entity.gankio.GankCategoryEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.entity.toutiao.ToutiaoTab;
 import org.yxm.bees.module.news.tab.NewsTabFragment;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 
 public interface GankService {
 
-    @GET("xiandu/categories ")
+    @GET("xiandu/categories")
     Call<GankBaseEntity<List<GankCategoryEntity>>> getCategores();
 
     @GET("data/{type}/{count}/{page}")

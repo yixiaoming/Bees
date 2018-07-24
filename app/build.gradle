@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
 
-
-
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -31,18 +29,18 @@ android {
         }
     }
 
-    flavorDimensions "money"
-    productFlavors {
-        free {
-            dimension "money"
-            applicationId "org.yxm.bees.free"
-        }
-
-        paid {
-            dimension "money"
-            applicationId "org.yxm.bees.paid"
-        }
-    }
+//    flavorDimensions "money"
+//    productFlavors {
+//        free {
+//            dimension "money"
+//            applicationId "org.yxm.bees.free"
+//        }
+//
+//        paid {
+//            dimension "money"
+//            applicationId "org.yxm.bees.paid"
+//        }
+//    }
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'

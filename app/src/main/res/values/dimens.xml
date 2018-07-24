@@ -10,10 +10,11 @@
 
 
     <!-- blog页面尺寸 -->
-    <dimen name="blog_item_height">60dp</dimen>
+    <dimen name="blog_item_height">100dp</dimen>
+    <dimen name="blog_item_photo_height">90dp</dimen>
     <dimen name="blog_item_padding">5dp</dimen>
-    <dimen name="blog_title_text_size">14dp</dimen>
-    <dimen name="blog_content_text_size">12dp</dimen>
+    <dimen name="blog_title_text_size">12dp</dimen>
+    <dimen name="blog_content_text_size">14dp</dimen>
     <dimen name="blog_text_margin">10dp</dimen>
 
 

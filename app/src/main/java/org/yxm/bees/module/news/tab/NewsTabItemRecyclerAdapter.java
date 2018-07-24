@@ -39,12 +39,12 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItem
     @Override
     public void onBindViewHolder(@NonNull NewsTabItemRecyclerAdapter.ViewHolder holder, int position) {
         GankEntity item = mDatas.get(position);
-        holder.mTitle.setText(item.desc);
-        holder.mContent.setText("");
+        holder.mTitle.setText("");
+        holder.mContent.setText(item.desc);
         holder.mAuthor.setText(item.who);
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        holder.mDate.setText(sdf.format(item.publishedAt));
-        holder.mDate.setText(item.publishedAt);
+        holder.mDate.setText(item.publishedAt.substring(0, 10));
         if (item.images != null && item.images.size() > 0) {
             Glide.with(mContext).load(item.images.get(0)).into(holder.mPhoto);
         }
