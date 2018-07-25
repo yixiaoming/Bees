@@ -1,13 +1,9 @@
 package org.yxm.bees.model;
 
-import android.support.annotation.NonNull;
-
 import org.yxm.bees.entity.gankio.GankBaseEntity;
-import org.yxm.bees.entity.gankio.GankCategoryEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.exception.DataEmptyException;
-import org.yxm.bees.service.GankService;
+import org.yxm.bees.api.GankApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +28,7 @@ public class GankModel implements IGankModel {
             "推荐", "Android", "IOS", "休息视频", "福利", "拓展", "前端", "瞎推荐", "App"
     };
 
-    private static final int DEFAULT_PAGESIZE = 20;
+    private static final int DEFAULT_PAGESIZE = 15;
 
     public List<GankTabEntity> getDefaultTabs() {
         List<GankTabEntity> tabs = new ArrayList<>();
@@ -43,42 +39,13 @@ public class GankModel implements IGankModel {
     }
 
     @Override
-    public void getCategories(@NonNull LoadCategoryListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GANKIO_DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<GankBaseEntity<List<GankCategoryEntity>>> call = retrofit
-                .create(GankService.class)
-                .getCategores();
-
-        call.enqueue(new Callback<GankBaseEntity<List<GankCategoryEntity>>>() {
-            @Override
-            public void onResponse(Call<GankBaseEntity<List<GankCategoryEntity>>> call,
-                                   Response<GankBaseEntity<List<GankCategoryEntity>>> response) {
-                if (response.body() == null) {
-                    onFailure(call, new DataEmptyException());
-                } else {
-                    listener.onSuccess(response.body().results);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GankBaseEntity<List<GankCategoryEntity>>> call,
-                                  Throwable t) {
-                listener.onFailed();
-            }
-        });
-    }
-
-    @Override
     public void loadTabContent(String type, LoadTabContentListener listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GANKIO_DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                .create(GankService.class)
+                .create(GankApi.class)
                 .getRandomContents(type, DEFAULT_PAGESIZE);
 
         call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {

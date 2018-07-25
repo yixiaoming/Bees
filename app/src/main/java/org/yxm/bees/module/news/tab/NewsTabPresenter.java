@@ -40,14 +40,14 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
             @Override
             public void onSuccess(List<GankEntity> contents) {
                 if (mView.get() != null) {
-                    mView.get().onRefreshDatas(contents);
+                    mView.get().onRefreshSuccess(contents);
                 }
             }
 
             @Override
             public void onFailed(Exception e) {
                 if (mView.get() != null) {
-                    mView.get().showToast("load data failed");
+                    mView.get().onRefreshFailed(e);
                 }
             }
         });
@@ -59,14 +59,14 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
             @Override
             public void onSuccess(List<GankEntity> contents) {
                 if (mView.get() != null) {
-                    mView.get().onLoadMoreDatas(contents);
+                    mView.get().onLoadMoreSuccess(contents);
                 }
             }
 
             @Override
             public void onFailed(Exception e) {
                 if (mView.get() != null) {
-                    mView.get().showToast("load data failed");
+                    mView.get().onLoadMoreFailed(e);
                 }
             }
         });

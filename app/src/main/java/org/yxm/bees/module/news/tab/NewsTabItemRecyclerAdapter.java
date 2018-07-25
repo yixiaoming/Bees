@@ -46,7 +46,10 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItem
 //        holder.mDate.setText(sdf.format(item.publishedAt));
         holder.mDate.setText(item.publishedAt.substring(0, 10));
         if (item.images != null && item.images.size() > 0) {
+            holder.mPhoto.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(item.images.get(0)).into(holder.mPhoto);
+        } else {
+            holder.mPhoto.setVisibility(View.GONE);
         }
     }
 

@@ -104,17 +104,29 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     }
 
     @Override
-    public void onRefreshDatas(List<GankEntity> datas) {
+    public void onRefreshSuccess(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
         mSwipeLayout.setRefreshing(false);
     }
 
     @Override
-    public void onLoadMoreDatas(List<GankEntity> datas) {
+    public void onRefreshFailed(Exception e) {
+        mSwipeLayout.setRefreshing(false);
+        LogUtil.d("onLoadMoreFailed:" + e);
+        ToastUtil.s(getContext(), e.toString());
+    }
+
+    @Override
+    public void onLoadMoreSuccess(List<GankEntity> datas) {
         mAdapter.insertEnd(datas);
         mAdapter.notifyDataSetChanged();
-        ToastUtil.s(getContext(), "加载更多数据成功");
+    }
+
+    @Override
+    public void onLoadMoreFailed(Exception e) {
+        LogUtil.d("onLoadMoreFailed:" + e);
+        ToastUtil.s(getContext(), e.toString());
     }
 
     @Override

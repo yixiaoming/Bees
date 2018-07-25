@@ -8,9 +8,13 @@ public interface INewsTabView {
 
     void initDatas(List<GankEntity> datas);
 
-    void onRefreshDatas(List<GankEntity> datas);
+    void onRefreshSuccess(List<GankEntity> datas);
 
-    void onLoadMoreDatas(List<GankEntity> datas);
+    void onRefreshFailed(Exception e);
+
+    void onLoadMoreSuccess(List<GankEntity> datas);
+
+    void onLoadMoreFailed(Exception e);
 
     void showToast(String msg);
 }

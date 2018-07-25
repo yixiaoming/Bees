@@ -1,4 +1,4 @@
-package org.yxm.bees.service;
+package org.yxm.bees.api;
 
 
 import org.yxm.bees.entity.gankio.GankBaseEntity;
@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface GankService {
+public interface GankApi {
 
     @GET("xiandu/categories")
     Call<GankBaseEntity<List<GankCategoryEntity>>> getCategores();

@@ -72,6 +72,6 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
         mTablayout.setupWithViewPager(mViewpager);
 
         mViewpager.setAdapter(mViewpagerAdapter);
-        mViewpager.setOffscreenPageLimit(5);
+        mViewpager.setOffscreenPageLimit(3);
     }
 }

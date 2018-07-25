@@ -5,6 +5,7 @@ import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.yxm.bees.api.GankApi;
 import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankCategoryEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
@@ -32,7 +33,7 @@ public class TestGankioApi {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Call<GankBaseEntity<List<GankCategoryEntity>>> call = retrofit
-                .create(GankService.class)
+                .create(GankApi.class)
                 .getCategores();
 
         call.enqueue(new Callback<GankBaseEntity<List<GankCategoryEntity>>>() {
@@ -57,7 +58,7 @@ public class TestGankioApi {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                .create(GankService.class)
+                .create(GankApi.class)
                 .getRandomContents("all", 10);
 
         call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
