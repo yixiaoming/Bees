@@ -2,40 +2,70 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "54c63228b48e954216afac37c68e1ae5",
+    "identityHash": "1d310ac5c4f6b499aac9658f00b36825",
     "entities": [
       {
-        "tableName": "blog",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `author` TEXT, `title` TEXT, `content` TEXT, `date` INTEGER, PRIMARY KEY(`id`))",
+        "tableName": "t_gank",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `create_at` TEXT, `desc` TEXT, `published_at` TEXT, `source` TEXT, `type` TEXT, `url` TEXT, `used` INTEGER, `who` TEXT, `images` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "author",
-            "columnName": "author",
+            "fieldPath": "createdAt",
+            "columnName": "create_at",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "title",
-            "columnName": "title",
+            "fieldPath": "desc",
+            "columnName": "desc",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "content",
-            "columnName": "content",
+            "fieldPath": "publishedAt",
+            "columnName": "published_at",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "used",
+            "columnName": "used",
             "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "who",
+            "columnName": "who",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "images",
+            "columnName": "images",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -51,7 +81,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"54c63228b48e954216afac37c68e1ae5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1d310ac5c4f6b499aac9658f00b36825\")"
     ]
   }
 }

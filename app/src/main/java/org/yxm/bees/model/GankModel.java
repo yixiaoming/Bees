@@ -1,9 +1,14 @@
 package org.yxm.bees.model;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import org.yxm.bees.api.GankApi;
+import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.api.GankApi;
+import org.yxm.bees.repository.dao.GankDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,28 +45,56 @@ public class GankModel implements IGankModel {
 
     @Override
     public void loadTabContent(String type, LoadTabContentListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GANKIO_DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                .create(GankApi.class)
-                .getRandomContents(type, DEFAULT_PAGESIZE);
+        GankDao dao = AppDatabase.getInstance().gankDao();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
-                                   Response<GankBaseEntity<List<GankEntity>>> response) {
-                if (response.body() != null) {
-                    listener.onSuccess(response.body().results);
+            public void run() {
+                List<GankEntity> datas = dao.getLastDatas(type);
+                if (datas != null && datas.size() > 0) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onSuccess(datas);
+                        }
+                    });
+                    return;
                 }
-            }
 
-            @Override
-            public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
-                                  Throwable t) {
-                listener.onFailed(new Exception(t));
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(GANKIO_DOMAIN)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Call<GankBaseEntity<List<GankEntity>>> call = retrofit
+                        .create(GankApi.class)
+                        .getRandomContents(type, DEFAULT_PAGESIZE);
+
+                call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
+                    @Override
+                    public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
+                                           Response<GankBaseEntity<List<GankEntity>>> response) {
+                        if (response.body() != null) {
+                            List<GankEntity> results = response.body().results;
+                            listener.onSuccess(results);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dao.insertAll(results);
+                                }
+                            }).start();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
+                                          Throwable t) {
+                        listener.onFailed(new Exception(t));
+                    }
+                });
+
             }
-        });
+        }).start();
+
     }
 }

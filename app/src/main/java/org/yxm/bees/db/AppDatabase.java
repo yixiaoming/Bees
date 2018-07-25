@@ -7,11 +7,11 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import org.yxm.bees.base.BeesApp;
-import org.yxm.bees.dao.BlogDao;
 import org.yxm.bees.db.conversion.DateConversionFactory;
-import org.yxm.bees.entity.Blog;
+import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.bees.repository.dao.GankDao;
 
-@Database(entities = {Blog.class}, version = 1)
+@Database(entities = {GankEntity.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String TAG = "AppDatabase";
@@ -20,7 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
 
-    public abstract BlogDao blogDao();
+    public abstract GankDao gankDao();
 
     public static AppDatabase getInstance() {
         if (sInstance == null) {
