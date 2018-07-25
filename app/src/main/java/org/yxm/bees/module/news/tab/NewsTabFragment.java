@@ -16,7 +16,6 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.entity.toutiao.ToutiaoNews;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
 

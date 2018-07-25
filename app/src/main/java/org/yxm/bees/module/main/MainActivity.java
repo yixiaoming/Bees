@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpActivity;
 import org.yxm.bees.base.BasePresenter;
-import org.yxm.bees.main.fragments.NormalNewsFragment;
 import org.yxm.bees.module.news.NewsFragment;
 
 public class MainActivity extends BaseMvpActivity
@@ -66,13 +65,13 @@ public class MainActivity extends BaseMvpActivity
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
-                fragment = NormalNewsFragment.newInstance();
+                fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
-                fragment = NormalNewsFragment.newInstance();
+                fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {
-                fragment = NormalNewsFragment.newInstance();
+                fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             }
         }
