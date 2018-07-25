@@ -28,7 +28,7 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
             @Override
             public void onFailed(Exception e) {
                 if (mView.get() != null) {
-                    mView.get().showToast("load data failed");
+                    mView.get().initDatasFailed(e);
                 }
             }
         });

@@ -8,6 +8,8 @@ public interface INewsTabView {
 
     void initDatas(List<GankEntity> datas);
 
+    void initDatasFailed(Exception e);
+
     void onRefreshSuccess(List<GankEntity> datas);
 
     void onRefreshFailed(Exception e);

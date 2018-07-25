@@ -104,6 +104,12 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     }
 
     @Override
+    public void initDatasFailed(Exception e) {
+        LogUtil.d("initDatasFailed:" + e);
+        ToastUtil.s(getContext(), e.toString());
+    }
+
+    @Override
     public void onRefreshSuccess(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
