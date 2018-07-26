@@ -82,7 +82,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
 
         mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
 
-        mAdapter = new NewsTabItemRecyclerAdapter(new ArrayList<GankEntity>());
+        mAdapter = new NewsTabItemRecyclerAdapter(new ArrayList<>());
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {

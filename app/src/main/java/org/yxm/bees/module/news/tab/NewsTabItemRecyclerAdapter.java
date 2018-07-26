@@ -9,56 +9,120 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.bees.util.ToastUtil;
 
 import java.util.List;
 
-public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItemRecyclerAdapter.ViewHolder> {
+public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context mContext;
     private List<GankEntity> mDatas;
+    private Context mContext;
 
     public NewsTabItemRecyclerAdapter(List<GankEntity> datas) {
         this.mDatas = datas;
     }
 
     @Override
-    public NewsTabItemRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.blog_recycler_item_view, parent, false);
-        NewsTabItemRecyclerAdapter.ViewHolder vh = new NewsTabItemRecyclerAdapter.ViewHolder(view);
-        return vh;
+        if (viewType == ItemType.no_image.ordinal()) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.gank_recycler_item_item_view_no_img, parent, false);
+            return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
+        } else if (viewType == ItemType.one_image.ordinal()) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
+            return new NewsTabItemRecyclerAdapter.ViewHolderOneImg(view);
+        } else if (viewType == ItemType.three_image.ordinal()) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.gank_recycler_item_view_three_img, parent, false);
+            return new NewsTabItemRecyclerAdapter.ViewHolderThreeImg(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
+            return new NewsTabItemRecyclerAdapter.ViewHolderOneImg(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolderNoImg) {
+            bindNoImgViewHolder((ViewHolderNoImg) holder, position);
+        } else if (holder instanceof ViewHolderOneImg) {
+            bindOneImgViewHolder((ViewHolderOneImg) holder, position);
+        } else if (holder instanceof ViewHolderThreeImg) {
+            bindThreeImgViewHolder((ViewHolderThreeImg) holder, position);
+        }
+    }
+
+    private void bindNoImgViewHolder(ViewHolderNoImg holder, int position) {
         GankEntity item = mDatas.get(position);
-        holder.mTitle.setText("");
         holder.mContent.setText(item.desc);
         holder.mAuthor.setText(item.who);
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        holder.mDate.setText(sdf.format(item.publishedAt));
+        holder.mDate.setText(item.publishedAt.substring(0, 10));
+    }
+
+    private void bindOneImgViewHolder(ViewHolderOneImg holder, int position) {
+        GankEntity item = mDatas.get(position);
+        holder.mContent.setText(item.desc);
+        holder.mAuthor.setText(item.who);
         holder.mDate.setText(item.publishedAt.substring(0, 10));
 
-        if (item.images != null && item.images.size() > 0) {
-            holder.mPhoto.setVisibility(View.VISIBLE);
+        GlideApp.with(mContext).clear(holder.mPhoto);
+        GlideApp.with(holder.mPhoto.getContext())
+                .load(item.images.get(0))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mPhoto);
+    }
 
-            GlideApp.with(mContext).clear(holder.mPhoto);
-            GlideApp.with(holder.mPhoto.getContext())
-                    .load(item.images.get(0))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.mPhoto);
+    private void bindThreeImgViewHolder(ViewHolderThreeImg holder, int position) {
+        GankEntity item = mDatas.get(position);
+        holder.mContent.setText(item.desc);
+        holder.mAuthor.setText(item.who);
+        holder.mDate.setText(item.publishedAt.substring(0, 10));
 
+        GlideApp.with(mContext).clear(holder.mImg1);
+        GlideApp.with(holder.mImg1.getContext())
+                .load(item.images.get(0))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mImg1);
+
+        GlideApp.with(mContext).clear(holder.mImg2);
+        GlideApp.with(holder.mImg2.getContext())
+                .load(item.images.get(1))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mImg2);
+
+        GlideApp.with(mContext).clear(holder.mImg3);
+        GlideApp.with(holder.mImg3.getContext())
+                .load(item.images.get(2))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mImg3);
+    }
+
+    private enum ItemType {
+        no_image,
+        one_image,
+        three_image,
+        error_type
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        GankEntity entity = mDatas.get(position);
+        if (entity.images == null || entity.images.size() == 0) {
+            return ItemType.no_image.ordinal();
+        } else if (entity.images.size() < 3) {
+            return ItemType.one_image.ordinal();
         } else {
-            holder.mPhoto.setVisibility(View.GONE);
+            return ItemType.three_image.ordinal();
         }
     }
 
@@ -75,21 +139,51 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItem
         mDatas.addAll(datas);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView mPhoto;
-        public TextView mTitle;
+    private static class ViewHolderNoImg extends RecyclerView.ViewHolder {
         public TextView mContent;
         public TextView mAuthor;
         public TextView mDate;
 
-        public ViewHolder(View itemView) {
+        public ViewHolderNoImg(View itemView) {
             super(itemView);
-            mPhoto = itemView.findViewById(R.id.blog_photo);
-            mTitle = itemView.findViewById(R.id.blog_title_text);
             mContent = itemView.findViewById(R.id.blog_content_text);
             mAuthor = itemView.findViewById(R.id.blog_author_text);
             mDate = itemView.findViewById(R.id.blog_date_text);
         }
     }
+
+    private static class ViewHolderOneImg extends RecyclerView.ViewHolder {
+        public ImageView mPhoto;
+        public TextView mContent;
+        public TextView mAuthor;
+        public TextView mDate;
+
+        public ViewHolderOneImg(View itemView) {
+            super(itemView);
+            mPhoto = itemView.findViewById(R.id.blog_photo);
+            mContent = itemView.findViewById(R.id.blog_content_text);
+            mAuthor = itemView.findViewById(R.id.blog_author_text);
+            mDate = itemView.findViewById(R.id.blog_date_text);
+        }
+    }
+
+    private static class ViewHolderThreeImg extends RecyclerView.ViewHolder {
+        public ImageView mImg1;
+        public ImageView mImg2;
+        public ImageView mImg3;
+        public TextView mContent;
+        public TextView mAuthor;
+        public TextView mDate;
+
+        public ViewHolderThreeImg(View itemView) {
+            super(itemView);
+            mImg1 = itemView.findViewById(R.id.img1);
+            mImg2 = itemView.findViewById(R.id.img2);
+            mImg3 = itemView.findViewById(R.id.img3);
+            mContent = itemView.findViewById(R.id.blog_content_text);
+            mAuthor = itemView.findViewById(R.id.blog_author_text);
+            mDate = itemView.findViewById(R.id.blog_date_text);
+        }
+    }
+
 }
