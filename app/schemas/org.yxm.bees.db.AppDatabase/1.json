@@ -2,17 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1d310ac5c4f6b499aac9658f00b36825",
+    "identityHash": "0d46defbc76319c9e210e18e49955324",
     "entities": [
       {
         "tableName": "t_gank",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `create_at` TEXT, `desc` TEXT, `published_at` TEXT, `source` TEXT, `type` TEXT, `url` TEXT, `used` INTEGER, `who` TEXT, `images` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gankid` TEXT, `create_at` TEXT, `desc` TEXT, `published_at` TEXT, `source` TEXT, `type` TEXT, `url` TEXT, `used` INTEGER, `who` TEXT, `images` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "gankid",
+            "columnName": "gankid",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "createdAt",
@@ -73,7 +79,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -81,7 +87,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1d310ac5c4f6b499aac9658f00b36825\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0d46defbc76319c9e210e18e49955324\")"
     ]
   }
 }

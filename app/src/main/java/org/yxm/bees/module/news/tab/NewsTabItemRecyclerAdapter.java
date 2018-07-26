@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.yxm.bees.R;
+import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItem
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsTabItemRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GankEntity item = mDatas.get(position);
         holder.mTitle.setText("");
         holder.mContent.setText(item.desc);
@@ -45,11 +47,16 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<NewsTabItem
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        holder.mDate.setText(sdf.format(item.publishedAt));
         holder.mDate.setText(item.publishedAt.substring(0, 10));
+
         if (item.images != null && item.images.size() > 0) {
             holder.mPhoto.setVisibility(View.VISIBLE);
-            Glide.with(mContext)
+
+            GlideApp.with(mContext).clear(holder.mPhoto);
+            GlideApp.with(holder.mPhoto.getContext())
                     .load(item.images.get(0))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.mPhoto);
+
         } else {
             holder.mPhoto.setVisibility(View.GONE);
         }

@@ -17,9 +17,11 @@ import java.util.List;
 public class GankEntity {
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    public Integer id;
+
     @SerializedName("_id")
-    public String id;
+    public String gankid;
     @ColumnInfo(name = "create_at")
     public String createdAt;
     public String desc;
@@ -37,6 +39,7 @@ public class GankEntity {
     public String toString() {
         return "GankEntity{" +
                 "id='" + id + '\'' +
+                ", gankid='" + gankid + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", desc='" + desc + '\'' +
                 ", publishedAt='" + publishedAt + '\'' +

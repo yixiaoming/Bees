@@ -12,13 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
+import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresenter>
@@ -79,11 +84,8 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 
         mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
-    }
 
-    @Override
-    public void initDatas(List<GankEntity> datas) {
-        mAdapter = new NewsTabItemRecyclerAdapter(datas);
+        mAdapter = new NewsTabItemRecyclerAdapter(new ArrayList<GankEntity>());
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -100,6 +102,13 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
                 }
             }
         });
+    }
+
+    @Override
+    public void initDatas(List<GankEntity> datas) {
+        mAdapter.insertFront(datas);
+        mAdapter.notifyDataSetChanged();
+        LogUtil.d("initDatas: finished:" + datas.size());
     }
 
     @Override

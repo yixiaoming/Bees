@@ -9,9 +9,11 @@ public interface IGankModel {
 
     List<GankTabEntity> getDefaultTabs();
 
-    void loadTabContent(String type, LoadTabContentListener listener);
+    void loadLocalData(String type, LoadDataListener listener);
 
-    interface LoadTabContentListener {
+    void loadNetData(String type, LoadDataListener listener);
+
+    interface LoadDataListener {
         void onSuccess(List<GankEntity> contents);
 
         void onFailed(Exception e);

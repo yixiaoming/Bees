@@ -44,57 +44,46 @@ public class GankModel implements IGankModel {
     }
 
     @Override
-    public void loadTabContent(String type, LoadTabContentListener listener) {
-        GankDao dao = AppDatabase.getInstance().gankDao();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<GankEntity> datas = dao.getLastDatas(type);
-                if (datas != null && datas.size() > 0) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            listener.onSuccess(datas);
-                        }
-                    });
-                    return;
-                }
-
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(GANKIO_DOMAIN)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                        .create(GankApi.class)
-                        .getRandomContents(type, DEFAULT_PAGESIZE);
-
-                call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
-                    @Override
-                    public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
-                                           Response<GankBaseEntity<List<GankEntity>>> response) {
-                        if (response.body() != null) {
-                            List<GankEntity> results = response.body().results;
-                            listener.onSuccess(results);
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    dao.insertAll(results);
-                                }
-                            }).start();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
-                                          Throwable t) {
-                        listener.onFailed(new Exception(t));
-                    }
-                });
-
+    public void loadLocalData(String type, LoadDataListener listener) {
+        Handler handler = new Handler();
+        new Thread(() -> {
+            GankDao dao = AppDatabase.getInstance().gankDao();
+            List<GankEntity> datas = dao.getLastDatas(type);
+            if (datas != null && datas.size() > 0) {
+                handler.post(() -> listener.onSuccess(datas));
             }
         }).start();
+    }
 
+    @Override
+    public void loadNetData(String type, LoadDataListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(GANKIO_DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Call<GankBaseEntity<List<GankEntity>>> call = retrofit
+                .create(GankApi.class)
+                .getRandomContents(type, DEFAULT_PAGESIZE);
+
+        call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
+            @Override
+            public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
+                                   Response<GankBaseEntity<List<GankEntity>>> response) {
+                if (response.body() != null) {
+                    List<GankEntity> results = response.body().results;
+                    listener.onSuccess(results);
+                    new Thread(() -> {
+                        GankDao gankDao = AppDatabase.getInstance().gankDao();
+                        gankDao.insertAll(results);
+                    }).start();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
+                                  Throwable t) {
+                listener.onFailed(new Exception(t));
+            }
+        });
     }
 }

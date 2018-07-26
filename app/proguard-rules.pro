@@ -27,6 +27,8 @@
   **[] $VALUES;
   public *;
 }
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule

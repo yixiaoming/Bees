@@ -16,7 +16,7 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
     }
 
     public void loadData(String type) {
-        mGankModel.loadTabContent(type, new IGankModel.LoadTabContentListener() {
+        mGankModel.loadLocalData(type, new IGankModel.LoadDataListener() {
 
             @Override
             public void onSuccess(List<GankEntity> contents) {
@@ -35,7 +35,7 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
     }
 
     public void onRefresh(String type) {
-        mGankModel.loadTabContent(type, new IGankModel.LoadTabContentListener() {
+        mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
             @Override
             public void onSuccess(List<GankEntity> contents) {
@@ -54,7 +54,7 @@ public class NewsTabPresenter extends BasePresenter<INewsTabView> {
     }
 
     public void onLoadMore(String type) {
-        mGankModel.loadTabContent(type, new IGankModel.LoadTabContentListener() {
+        mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
             @Override
             public void onSuccess(List<GankEntity> contents) {
