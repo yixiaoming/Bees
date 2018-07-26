@@ -1,11 +1,13 @@
 package org.yxm.bees.module.news.tab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,17 +16,29 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.bees.module.common.WebViewActivity;
 
 import java.util.List;
 
-public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<GankEntity> mDatas;
     private Context mContext;
 
+    /** 只创建一个item click lisener，通过position判断，无需每个view都创建，浪费空间 */
+    private OnItemClickListener mOnItemClickListener;
+
     public NewsTabItemRecyclerAdapter(List<GankEntity> datas) {
         this.mDatas = datas;
+        this.mOnItemClickListener = new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String url = mDatas.get(position).url;
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.PARAM_URL, url);
+                mContext.startActivity(intent);
+            }
+        };
     }
 
     @Override
@@ -35,24 +49,30 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         if (viewType == ItemType.no_image.ordinal()) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.gank_recycler_item_item_view_no_img, parent, false);
+            view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
         } else if (viewType == ItemType.one_image.ordinal()) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
+            view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderOneImg(view);
         } else if (viewType == ItemType.three_image.ordinal()) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.gank_recycler_item_view_three_img, parent, false);
+            view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderThreeImg(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
-            return new NewsTabItemRecyclerAdapter.ViewHolderOneImg(view);
+                    .inflate(R.layout.gank_recycler_item_item_view_no_img, parent, false);
+            view.setOnClickListener(this);
+            return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        // 设置tag，在item click中使用
+        holder.itemView.setTag(position);
         if (holder instanceof ViewHolderNoImg) {
             bindNoImgViewHolder((ViewHolderNoImg) holder, position);
         } else if (holder instanceof ViewHolderOneImg) {
@@ -107,11 +127,12 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 .into(holder.mImg3);
     }
 
+
     private enum ItemType {
         no_image,
         one_image,
         three_image,
-        error_type
+        error_type;
     }
 
     @Override
@@ -140,6 +161,7 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     private static class ViewHolderNoImg extends RecyclerView.ViewHolder {
+
         public TextView mContent;
         public TextView mAuthor;
         public TextView mDate;
@@ -150,9 +172,11 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             mAuthor = itemView.findViewById(R.id.blog_author_text);
             mDate = itemView.findViewById(R.id.blog_date_text);
         }
+
     }
 
     private static class ViewHolderOneImg extends RecyclerView.ViewHolder {
+
         public ImageView mPhoto;
         public TextView mContent;
         public TextView mAuthor;
@@ -165,9 +189,11 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             mAuthor = itemView.findViewById(R.id.blog_author_text);
             mDate = itemView.findViewById(R.id.blog_date_text);
         }
+
     }
 
     private static class ViewHolderThreeImg extends RecyclerView.ViewHolder {
+
         public ImageView mImg1;
         public ImageView mImg2;
         public ImageView mImg3;
@@ -184,6 +210,19 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             mAuthor = itemView.findViewById(R.id.blog_author_text);
             mDate = itemView.findViewById(R.id.blog_date_text);
         }
+
     }
 
+    /**
+     * 点击事件
+     */
+    private interface OnItemClickListener {
+
+        void onItemClick(int position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mOnItemClickListener.onItemClick((Integer) v.getTag());
+    }
 }
