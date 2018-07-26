@@ -1,6 +1,5 @@
 package org.yxm.bees.module.news.tab;
 
-import android.icu.text.MessagePattern;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,14 +15,12 @@ import com.bumptech.glide.Glide;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresenter>
@@ -91,6 +88,11 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Glide.with(getContext()).resumeRequests();
+                } else {
+                    Glide.with(getContext()).pauseRequests();
+                }
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
@@ -108,7 +110,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     public void initDatas(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
-        LogUtil.d("initDatas: finished:" + datas.size());
+        LogUtil.d("initDatas: type:" + mType + " size:" + datas.size());
     }
 
     @Override
