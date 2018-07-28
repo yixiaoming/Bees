@@ -18,12 +18,17 @@ import org.yxm.bees.module.common.WebViewActivity;
 
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
 public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<GankEntity> mDatas;
     private Context mContext;
 
-    /** 只创建一个item click lisener，通过position判断，无需每个view都创建，浪费空间 */
+    /**
+     * 只创建一个item click lisener，通过position判断，无需每个view都创建，浪费空间
+     */
     private OnItemClickListener mOnItemClickListener;
 
     public NewsTabItemRecyclerAdapter(List<GankEntity> datas) {
@@ -43,7 +48,7 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
         if (viewType == ItemType.no_image.ordinal()) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_item_view_no_img, parent, false);
+                    .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
             view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
         } else if (viewType == ItemType.one_image.ordinal()) {
@@ -61,9 +66,14 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                     .inflate(R.layout.gank_recycler_item_view_big_img, parent, false);
             view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderBigImg(view);
+        } else if (viewType == ItemType.video.ordinal()) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.gank_recycler_item_view_video, parent, false);
+            view.setOnClickListener(this);
+            return new NewsTabItemRecyclerAdapter.ViewHolderVideo(view);
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_item_view_no_img, parent, false);
+                    .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
             view.setOnClickListener(this);
             return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
         }
@@ -81,6 +91,8 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             bindThreeImgViewHolder((ViewHolderThreeImg) holder, position);
         } else if (holder instanceof ViewHolderBigImg) {
             bindBigImgViewHolder((ViewHolderBigImg) holder, position);
+        } else if (holder instanceof ViewHolderVideo) {
+            bindVideoViewHolder((ViewHolderVideo) holder, position);
         }
     }
 
@@ -131,13 +143,28 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 .into(holder.mPhoto);
     }
 
+    private void bindVideoViewHolder(ViewHolderVideo holder, int position) {
+        GankEntity item = mDatas.get(position);
+        holder.mAuthor.setText(item.who);
+        holder.mDate.setText(item.publishedAt.substring(0, 10));
+
+        boolean setup = holder.videoPlayer.setUp("http://gslb.miaopai.com/stream/ed5HCfnhovu3tyIQAiv60Q__.mp4",
+                JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        holder.videoPlayer.setKeepScreenOn(false);
+        if (setup) {
+            GlideApp.with(holder.videoPlayer.getContext())
+                    .load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg")
+                    .into(holder.videoPlayer.thumbImageView);
+        }
+    }
+
 
     private enum ItemType {
         no_image,
         one_image,
         three_image,
         big_image,
-        error_type;
+        video,
     }
 
     @Override
@@ -145,6 +172,9 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         GankEntity entity = mDatas.get(position);
         if (TextUtils.equals(entity.type, "福利")) {
             return ItemType.big_image.ordinal();
+        }
+        if (TextUtils.equals(entity.type, "休息视频")) {
+            return ItemType.video.ordinal();
         }
 
         if (entity.images == null || entity.images.size() == 0) {
@@ -222,7 +252,7 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
     }
 
-    private static class ViewHolderBigImg extends RecyclerView.ViewHolder{
+    private static class ViewHolderBigImg extends RecyclerView.ViewHolder {
 
         public ImageView mPhoto;
         public TextView mAuthor;
@@ -231,6 +261,20 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         public ViewHolderBigImg(View itemView) {
             super(itemView);
             mPhoto = itemView.findViewById(R.id.blog_photo);
+            mAuthor = itemView.findViewById(R.id.blog_author_text);
+            mDate = itemView.findViewById(R.id.blog_date_text);
+        }
+    }
+
+    private static class ViewHolderVideo extends RecyclerView.ViewHolder {
+
+        public JCVideoPlayerStandard videoPlayer;
+        public TextView mAuthor;
+        public TextView mDate;
+
+        public ViewHolderVideo(View itemView) {
+            super(itemView);
+            videoPlayer = itemView.findViewById(R.id.video);
             mAuthor = itemView.findViewById(R.id.blog_author_text);
             mDate = itemView.findViewById(R.id.blog_date_text);
         }

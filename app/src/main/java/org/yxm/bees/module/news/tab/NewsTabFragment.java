@@ -111,6 +111,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
         if (datas == null || datas.size() == 0) {
+            mSwipeLayout.setRefreshing(true);
             mPresenter.onRefresh(mType);
         }
         LogUtil.d("initDatas: type:" + mType + " size:" + datas.size());
@@ -153,4 +154,8 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
         ToastUtil.s(getContext(), msg);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

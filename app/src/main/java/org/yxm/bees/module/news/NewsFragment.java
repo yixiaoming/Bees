@@ -18,6 +18,8 @@ import org.yxm.bees.module.news.tab.NewsTabFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+
 public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
         implements INewsView {
 
@@ -55,6 +57,13 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
     private void initViews(View root) {
         mTablayout = root.findViewById(R.id.main_tablayout);
         mViewpager = root.findViewById(R.id.main_viewpager);
+        mViewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                JCVideoPlayer.releaseAllVideos();
+            }
+        });
     }
 
     @Override
