@@ -11,6 +11,8 @@ import org.yxm.bees.base.BaseMvpActivity;
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.module.news.NewsFragment;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+
 public class MainActivity extends BaseMvpActivity
         implements IMainView {
 
@@ -86,5 +88,11 @@ public class MainActivity extends BaseMvpActivity
     @Override
     protected BasePresenter createPresenter() {
         return new MainPresenter();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

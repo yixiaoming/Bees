@@ -8,23 +8,31 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.module.common.WebViewActivity;
+import org.yxm.bees.module.news.tab.viewholder.ViewHolderBigImg;
+import org.yxm.bees.module.news.tab.viewholder.ViewHolderNoImg;
+import org.yxm.bees.module.news.tab.viewholder.ViewHolderOneImg;
+import org.yxm.bees.module.news.tab.viewholder.ViewHolderThreeImg;
+import org.yxm.bees.module.news.tab.viewholder.ViewHolderVideo;
 
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<GankEntity> mDatas;
     private Context mContext;
+
+    public static final int ITEMVIEW_TYPE_ONE_IMG = 1;
+    public static final int ITEMVIEW_TYPE_NO_IMG = 2;
+    public static final int ITEMVIEW_TYPE_THREE_IMG = 3;
+    public static final int ITEMVIEW_TYPE_BIG_IMG = 4;
+    public static final int ITEMVIEW_TYPE_VIDEO = 5;
 
     /**
      * 只创建一个item click lisener，通过position判断，无需每个view都创建，浪费空间
@@ -46,36 +54,38 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        if (viewType == ItemType.no_image.ordinal()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
-        } else if (viewType == ItemType.one_image.ordinal()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderOneImg(view);
-        } else if (viewType == ItemType.three_image.ordinal()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_three_img, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderThreeImg(view);
-        } else if (viewType == ItemType.big_image.ordinal()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_big_img, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderBigImg(view);
-        } else if (viewType == ItemType.video.ordinal()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_video, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderVideo(view);
-        } else {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
-            view.setOnClickListener(this);
-            return new NewsTabItemRecyclerAdapter.ViewHolderNoImg(view);
+        View view;
+        switch (viewType) {
+            case ITEMVIEW_TYPE_NO_IMG:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderNoImg(view);
+            case ITEMVIEW_TYPE_ONE_IMG:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_one_img, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderOneImg(view);
+            case ITEMVIEW_TYPE_THREE_IMG:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_three_img, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderThreeImg(view);
+            case ITEMVIEW_TYPE_BIG_IMG:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_big_img, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderBigImg(view);
+            case ITEMVIEW_TYPE_VIDEO:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_video, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderVideo(view);
+            default:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
+                view.setOnClickListener(this);
+                return new ViewHolderNoImg(view);
         }
     }
 
@@ -158,31 +168,22 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-
-    private enum ItemType {
-        no_image,
-        one_image,
-        three_image,
-        big_image,
-        video,
-    }
-
     @Override
     public int getItemViewType(int position) {
         GankEntity entity = mDatas.get(position);
         if (TextUtils.equals(entity.type, "福利")) {
-            return ItemType.big_image.ordinal();
+            return ITEMVIEW_TYPE_BIG_IMG;
         }
         if (TextUtils.equals(entity.type, "休息视频")) {
-            return ItemType.video.ordinal();
+            return ITEMVIEW_TYPE_VIDEO;
         }
 
         if (entity.images == null || entity.images.size() == 0) {
-            return ItemType.no_image.ordinal();
+            return ITEMVIEW_TYPE_NO_IMG;
         } else if (entity.images.size() < 3) {
-            return ItemType.one_image.ordinal();
+            return ITEMVIEW_TYPE_ONE_IMG;
         } else {
-            return ItemType.three_image.ordinal();
+            return ITEMVIEW_TYPE_THREE_IMG;
         }
     }
 
@@ -199,92 +200,10 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         mDatas.addAll(datas);
     }
 
-    private static class ViewHolderNoImg extends RecyclerView.ViewHolder {
-
-        public TextView mContent;
-        public TextView mAuthor;
-        public TextView mDate;
-
-        public ViewHolderNoImg(View itemView) {
-            super(itemView);
-            mContent = itemView.findViewById(R.id.blog_content_text);
-            mAuthor = itemView.findViewById(R.id.blog_author_text);
-            mDate = itemView.findViewById(R.id.blog_date_text);
-        }
-
-    }
-
-    private static class ViewHolderOneImg extends RecyclerView.ViewHolder {
-
-        public ImageView mPhoto;
-        public TextView mContent;
-        public TextView mAuthor;
-        public TextView mDate;
-
-        public ViewHolderOneImg(View itemView) {
-            super(itemView);
-            mPhoto = itemView.findViewById(R.id.blog_photo);
-            mContent = itemView.findViewById(R.id.blog_content_text);
-            mAuthor = itemView.findViewById(R.id.blog_author_text);
-            mDate = itemView.findViewById(R.id.blog_date_text);
-        }
-
-    }
-
-    private static class ViewHolderThreeImg extends RecyclerView.ViewHolder {
-
-        public ImageView mImg1;
-        public ImageView mImg2;
-        public ImageView mImg3;
-        public TextView mContent;
-        public TextView mAuthor;
-        public TextView mDate;
-
-        public ViewHolderThreeImg(View itemView) {
-            super(itemView);
-            mImg1 = itemView.findViewById(R.id.img1);
-            mImg2 = itemView.findViewById(R.id.img2);
-            mImg3 = itemView.findViewById(R.id.img3);
-            mContent = itemView.findViewById(R.id.blog_content_text);
-            mAuthor = itemView.findViewById(R.id.blog_author_text);
-            mDate = itemView.findViewById(R.id.blog_date_text);
-        }
-
-    }
-
-    private static class ViewHolderBigImg extends RecyclerView.ViewHolder {
-
-        public ImageView mPhoto;
-        public TextView mAuthor;
-        public TextView mDate;
-
-        public ViewHolderBigImg(View itemView) {
-            super(itemView);
-            mPhoto = itemView.findViewById(R.id.blog_photo);
-            mAuthor = itemView.findViewById(R.id.blog_author_text);
-            mDate = itemView.findViewById(R.id.blog_date_text);
-        }
-    }
-
-    private static class ViewHolderVideo extends RecyclerView.ViewHolder {
-
-        public JCVideoPlayerStandard videoPlayer;
-        public TextView mAuthor;
-        public TextView mDate;
-
-        public ViewHolderVideo(View itemView) {
-            super(itemView);
-            videoPlayer = itemView.findViewById(R.id.video);
-            mAuthor = itemView.findViewById(R.id.blog_author_text);
-            mDate = itemView.findViewById(R.id.blog_date_text);
-        }
-    }
-
     /**
      * 点击事件
      */
     private interface OnItemClickListener {
-
         void onItemClick(int position);
     }
 
