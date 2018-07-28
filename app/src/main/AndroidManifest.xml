@@ -25,7 +25,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".module.common.WebViewActivity"/>
+        <activity
+            android:name=".module.common.WebViewActivity"
+            android:theme="@style/AppTheme.Transparent"/>
     </application>
 
 </manifest>
