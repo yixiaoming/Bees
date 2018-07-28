@@ -27,6 +27,7 @@
 
     <!-- 单图片模版 -->
     <dimen name="gank_recycler_item_image_height">120dp</dimen>
+    <dimen name="gank_recycler_item_big_image_height">300dp</dimen>
     <dimen name="gank_recycler_item_image_margin">5dp</dimen>
 
     <!-- 三张图片模版 -->
