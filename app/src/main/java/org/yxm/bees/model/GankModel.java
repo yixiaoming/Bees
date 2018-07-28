@@ -51,9 +51,7 @@ public class GankModel implements IGankModel {
         new Thread(() -> {
             GankDao dao = AppDatabase.getInstance().gankDao();
             List<GankEntity> datas = dao.getLastDatas(type);
-            if (datas != null && datas.size() > 0) {
-                handler.post(() -> listener.onSuccess(datas));
-            }
+            handler.post(() -> listener.onSuccess(datas));
         }).start();
     }
 

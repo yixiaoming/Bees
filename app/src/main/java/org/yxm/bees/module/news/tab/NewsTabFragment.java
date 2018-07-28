@@ -62,7 +62,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
         if (getArguments() != null) {
             mType = getArguments().getString(ARGS_TYPE);
         } else {
-            throw new RuntimeException("no type of this tabfragment");
+            throw new RuntimeException("no type of this tab fragment");
         }
         return view;
     }
@@ -110,6 +110,9 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     public void initDatas(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
+        if (datas == null || datas.size() == 0) {
+            mPresenter.onRefresh(mType);
+        }
         LogUtil.d("initDatas: type:" + mType + " size:" + datas.size());
     }
 
