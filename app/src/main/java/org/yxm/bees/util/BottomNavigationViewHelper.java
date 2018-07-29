@@ -11,7 +11,6 @@ import java.lang.reflect.Field;
 
 public class BottomNavigationViewHelper {
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView navigationView) {
 
@@ -28,7 +27,7 @@ public class BottomNavigationViewHelper {
                 itemView.setChecked(itemView.getItemData().isChecked());
             }
 
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

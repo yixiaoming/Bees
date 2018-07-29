@@ -11,6 +11,7 @@ import org.yxm.bees.base.BaseMvpActivity;
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.module.kaiyan.KaiyanFragment;
 import org.yxm.bees.module.news.NewsFragment;
+import org.yxm.bees.util.BottomNavigationViewHelper;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
@@ -21,8 +22,8 @@ public class MainActivity extends BaseMvpActivity
     private Fragment mCurrentFragment;
 
     public static final String TAG_FRAGMENT_NEWS = "tag_fragment_news";
-    public static final String TAG_FRAGMENT_PHOTO = "tag_fragment_photo";
     public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
+    public static final String TAG_FRAGMENT_PHOTO = "tag_fragment_photo";
     public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
 
     @Override
@@ -35,17 +36,18 @@ public class MainActivity extends BaseMvpActivity
 
     private void initViews() {
         mBottomNavView = findViewById(R.id.main_bottom_nav_bar);
+        BottomNavigationViewHelper.disableShiftMode(mBottomNavView);
         mBottomNavView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.action_news:
                             showFragment(TAG_FRAGMENT_NEWS);
                             return true;
-                        case R.id.action_photo:
-                            showFragment(TAG_FRAGMENT_PHOTO);
+                        case R.id.action_music:
+                            showFragment(TAG_FRAGMENT_VIDEO);
                             return true;
                         case R.id.action_video:
-                            showFragment(TAG_FRAGMENT_VIDEO);
+                            showFragment(TAG_FRAGMENT_PHOTO);
                             return true;
                         case R.id.action_personal:
                             showFragment(TAG_FRAGMENT_PERSONAL);
@@ -67,10 +69,10 @@ public class MainActivity extends BaseMvpActivity
             if (fragmentTag.equals(TAG_FRAGMENT_NEWS)) {
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
-            } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
+            } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
                 fragment = KaiyanFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
-            } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
+            } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {

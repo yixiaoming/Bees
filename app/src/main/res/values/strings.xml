@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Bees</string>
     <!--底部bar-->
-    <string name="title_news">新闻</string>
-    <string name="title_photo">图片</string>
+    <string name="title_news">干货</string>
     <string name="title_video">视频</string>
-    <string name="title_media">我的</string>
+    <string name="title_photo">音乐</string>
+    <string name="title_wo">我的</string>
 
     <!--toolbar-->
     <string name="action_search">搜索</string>
