@@ -9,7 +9,7 @@ import android.content.Context;
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.db.conversion.DateConversionFactory;
 import org.yxm.bees.entity.gankio.GankEntity;
-import org.yxm.bees.repository.dao.GankDao;
+import org.yxm.bees.db.dao.GankDao;
 
 @Database(entities = {GankEntity.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})

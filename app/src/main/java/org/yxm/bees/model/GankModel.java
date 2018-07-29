@@ -1,14 +1,13 @@
 package org.yxm.bees.model;
 
 import android.os.Handler;
-import android.os.Looper;
 
 import org.yxm.bees.api.GankApi;
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.repository.dao.GankDao;
+import org.yxm.bees.db.dao.GankDao;
 
 import java.util.ArrayList;
 import java.util.List;

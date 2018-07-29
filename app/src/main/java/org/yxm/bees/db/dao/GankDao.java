@@ -1,4 +1,4 @@
-package org.yxm.bees.repository.dao;
+package org.yxm.bees.db.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
