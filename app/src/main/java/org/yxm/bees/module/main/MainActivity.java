@@ -23,7 +23,7 @@ public class MainActivity extends BaseMvpActivity
 
     public static final String TAG_FRAGMENT_NEWS = "tag_fragment_news";
     public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
-    public static final String TAG_FRAGMENT_PHOTO = "tag_fragment_photo";
+    public static final String TAG_FRAGMENT_MUSIC = "tag_fragment_music";
     public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
 
     @Override
@@ -43,11 +43,11 @@ public class MainActivity extends BaseMvpActivity
                         case R.id.action_news:
                             showFragment(TAG_FRAGMENT_NEWS);
                             return true;
-                        case R.id.action_music:
+                        case R.id.action_video:
                             showFragment(TAG_FRAGMENT_VIDEO);
                             return true;
-                        case R.id.action_video:
-                            showFragment(TAG_FRAGMENT_PHOTO);
+                        case R.id.action_music:
+                            showFragment(TAG_FRAGMENT_MUSIC);
                             return true;
                         case R.id.action_personal:
                             showFragment(TAG_FRAGMENT_PERSONAL);
@@ -72,7 +72,7 @@ public class MainActivity extends BaseMvpActivity
             } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
                 fragment = KaiyanFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
-            } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
+            } else if (fragmentTag.equals(TAG_FRAGMENT_MUSIC)) {
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {

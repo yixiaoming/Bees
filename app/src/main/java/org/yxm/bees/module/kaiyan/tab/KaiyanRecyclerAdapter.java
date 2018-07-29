@@ -15,7 +15,6 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.WebViewActivity;
-import org.yxm.bees.util.LogUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

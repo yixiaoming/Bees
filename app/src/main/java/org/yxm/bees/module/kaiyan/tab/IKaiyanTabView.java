@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public interface IKaiyanTabView {
-    void initDataSuccess(List<KaiyanVideoItem> data);
+    void initLocalDataSuccess(List<KaiyanVideoItem> data);
 
-    void initDataFailed(Throwable t);
+    void initLocalDataFailed(Throwable t);
+
+    void initNetDataFailed(Throwable t);
 }

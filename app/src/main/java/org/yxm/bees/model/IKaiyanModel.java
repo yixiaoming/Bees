@@ -6,7 +6,9 @@ package org.yxm.bees.model;
 
 public interface IKaiyanModel {
 
-    void getCategories(LoadDataListener listener);
+    void loadLocalCatetories(LoadDataListener listener);
+
+    void loadNetCategories(LoadDataListener listener);
 
     interface LoadDataListener<T> {
         void onSuccess(T data);
@@ -14,5 +16,7 @@ public interface IKaiyanModel {
         void onFailed(Throwable t);
     }
 
-    void loadVideoData(int tabid, LoadDataListener listener);
+    void loadLocalVideos(int tabid, LoadDataListener listener);
+
+    void loadNetVideos(int tabid, LoadDataListener listener);
 }

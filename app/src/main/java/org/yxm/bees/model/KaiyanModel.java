@@ -1,8 +1,12 @@
 package org.yxm.bees.model;
 
-import android.util.Log;
+
+import android.os.Handler;
+import android.os.Looper;
 
 import org.yxm.bees.api.KaiyanApi;
+import org.yxm.bees.db.AppDatabase;
+import org.yxm.bees.db.dao.KaiyanDao;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
@@ -27,7 +31,21 @@ public class KaiyanModel implements IKaiyanModel {
     private String mNextPageUrl = "";
 
     @Override
-    public void getCategories(LoadDataListener listener) {
+    public void loadLocalCatetories(LoadDataListener listener) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        new Thread(() -> {
+            KaiyanDao dao = AppDatabase.getInstance().getKaiyanDao();
+            List<KaiyanCategory> list = dao.getCategoryes();
+            if (list != null && list.size() > 0) {
+                handler.post(() -> listener.onSuccess(list));
+            } else {
+                handler.post(() -> listener.onFailed(new RuntimeException("local data empty")));
+            }
+        }).start();
+    }
+
+    @Override
+    public void loadNetCategories(LoadDataListener listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -39,7 +57,16 @@ public class KaiyanModel implements IKaiyanModel {
             @Override
             public void onResponse(Call<List<KaiyanCategory>> call,
                                    Response<List<KaiyanCategory>> response) {
-                listener.onSuccess(response.body());
+                List<KaiyanCategory> list = response.body();
+                if (list != null && list.size() > 0) {
+                    listener.onSuccess(list);
+                    new Thread(() -> {
+                        AppDatabase.getInstance().getKaiyanDao().insertCatetories(list);
+                    }).start();
+                } else {
+                    listener.onFailed(new RuntimeException("net data empty"));
+                }
+
             }
 
             @Override
@@ -50,7 +77,21 @@ public class KaiyanModel implements IKaiyanModel {
     }
 
     @Override
-    public void loadVideoData(int tabid, LoadDataListener listener) {
+    public void loadLocalVideos(int tabid, LoadDataListener listener) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        new Thread(() -> {
+            KaiyanDao dao = AppDatabase.getInstance().getKaiyanDao();
+            List<KaiyanVideoItem> list = dao.getVideos(tabid);
+            if (list != null && list.size() > 0) {
+                handler.post(() -> listener.onSuccess(list));
+            } else {
+                handler.post(() -> listener.onFailed(new RuntimeException("local data empty")));
+            }
+        }).start();
+    }
+
+    @Override
+    public void loadNetVideos(int tabid, LoadDataListener listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -63,7 +104,19 @@ public class KaiyanModel implements IKaiyanModel {
             public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
                 KaiyanVideoList list = response.body();
                 mNextPageUrl = list.nextPageUrl;
-                listener.onSuccess(list.itemList);
+                List<KaiyanVideoItem> videoItems = list.itemList;
+                for (KaiyanVideoItem item : videoItems) {
+                    item.tabId = tabid;
+                }
+                if (videoItems != null && videoItems.size() > 0) {
+                    listener.onSuccess(videoItems);
+                    new Thread(() -> {
+                        KaiyanDao dao = AppDatabase.getInstance().getKaiyanDao();
+                        dao.insertVideos(videoItems);
+                    }).start();
+                } else {
+                    listener.onFailed(new RuntimeException("load video net data failed"));
+                }
             }
 
             @Override

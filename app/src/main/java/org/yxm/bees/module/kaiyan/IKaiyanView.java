@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public interface IKaiyanView {
-    void initDataSuccess(List<KaiyanCategory> categories);
+    void initLocalDataSuccess(List<KaiyanCategory> categories);
 
-    void initDataFailed(Throwable t);
+    void initLocalDataFailed(Throwable t);
+
+    void initNetDataFailed(Throwable t);
 }

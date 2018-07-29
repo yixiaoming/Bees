@@ -48,7 +48,7 @@ public class GankModel implements IGankModel {
     public void loadLocalData(String type, LoadDataListener listener) {
         Handler handler = new Handler();
         new Thread(() -> {
-            GankDao dao = AppDatabase.getInstance().gankDao();
+            GankDao dao = AppDatabase.getInstance().getGankDao();
             List<GankEntity> datas = dao.getLastDatas(type);
             handler.post(() -> listener.onSuccess(datas));
         }).start();
@@ -72,7 +72,7 @@ public class GankModel implements IGankModel {
                     List<GankEntity> results = response.body().results;
                     listener.onSuccess(results);
                     new Thread(() -> {
-                        GankDao gankDao = AppDatabase.getInstance().gankDao();
+                        GankDao gankDao = AppDatabase.getInstance().getGankDao();
                         gankDao.insertAll(results);
                     }).start();
                 }

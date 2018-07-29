@@ -8,10 +8,13 @@ import android.content.Context;
 
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.db.conversion.DateConversionFactory;
+import org.yxm.bees.db.dao.KaiyanDao;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.db.dao.GankDao;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 
-@Database(entities = {GankEntity.class}, version = 1)
+@Database(entities = {GankEntity.class, KaiyanCategory.class, KaiyanVideoItem.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String TAG = "AppDatabase";
@@ -20,7 +23,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
 
-    public abstract GankDao gankDao();
+    public abstract GankDao getGankDao();
+
+    public abstract KaiyanDao getKaiyanDao();
 
     public static AppDatabase getInstance() {
         if (sInstance == null) {

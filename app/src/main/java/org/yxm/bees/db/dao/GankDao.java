@@ -11,9 +11,9 @@ import java.util.List;
 @Dao
 public interface GankDao {
 
-    public static final String TABLE_NAME = "t_gank";
+    String TABLE_NAME = "t_gank";
 
-    @Query("SELECT * FROM " + TABLE_NAME + " WHERE type=:type LIMIT 20")
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE type=:type LIMIT 15")
     List<GankEntity> getLastDatas(String type);
 
     @Insert

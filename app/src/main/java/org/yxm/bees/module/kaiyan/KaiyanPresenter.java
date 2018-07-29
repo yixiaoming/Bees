@@ -19,20 +19,40 @@ public class KaiyanPresenter extends BasePresenter<IKaiyanView> {
         kaiyanModel = new KaiyanModel();
     }
 
-    public void loadPagerFragments() {
+    public void loadTabFragments() {
         if (mView.get() != null) {
-            kaiyanModel.getCategories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
+            kaiyanModel.loadLocalCatetories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
                 @Override
                 public void onSuccess(List<KaiyanCategory> categories) {
                     if (mView.get() != null) {
-                        mView.get().initDataSuccess(categories);
+                        mView.get().initLocalDataSuccess(categories);
                     }
                 }
 
                 @Override
                 public void onFailed(Throwable t) {
                     if (mView.get() != null) {
-                        mView.get().initDataFailed(t);
+                        mView.get().initLocalDataFailed(t);
+                    }
+                }
+            });
+        }
+    }
+
+    public void loadNetCategories() {
+        if (mView.get() != null) {
+            kaiyanModel.loadNetCategories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
+                @Override
+                public void onSuccess(List<KaiyanCategory> categories) {
+                    if (mView.get() != null) {
+                        mView.get().initLocalDataSuccess(categories);
+                    }
+                }
+
+                @Override
+                public void onFailed(Throwable t) {
+                    if (mView.get() != null) {
+                        mView.get().initNetDataFailed(t);
                     }
                 }
             });

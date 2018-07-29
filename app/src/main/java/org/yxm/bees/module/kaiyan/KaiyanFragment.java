@@ -14,6 +14,7 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.module.kaiyan.tab.KaiyanTabFragment;
+import org.yxm.bees.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +69,12 @@ public class KaiyanFragment extends BaseMvpFragment<IKaiyanView, KaiyanPresenter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.loadPagerFragments();
+        mPresenter.loadTabFragments();
     }
 
 
     @Override
-    public void initDataSuccess(List<KaiyanCategory> categories) {
+    public void initLocalDataSuccess(List<KaiyanCategory> categories) {
         List<String> titles = new ArrayList<>();
         List<Fragment> fragments = new ArrayList<>();
         for (KaiyanCategory category : categories) {
@@ -91,7 +92,14 @@ public class KaiyanFragment extends BaseMvpFragment<IKaiyanView, KaiyanPresenter
     }
 
     @Override
-    public void initDataFailed(Throwable t) {
-
+    public void initLocalDataFailed(Throwable t) {
+        mPresenter.loadNetCategories();
     }
+
+    @Override
+    public void initNetDataFailed(Throwable t) {
+        ToastUtil.s(getContext(), "error:" + t);
+    }
+
+
 }

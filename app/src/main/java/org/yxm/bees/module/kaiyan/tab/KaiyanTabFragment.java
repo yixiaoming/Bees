@@ -91,16 +91,21 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
 
 
     @Override
-    public void initDataSuccess(List<KaiyanVideoItem> datas) {
-        Log.d(TAG, "initDataSuccess: " + datas.size());
+    public void initLocalDataSuccess(List<KaiyanVideoItem> datas) {
+        Log.d(TAG, "initLocalDataSuccess: " + datas.size());
         mRefresyLayout.setRefreshing(false);
         mAdapter.addDataFront(datas);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void initDataFailed(Throwable t) {
-        mRefresyLayout.setRefreshing(false);
+    public void initLocalDataFailed(Throwable t) {
+        mRefresyLayout.setRefreshing(true);
+        mPresenter.loadNetVideos(mTabId);
+    }
+
+    @Override
+    public void initNetDataFailed(Throwable t) {
         ToastUtil.s(getContext(), "加载开眼数据失败：" + t);
     }
 }
