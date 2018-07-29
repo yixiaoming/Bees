@@ -78,8 +78,8 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     }
 
     private void initViews(View root) {
-        mSwipeLayout = root.findViewById(R.id.news_swiperefresh_layout);
-        mRecyclerview = root.findViewById(R.id.title_recyclerview);
+        mSwipeLayout = root.findViewById(R.id.swiperefresh_layout);
+        mRecyclerview = root.findViewById(R.id.recyclerview);
 
         mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
 

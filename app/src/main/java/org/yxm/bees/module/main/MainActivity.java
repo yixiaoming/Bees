@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpActivity;
 import org.yxm.bees.base.BasePresenter;
+import org.yxm.bees.module.kaiyan.KaiyanFragment;
 import org.yxm.bees.module.news.NewsFragment;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -67,7 +68,7 @@ public class MainActivity extends BaseMvpActivity
                 fragment = NewsFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PHOTO)) {
-                fragment = NewsFragment.newInstance();
+                fragment = KaiyanFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {
                 fragment = NewsFragment.newInstance();
