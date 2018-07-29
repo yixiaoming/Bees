@@ -24,6 +24,9 @@ public class KaiyanVideoItem {
         public String playUrl;
         public Integer duration;
         public String date;
+        public Cover cover;
+        public WebUrl webUrl;
+
 
         @Override
         public String toString() {
@@ -50,6 +53,14 @@ public class KaiyanVideoItem {
                         ", description='" + description + '\'' +
                         '}';
             }
+        }
+
+        public class Cover {
+            public String detail;
+        }
+
+        public class WebUrl {
+            public String raw;
         }
     }
 }

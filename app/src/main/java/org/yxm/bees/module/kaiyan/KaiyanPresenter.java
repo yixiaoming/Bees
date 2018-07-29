@@ -24,12 +24,16 @@ public class KaiyanPresenter extends BasePresenter<IKaiyanView> {
             kaiyanModel.getCategories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
                 @Override
                 public void onSuccess(List<KaiyanCategory> categories) {
-                    mView.get().initDataSuccess(categories);
+                    if (mView.get() != null) {
+                        mView.get().initDataSuccess(categories);
+                    }
                 }
 
                 @Override
                 public void onFailed(Throwable t) {
-                    mView.get().initDataFailed(t);
+                    if (mView.get() != null) {
+                        mView.get().initDataFailed(t);
+                    }
                 }
             });
         }

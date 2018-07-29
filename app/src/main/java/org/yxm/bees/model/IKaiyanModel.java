@@ -13,4 +13,6 @@ public interface IKaiyanModel {
 
         void onFailed(Throwable t);
     }
+
+    void loadVideoData(int tabid, LoadDataListener listener);
 }

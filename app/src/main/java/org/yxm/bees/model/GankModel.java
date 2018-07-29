@@ -26,12 +26,12 @@ public class GankModel implements IGankModel {
 
     public static final String[] DEFAULT_TYPES = {
 //            "all",
-            "Android", "iOS", "休息视频", "福利", "拓展资源", "前端", "瞎推荐", "App"
+            "Android", "iOS", "福利", "拓展资源", "前端", "瞎推荐", "App"
     };
 
     public static final String[] DEFAULT_NAMES = {
 //            "推荐",
-            "Android", "IOS", "休息视频", "福利", "拓展", "前端", "瞎推荐", "App"
+            "Android", "IOS", "福利", "拓展", "前端", "瞎推荐", "App"
     };
 
     private static final int DEFAULT_PAGESIZE = 15;

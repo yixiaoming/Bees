@@ -87,7 +87,7 @@ public class KaiyanFragment extends BaseMvpFragment<IKaiyanView, KaiyanPresenter
         mTablayout.setupWithViewPager(mViewpager);
 
         mViewpager.setAdapter(mViewpagerAdapter);
-        mViewpager.setOffscreenPageLimit(3);
+        mViewpager.setOffscreenPageLimit(2);
     }
 
     @Override

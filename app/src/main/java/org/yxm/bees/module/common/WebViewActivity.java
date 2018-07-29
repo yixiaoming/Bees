@@ -39,5 +39,6 @@ public class WebViewActivity extends SwipeCloseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mWebview.destroy();
     }
 }
