@@ -1,4 +1,4 @@
-package org.yxm.bees.module.news;
+package org.yxm.bees.module.gank;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,12 @@ import java.util.List;
 /**
  * Created by yixiaoming on 2018/6/9.
  */
-public class NewsPagerAdapter extends FragmentStatePagerAdapter {
+public class GankPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<String> mTitles;
     private List<Fragment> mFragments;
 
-    public NewsPagerAdapter(FragmentManager fm, List<String> titles, List<Fragment> fragments) {
+    public GankPagerAdapter(FragmentManager fm, List<String> titles, List<Fragment> fragments) {
         super(fm);
         this.mTitles = titles;
         this.mFragments = fragments;

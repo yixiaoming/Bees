@@ -1,4 +1,4 @@
-package org.yxm.bees.module.news.tab;
+package org.yxm.bees.module.gank.tab;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,17 +13,17 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.module.common.WebViewActivity;
-import org.yxm.bees.module.news.tab.viewholder.ViewHolderBigImg;
-import org.yxm.bees.module.news.tab.viewholder.ViewHolderNoImg;
-import org.yxm.bees.module.news.tab.viewholder.ViewHolderOneImg;
-import org.yxm.bees.module.news.tab.viewholder.ViewHolderThreeImg;
-import org.yxm.bees.module.news.tab.viewholder.ViewHolderVideo;
+import org.yxm.bees.module.gank.tab.viewholder.ViewHolderBigImg;
+import org.yxm.bees.module.gank.tab.viewholder.ViewHolderNoImg;
+import org.yxm.bees.module.gank.tab.viewholder.ViewHolderOneImg;
+import org.yxm.bees.module.gank.tab.viewholder.ViewHolderThreeImg;
+import org.yxm.bees.module.gank.tab.viewholder.ViewHolderVideo;
 
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
-public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class GankTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements View.OnClickListener {
 
     private List<GankEntity> mDatas;
@@ -40,7 +40,7 @@ public class NewsTabItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
      */
     private OnItemClickListener mOnItemClickListener;
 
-    public NewsTabItemRecyclerAdapter(List<GankEntity> datas) {
+    public GankTabRecyclerAdapter(List<GankEntity> datas) {
         this.mDatas = datas;
         this.mOnItemClickListener = position -> {
             String url = mDatas.get(position).url;

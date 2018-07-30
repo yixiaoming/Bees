@@ -71,19 +71,24 @@ public class KaiyanRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void bindVideoViewHolder(VideoViewHolder holder, int position) {
         KaiyanVideoItem item = mDatas.get(position);
-        holder.author.setText(item.data.author.name);
-        GlideApp.with(holder.authorImg.getContext())
-                .load(item.data.author.icon)
-                .into(holder.authorImg);
-        holder.date.setText(timeStamp2Date(item.data.date, "yyyy-MM-dd"));
-        holder.desc.setText(item.data.description);
-        boolean setup = holder.videoPlayer.setUp(item.data.playUrl,
-                JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-        holder.videoPlayer.setKeepScreenOn(false);
-        if (setup) {
-            GlideApp.with(holder.videoPlayer.getContext())
-                    .load(item.data.cover.detail)
-                    .into(holder.videoPlayer.thumbImageView);
+        try {
+            holder.author.setText(item.data.author.name);
+
+            GlideApp.with(holder.authorImg.getContext())
+                    .load(item.data.author.icon)
+                    .into(holder.authorImg);
+            holder.date.setText(timeStamp2Date(item.data.date, "yyyy-MM-dd"));
+            holder.desc.setText(item.data.description);
+            boolean setup = holder.videoPlayer.setUp(item.data.playUrl,
+                    JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+            holder.videoPlayer.setKeepScreenOn(false);
+            if (setup) {
+                GlideApp.with(holder.videoPlayer.getContext())
+                        .load(item.data.cover.detail)
+                        .into(holder.videoPlayer.thumbImageView);
+            }
+        } catch (NullPointerException e) {
+            holder.itemView.setVisibility(View.GONE);
         }
     }
 

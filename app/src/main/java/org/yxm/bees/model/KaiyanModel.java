@@ -11,6 +11,7 @@ import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -104,11 +105,16 @@ public class KaiyanModel implements IKaiyanModel {
             public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
                 KaiyanVideoList list = response.body();
                 mNextPageUrl = list.nextPageUrl;
-                List<KaiyanVideoItem> videoItems = list.itemList;
-                for (KaiyanVideoItem item : videoItems) {
+                List<KaiyanVideoItem> videoItems = new ArrayList<>();
+                for (KaiyanVideoItem item : list.itemList) {
+                    if (item.data == null || item.data.author == null || item.data.cover == null
+                            || item.data.playUrl == null || item.data.webUrl == null) {
+                        continue;
+                    }
                     item.tabId = tabid;
+                    videoItems.add(item);
                 }
-                if (videoItems != null && videoItems.size() > 0) {
+                if (videoItems.size() > 0) {
                     listener.onSuccess(videoItems);
                     new Thread(() -> {
                         KaiyanDao dao = AppDatabase.getInstance().getKaiyanDao();

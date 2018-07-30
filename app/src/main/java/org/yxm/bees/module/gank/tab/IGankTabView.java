@@ -1,10 +1,10 @@
-package org.yxm.bees.module.news.tab;
+package org.yxm.bees.module.gank.tab;
 
 import org.yxm.bees.entity.gankio.GankEntity;
 
 import java.util.List;
 
-public interface INewsTabView {
+public interface IGankTabView {
 
     void initDatas(List<GankEntity> datas);
 

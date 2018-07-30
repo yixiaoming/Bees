@@ -22,9 +22,9 @@ public class KaiyanTabPresenter extends BasePresenter<IKaiyanTabView> {
     public void initData(int tabid) {
         mModel.loadLocalVideos(tabid, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
             @Override
-            public void onSuccess(List<KaiyanVideoItem> data) {
+            public void onSuccess(List<KaiyanVideoItem> datas) {
                 if (mView.get() != null) {
-                    mView.get().initLocalDataSuccess(data);
+                    mView.get().initLocalDataSuccess(datas);
                 }
             }
 

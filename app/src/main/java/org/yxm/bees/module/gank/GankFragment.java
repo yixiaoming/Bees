@@ -1,4 +1,4 @@
-package org.yxm.bees.module.news;
+package org.yxm.bees.module.gank;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,30 +13,30 @@ import android.view.ViewGroup;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.module.news.tab.NewsTabFragment;
+import org.yxm.bees.module.gank.tab.NewsTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
-public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
-        implements INewsView {
+public class GankFragment extends BaseMvpFragment<IGankView, GankPresenter>
+        implements IGankView {
 
-    private static final String TAG = "NewsFragment";
+    private static final String TAG = "GankFragment";
 
     private TabLayout mTablayout;
     private ViewPager mViewpager;
 
-    private NewsPagerAdapter mViewpagerAdapter;
+    private GankPagerAdapter mViewpagerAdapter;
 
-    public static NewsFragment newInstance() {
-        return new NewsFragment();
+    public static GankFragment newInstance() {
+        return new GankFragment();
     }
 
     @Override
-    protected NewsPresenter createPresenter() {
-        return new NewsPresenter();
+    protected GankPresenter createPresenter() {
+        return new GankPresenter();
     }
 
     @Nullable
@@ -75,7 +75,7 @@ public class NewsFragment extends BaseMvpFragment<INewsView, NewsPresenter>
             fragments.add(NewsTabFragment.newInstance(tabinfo));
         }
         // getChildFragmentManager()：fragment下面的子fragment，child的fragmentmanager
-        mViewpagerAdapter = new NewsPagerAdapter(getChildFragmentManager(), titles, fragments);
+        mViewpagerAdapter = new GankPagerAdapter(getChildFragmentManager(), titles, fragments);
         mTablayout.setTabsFromPagerAdapter(mViewpagerAdapter);
         mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTablayout.setupWithViewPager(mViewpager);

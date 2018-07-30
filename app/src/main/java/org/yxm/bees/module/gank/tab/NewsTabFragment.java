@@ -1,4 +1,4 @@
-package org.yxm.bees.module.news.tab;
+package org.yxm.bees.module.gank.tab;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,8 +22,8 @@ import org.yxm.bees.util.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresenter>
-        implements INewsTabView {
+public class NewsTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresenter>
+        implements IGankTabView {
 
     public static final String TAG = "NewsTabFragment";
 
@@ -31,7 +31,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
 
     private SwipeRefreshLayout mSwipeLayout;
     private RecyclerView mRecyclerview;
-    private NewsTabItemRecyclerAdapter mAdapter;
+    private GankTabRecyclerAdapter mAdapter;
 
     private String mType;
 
@@ -46,8 +46,8 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
     }
 
     @Override
-    protected NewsTabPresenter createPresenter() {
-        return new NewsTabPresenter();
+    protected GankTabPresenter createPresenter() {
+        return new GankTabPresenter();
     }
 
     @Nullable
@@ -81,7 +81,7 @@ public class NewsTabFragment extends BaseMvpFragment<INewsTabView, NewsTabPresen
 
         mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
 
-        mAdapter = new NewsTabItemRecyclerAdapter(new ArrayList<>());
+        mAdapter = new GankTabRecyclerAdapter(new ArrayList<>());
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerview.addOnScrollListener(new SwipeStopVideoListener());

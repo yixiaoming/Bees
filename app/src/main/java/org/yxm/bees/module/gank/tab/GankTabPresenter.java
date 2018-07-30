@@ -1,4 +1,4 @@
-package org.yxm.bees.module.news.tab;
+package org.yxm.bees.module.gank.tab;
 
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.entity.gankio.GankEntity;
@@ -7,11 +7,11 @@ import org.yxm.bees.model.IGankModel;
 
 import java.util.List;
 
-public class NewsTabPresenter extends BasePresenter<INewsTabView> {
+public class GankTabPresenter extends BasePresenter<IGankTabView> {
 
     private IGankModel mGankModel;
 
-    public NewsTabPresenter() {
+    public GankTabPresenter() {
         this.mGankModel = new GankModel();
     }
 

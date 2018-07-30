@@ -1,14 +1,14 @@
-package org.yxm.bees.module.news;
+package org.yxm.bees.module.gank;
 
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.model.GankModel;
 import org.yxm.bees.model.IGankModel;
 
-public class NewsPresenter extends BasePresenter<INewsView> {
+public class GankPresenter extends BasePresenter<IGankView> {
 
     private IGankModel mGankModel;
 
-    public NewsPresenter() {
+    public GankPresenter() {
         mGankModel = new GankModel();
     }
 
