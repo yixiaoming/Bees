@@ -19,7 +19,7 @@ public class KaiyanTabPresenter extends BasePresenter<IKaiyanTabView> {
         mModel = new KaiyanModel();
     }
 
-    public void initData(int tabid) {
+    public void initLocalData(int tabid) {
         mModel.loadLocalVideos(tabid, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
             @Override
             public void onSuccess(List<KaiyanVideoItem> datas) {
@@ -37,7 +37,7 @@ public class KaiyanTabPresenter extends BasePresenter<IKaiyanTabView> {
         });
     }
 
-    public void loadNetVideos(int tabId) {
+    public void loadLocalDataFailed(int tabId) {
         mModel.loadNetVideos(tabId, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
 
             @Override
@@ -51,6 +51,25 @@ public class KaiyanTabPresenter extends BasePresenter<IKaiyanTabView> {
             public void onFailed(Throwable t) {
                 if (mView.get() != null) {
                     mView.get().initNetDataFailed(t);
+                }
+            }
+        });
+    }
+
+    public void onRefresh(int tabId) {
+        mModel.loadNextPageVideos(tabId, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
+
+            @Override
+            public void onSuccess(List<KaiyanVideoItem> datas) {
+                if (mView.get() != null) {
+                    mView.get().doRefreshSuccess(datas);
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable t) {
+                if (mView.get() != null) {
+                    mView.get().doRefreshFailed(t);
                 }
             }
         });

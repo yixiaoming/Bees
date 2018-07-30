@@ -14,4 +14,8 @@ public interface IKaiyanTabView {
     void initLocalDataFailed(Throwable t);
 
     void initNetDataFailed(Throwable t);
+
+    void doRefreshSuccess(List<KaiyanVideoItem> datas);
+
+    void doRefreshFailed(Throwable t);
 }

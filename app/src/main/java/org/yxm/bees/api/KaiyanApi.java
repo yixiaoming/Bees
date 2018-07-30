@@ -22,4 +22,11 @@ public interface KaiyanApi {
     Call<KaiyanVideoList> getVideoList(
             @Query("id") int id
     );
+
+    @GET("api/v4/categories/videoList")
+    Call<KaiyanVideoList> getVideoList(
+            @Query("id") int id,
+            @Query("start") int start,
+            @Query("num") int num
+    );
 }

@@ -74,7 +74,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
         mRecyclerView = root.findViewById(R.id.recyclerview);
 
         mRefresyLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-//        mRefresyLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
+        mRefresyLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mTabId));
 
         mAdapter = new KaiyanRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -86,7 +86,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRefresyLayout.setRefreshing(true);
-        mPresenter.initData(mTabId);
+        mPresenter.initLocalData(mTabId);
     }
 
 
@@ -101,11 +101,23 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     @Override
     public void initLocalDataFailed(Throwable t) {
         mRefresyLayout.setRefreshing(true);
-        mPresenter.loadNetVideos(mTabId);
+        mPresenter.loadLocalDataFailed(mTabId);
     }
 
     @Override
     public void initNetDataFailed(Throwable t) {
         ToastUtil.s(getContext(), "加载开眼数据失败：" + t);
+    }
+
+    @Override
+    public void doRefreshSuccess(List<KaiyanVideoItem> datas) {
+        mRefresyLayout.setRefreshing(false);
+        mAdapter.addDataFront(datas);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void doRefreshFailed(Throwable t) {
+        ToastUtil.s(getContext(), "刷新数据失败：" + t);
     }
 }

@@ -3,6 +3,7 @@ package org.yxm.bees.model;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 
 import org.yxm.bees.api.KaiyanApi;
 import org.yxm.bees.db.AppDatabase;
@@ -14,6 +15,7 @@ import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.internal.operators.maybe.MaybeIsEmpty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,8 +30,11 @@ public class KaiyanModel implements IKaiyanModel {
 
     public static final String TAG = "KaiyanModel";
     public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
+    public static final String DEFAULT_NEXT_PAGE_URL = "http://baobab.kaiyanapp.com/api/v4/categories/videoList?start=10&num=10&strategy=date&id=";
 
-    private String mNextPageUrl = "";
+    private static final int DEFAULT_PAGE_SIZE = 10;
+
+    private int mStart = DEFAULT_PAGE_SIZE;
 
     @Override
     public void loadLocalCatetories(LoadDataListener listener) {
@@ -78,6 +83,47 @@ public class KaiyanModel implements IKaiyanModel {
     }
 
     @Override
+    public void loadNextPageVideos(int tabId, LoadDataListener listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Call<KaiyanVideoList> call = retrofit
+                .create(KaiyanApi.class)
+                .getVideoList(tabId, mStart, DEFAULT_PAGE_SIZE);
+        call.enqueue(new Callback<KaiyanVideoList>() {
+            @Override
+            public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
+                KaiyanVideoList list = response.body();
+                List<KaiyanVideoItem> videoItems = new ArrayList<>();
+                for (KaiyanVideoItem item : list.itemList) {
+                    if (item.data == null || item.data.author == null || item.data.cover == null
+                            || item.data.playUrl == null || item.data.webUrl == null) {
+                        continue;
+                    }
+                    item.tabId = tabId;
+                    videoItems.add(item);
+                }
+                if (videoItems.size() > 0) {
+                    listener.onSuccess(videoItems);
+                    new Thread(() -> {
+                        KaiyanDao dao = AppDatabase.getInstance().getKaiyanDao();
+                        dao.insertVideos(videoItems);
+                    }).start();
+                    mStart += DEFAULT_PAGE_SIZE;
+                } else {
+                    listener.onFailed(new RuntimeException("load video net data failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KaiyanVideoList> call, Throwable t) {
+                listener.onFailed(t);
+            }
+        });
+    }
+
+    @Override
     public void loadLocalVideos(int tabid, LoadDataListener listener) {
         Handler handler = new Handler(Looper.getMainLooper());
         new Thread(() -> {
@@ -104,7 +150,6 @@ public class KaiyanModel implements IKaiyanModel {
             @Override
             public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
                 KaiyanVideoList list = response.body();
-                mNextPageUrl = list.nextPageUrl;
                 List<KaiyanVideoItem> videoItems = new ArrayList<>();
                 for (KaiyanVideoItem item : list.itemList) {
                     if (item.data == null || item.data.author == null || item.data.cover == null
