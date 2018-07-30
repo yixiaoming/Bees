@@ -4,25 +4,25 @@
     <item
         android:id="@+id/action_news"
         android:enabled="true"
-        android:icon="@drawable/ic_fiber_new_black_20dp"
+        android:icon="@drawable/ic_bottom_fiber_news"
         android:title="@string/title_news"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_video"
         android:enabled="true"
-        android:icon="@drawable/ic_bottom_item_video"
+        android:icon="@drawable/ic_bottom_video"
         android:title="@string/title_video"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_music"
         android:enabled="true"
-        android:icon="@drawable/ic_audiotrack_black_20dp"
+        android:icon="@drawable/ic_bottom_audiotrack"
         android:title="@string/title_photo"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_personal"
         android:enabled="true"
-        android:icon="@drawable/ic_person_black_20dp"
+        android:icon="@drawable/ic_bottom_person"
         android:title="@string/title_wo"
         app:showAsAction="ifRoom"/>
 </menu>
