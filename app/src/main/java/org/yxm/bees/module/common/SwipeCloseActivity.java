@@ -16,6 +16,7 @@ import android.view.View;
 
 public class SwipeCloseActivity extends AppCompatActivity {
 
+    private static final String TAG = "SwipeCloseActivity";
     protected View mDecorView;
     protected int screenWidth;
 
@@ -63,7 +64,8 @@ public class SwipeCloseActivity extends AppCompatActivity {
                 if (mDistanceX > 0
                         && (Math.abs(mDistanceX) > Math.abs(mDistanceY))) {
                     mDecorView.setX(mDistanceX);
-
+                } else {
+                    mDecorView.setX(0);
                 }
                 return true;
             case MotionEvent.ACTION_UP:
@@ -74,12 +76,15 @@ public class SwipeCloseActivity extends AppCompatActivity {
                 if (mMoveFlag != MoveStatus.START_MOVE) {
                     break;
                 }
-                if (mDistanceX > 0
-                        && (Math.abs(mDistanceX) > Math.abs(mDistanceY))
-                        && mDistanceX > screenWidth / 3) {
-                    decorViewMoveOut(mDistanceX);
+                if (mDistanceX > 0) {
+                    if ((Math.abs(mDistanceX) > Math.abs(mDistanceY)
+                            && mDistanceX > screenWidth / 3)) {
+                        decorViewMoveOut(mDistanceX);
+                    } else {
+                        decorViewBackToOrigin(mDistanceX);
+                    }
                 } else {
-                    decorViewBackToOrigin(mDistanceX);
+                    mDecorView.setX(0);
                 }
                 mMoveFlag = MoveStatus.END_MOVE;
                 return true;
