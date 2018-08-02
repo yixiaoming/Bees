@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.module.gank.tab.NewsTabFragment;
+import org.yxm.bees.module.gank.tab.GankTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class GankFragment extends BaseMvpFragment<IGankView, GankPresenter>
         List<Fragment> fragments = new ArrayList<>();
         for (GankTabEntity tabinfo : tabInfos) {
             titles.add(tabinfo.name);
-            fragments.add(NewsTabFragment.newInstance(tabinfo));
+            fragments.add(GankTabFragment.newInstance(tabinfo));
         }
         // getChildFragmentManager()：fragment下面的子fragment，child的fragmentmanager
         mViewpagerAdapter = new GankPagerAdapter(getChildFragmentManager(), titles, fragments);

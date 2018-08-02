@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
+import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
@@ -22,21 +24,22 @@ import org.yxm.bees.util.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresenter>
+public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresenter>
         implements IGankTabView {
 
-    public static final String TAG = "NewsTabFragment";
+    public static final String TAG = "GankTabFragment";
 
     public static final String ARGS_TYPE = "type";
 
-    private SwipeRefreshLayout mSwipeLayout;
+    private PullRefreshLoadMoreLayout mRefreshLayout;
+    //    private SwipeRefreshLayout mSwipeLayout;
     private RecyclerView mRecyclerview;
     private GankTabRecyclerAdapter mAdapter;
 
     private String mType;
 
     public static Fragment newInstance(GankTabEntity tabinfo) {
-        NewsTabFragment fragment = new NewsTabFragment();
+        GankTabFragment fragment = new GankTabFragment();
 
         Bundle bundle = new Bundle();
         bundle.putString(ARGS_TYPE, tabinfo.type);
@@ -74,12 +77,71 @@ public class NewsTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     }
 
     private void initViews(View root) {
-        mSwipeLayout = root.findViewById(R.id.swiperefresh_layout);
+        mRefreshLayout = root.findViewById(R.id.refresh_loadmore_layout);
+        mRefreshLayout.setPercentListener(new PullRefreshLoadMoreLayout.IProcessPercentListener() {
+            @Override
+            public void onRefreshPercent(int percent) {
+            }
+
+            @Override
+            public void onLoadmorePercent(int percent) {
+            }
+        });
+
+        mRefreshLayout.setRefreshLoadmoreListener(new PullRefreshLoadMoreLayout.IRefreshLoadmoreListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtil.s(getContext(), "onRefresh:");
+                                mRefreshLayout.resetLayoutPosition();
+                            }
+                        });
+
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onLoadmore() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2 * 1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        getActivity().runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                ToastUtil.s(getContext(), "onLoadmore:");
+                                mRefreshLayout.resetLayoutPosition();
+                            }
+                        });
+
+                    }
+                }).start();
+
+            }
+        });
+//        mSwipeLayout = root.findViewById(R.id.swiperefresh_layout);
         mRecyclerview = root.findViewById(R.id.recyclerview);
 
-        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-
-        mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
+//        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+//
+//        mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
 
         mAdapter = new GankTabRecyclerAdapter(new ArrayList<>());
         mRecyclerview.setAdapter(mAdapter);
@@ -92,7 +154,7 @@ public class NewsTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
         if (datas == null || datas.size() == 0) {
-            mSwipeLayout.setRefreshing(true);
+//            mSwipeLayout.setRefreshing(true);
             mPresenter.onRefresh(mType);
         }
         LogUtil.d("initDatas: type:" + mType + " size:" + datas.size());
@@ -108,12 +170,12 @@ public class NewsTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     public void onRefreshSuccess(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
-        mSwipeLayout.setRefreshing(false);
+//        mSwipeLayout.setRefreshing(false);
     }
 
     @Override
     public void onRefreshFailed(Exception e) {
-        mSwipeLayout.setRefreshing(false);
+//        mSwipeLayout.setRefreshing(false);
         LogUtil.d("onLoadMoreFailed:" + e);
         ToastUtil.s(getContext(), e.toString());
     }

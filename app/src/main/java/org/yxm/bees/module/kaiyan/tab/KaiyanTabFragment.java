@@ -36,7 +36,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     private int mTabId;
 
     private RecyclerView mRecyclerView;
-    private SwipeRefreshLayout mRefresyLayout;
+//    private SwipeRefreshLayout mRefresyLayout;
     private KaiyanRecyclerAdapter mAdapter;
 
 
@@ -70,11 +70,11 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     }
 
     private void initViews(View root) {
-        mRefresyLayout = root.findViewById(R.id.swiperefresh_layout);
+//        mRefresyLayout = root.findViewById(R.id.swiperefresh_layout);
         mRecyclerView = root.findViewById(R.id.recyclerview);
 
-        mRefresyLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-        mRefresyLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mTabId));
+//        mRefresyLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
+//        mRefresyLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mTabId));
 
         mAdapter = new KaiyanRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -85,7 +85,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRefresyLayout.setRefreshing(true);
+//        mRefresyLayout.setRefreshing(true);
         mPresenter.initLocalData(mTabId);
     }
 
@@ -93,14 +93,14 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     @Override
     public void initLocalDataSuccess(List<KaiyanVideoItem> datas) {
         Log.d(TAG, "initLocalDataSuccess: " + datas.size());
-        mRefresyLayout.setRefreshing(false);
+//        mRefresyLayout.setRefreshing(false);
         mAdapter.addDataFront(datas);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void initLocalDataFailed(Throwable t) {
-        mRefresyLayout.setRefreshing(true);
+//        mRefresyLayout.setRefreshing(true);
         mPresenter.loadLocalDataFailed(mTabId);
     }
 
@@ -111,7 +111,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
 
     @Override
     public void doRefreshSuccess(List<KaiyanVideoItem> datas) {
-        mRefresyLayout.setRefreshing(false);
+//        mRefresyLayout.setRefreshing(false);
         mAdapter.addDataFront(datas);
         mAdapter.notifyDataSetChanged();
     }

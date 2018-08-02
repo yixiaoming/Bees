@@ -4,15 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/swiperefresh_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <org.yxm.bees.module.common.PullRefreshLoadMoreLayout
+            android:id="@+id/refresh_loadmore_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </org.yxm.bees.module.common.PullRefreshLoadMoreLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 </FrameLayout>
