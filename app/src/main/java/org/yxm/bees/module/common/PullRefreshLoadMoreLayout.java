@@ -113,8 +113,8 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
     public static final int STATE_RESET = -1;
     public static final int STATE_TRY_REFRESH = 0;
     public static final int STATE_TRY_LOADMORE = 1;
-    public static final int STATE_REFRESHING = 3;
-    public static final int STATE_LOADMOREING = 4;
+    public static final int STATE_REFRESHING = 2;
+    public static final int STATE_LOADMOREING = 3;
 
 
     @Override
@@ -122,9 +122,9 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
         boolean intercept = false;
         int y = (int) ev.getY();
 
-        if (mState == STATE_REFRESHING || mState == STATE_LOADMOREING) {
-            return false;
-        }
+//        if (mState == STATE_REFRESHING || mState == STATE_LOADMOREING) {
+//            return false;
+//        }
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -133,10 +133,10 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 if (y > mLastInterceptY) {
                     intercept = shouldInterceptRefresh(child0);
-                    if (intercept) mState = STATE_TRY_REFRESH;
+                    if (intercept && mState == STATE_RESET) mState = STATE_TRY_REFRESH;
                 } else {
                     intercept = shouldInterceptLoadmore(child0);
-                    if (intercept) mState = STATE_TRY_LOADMORE;
+                    if (intercept && mState == STATE_RESET) mState = STATE_TRY_LOADMORE;
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -146,12 +146,6 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
         mLastInterceptY = y;
 
         return intercept;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.e(TAG, "dispatchTouchEvent: ");
-        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -165,11 +159,11 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 dy = y - mLastInterceptY;
                 Log.e(TAG, "onTouchEvent: state:" + mState + " dy:" + dy + " scrollY:" + scrollY);
-                if (mState == STATE_TRY_REFRESH && scrollY <= 0) {
+                if (mState == STATE_TRY_REFRESH || mState == STATE_REFRESHING && scrollY <= 0) {
                     scrollBy(0, -dy);
                     Log.e(TAG, "1scroll:" + dy);
                 }
-                if (mState == STATE_TRY_LOADMORE && scrollY >= 0) {
+                if (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING && scrollY >= 0) {
                     scrollBy(0, -dy);
                     Log.e(TAG, "2scroll:" + dy);
                 }
@@ -183,7 +177,9 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
                         mContentText.setText("继续下拉");
                     }
                     if (mPercentListener != null) {
-                        mPercentListener.onRefreshPercent((int) (percent * 100));
+                        if (!(mState == STATE_REFRESHING || mState == STATE_LOADMOREING)) {
+                            mPercentListener.onRefreshPercent((int) (percent * 100));
+                        }
                     }
                 } else if (mState == STATE_TRY_LOADMORE) {
                     percent = (float) (Math.abs(scrollY) * 1.0 / mFooter.getHeight());
@@ -199,23 +195,31 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (mState == STATE_TRY_REFRESH) {
+                if (mState == STATE_TRY_REFRESH || mState == STATE_REFRESHING) {
                     if (Math.abs(scrollY) > mHeader.getHeight()) {
-                        if (mListener != null) {
-                            mListener.onRefresh();
-                            mContentText.setText("正在刷新");
+                        if (mState == STATE_TRY_REFRESH) {
+                            if (mListener != null) {
+                                mListener.onRefresh();
+                                mContentText.setText("正在刷新");
+                            }
                         }
+
                         moveLayoutToHeaderHeight();
                     } else {
                         resetLayoutPosition();
                     }
 
-                } else if (mState == STATE_TRY_LOADMORE) {
+                } else if (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING) {
+
                     if (Math.abs(scrollY) > mFooter.getHeight()) {
-                        if (mListener != null) {
-                            mListener.onLoadmore();
-                            mContentText.setText("正在加载更多");
+                        if (mState == STATE_TRY_LOADMORE) {
+                            if (mListener != null) {
+
+                                mListener.onLoadmore();
+                                mContentText.setText("正在加载更多");
+                            }
                         }
+
                         moveLayoutToFooterHeight();
                     } else {
                         resetLayoutPosition();
