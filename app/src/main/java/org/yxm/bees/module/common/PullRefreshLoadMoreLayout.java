@@ -122,10 +122,6 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
         boolean intercept = false;
         int y = (int) ev.getY();
 
-//        if (mState == STATE_REFRESHING || mState == STATE_LOADMOREING) {
-//            return false;
-//        }
-
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mLastInterceptY = y;
@@ -159,13 +155,28 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 dy = y - mLastInterceptY;
                 Log.e(TAG, "onTouchEvent: state:" + mState + " dy:" + dy + " scrollY:" + scrollY);
+                if (scrollY > 0 && (mState == STATE_TRY_REFRESH || mState == STATE_REFRESHING)) {
+                    scrollTo(0, 0);
+                    mState = STATE_RESET;
+                    MotionEvent obtain = MotionEvent.obtain(ev);
+                    obtain.setAction(MotionEvent.ACTION_DOWN);
+                    this.dispatchTouchEvent(obtain);
+                    break;
+                }
+                if (scrollY < 0 && (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING)){
+                    scrollTo(0, 0);
+                    mState = STATE_RESET;
+                    MotionEvent obtain = MotionEvent.obtain(ev);
+                    obtain.setAction(MotionEvent.ACTION_DOWN);
+                    this.dispatchTouchEvent(obtain);
+                    break;
+                }
+
                 if (mState == STATE_TRY_REFRESH || mState == STATE_REFRESHING && scrollY <= 0) {
                     scrollBy(0, -dy);
-                    Log.e(TAG, "1scroll:" + dy);
                 }
                 if (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING && scrollY >= 0) {
                     scrollBy(0, -dy);
-                    Log.e(TAG, "2scroll:" + dy);
                 }
 
                 if (mState == STATE_TRY_REFRESH) {
