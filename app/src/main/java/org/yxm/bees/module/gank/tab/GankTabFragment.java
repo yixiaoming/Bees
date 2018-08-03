@@ -80,11 +80,11 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
         mRefreshLayout = root.findViewById(R.id.refresh_loadmore_layout);
         mRefreshLayout.setPercentListener(new PullRefreshLoadMoreLayout.IProcessPercentListener() {
             @Override
-            public void onRefreshPercent(int percent) {
+            public void onRefreshPercent(float percent) {
             }
 
             @Override
-            public void onLoadmorePercent(int percent) {
+            public void onLoadmorePercent(float percent) {
             }
         });
 

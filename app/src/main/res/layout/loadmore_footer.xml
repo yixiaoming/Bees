@@ -2,23 +2,17 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/grey500">
-
-    <ProgressBar
-        android:id="@+id/loadmore_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+    android:layout_height="@dimen/loadmore_footer_height">
 
     <TextView
-        android:id="@+id/loadmore_text"
+        android:id="@+id/state_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/loadmore_progress"
-        android:text="load more"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/logo_container"
+        android:text="@string/push_to_loadmore"
+        android:textSize="16sp"/>
 
 </RelativeLayout>
