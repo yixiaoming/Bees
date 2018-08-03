@@ -21,20 +21,20 @@ public class GankTabPresenter extends BasePresenter<IGankTabView> {
             @Override
             public void onSuccess(List<GankEntity> contents) {
                 if (mView.get() != null) {
-                    mView.get().initDatas(contents);
+                    mView.get().onInitDataSuccess(contents);
                 }
             }
 
             @Override
             public void onFailed(Exception e) {
                 if (mView.get() != null) {
-                    mView.get().initDatasFailed(e);
+                    mView.get().onInitDataFailed(e);
                 }
             }
         });
     }
 
-    public void onRefresh(String type) {
+    public void doRefresh(String type) {
         mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
             @Override
@@ -53,7 +53,7 @@ public class GankTabPresenter extends BasePresenter<IGankTabView> {
         });
     }
 
-    public void onLoadMore(String type) {
+    public void doLoadmore(String type) {
         mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
             @Override

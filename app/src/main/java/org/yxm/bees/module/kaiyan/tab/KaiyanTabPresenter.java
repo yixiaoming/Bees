@@ -7,6 +7,8 @@ import org.yxm.bees.model.KaiyanModel;
 
 import java.util.List;
 
+import io.reactivex.internal.operators.flowable.FlowableGroupBy;
+
 /**
  * Created by yxm on 2018.7.29.
  */
@@ -19,57 +21,77 @@ public class KaiyanTabPresenter extends BasePresenter<IKaiyanTabView> {
         mModel = new KaiyanModel();
     }
 
-    public void initLocalData(int tabid) {
+    public void doInitLocalData(int tabid) {
         mModel.loadLocalVideos(tabid, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
             @Override
             public void onSuccess(List<KaiyanVideoItem> datas) {
                 if (mView.get() != null) {
-                    mView.get().initLocalDataSuccess(datas);
+                    mView.get().onInitLocalDataSuccess(datas);
                 }
             }
 
             @Override
             public void onFailed(Throwable t) {
                 if (mView.get() != null) {
-                    mView.get().initLocalDataFailed(t);
+                    mView.get().onInitLocalDataFailed(t);
                 }
             }
         });
     }
 
-    public void loadLocalDataFailed(int tabId) {
+    public void doLoadNetData(int tabId) {
         mModel.loadNetVideos(tabId, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
 
             @Override
             public void onSuccess(List<KaiyanVideoItem> data) {
                 if (mView.get() != null) {
-                    mView.get().initLocalDataSuccess(data);
+                    mView.get().onInitNetDataSuccess(data);
                 }
             }
 
             @Override
             public void onFailed(Throwable t) {
                 if (mView.get() != null) {
-                    mView.get().initNetDataFailed(t);
+                    mView.get().onInitNetDataFailed(t);
                 }
             }
         });
     }
 
-    public void onRefresh(int tabId) {
+    public void doRefresh(int tabId) {
         mModel.loadNextPageVideos(tabId, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
 
             @Override
             public void onSuccess(List<KaiyanVideoItem> datas) {
                 if (mView.get() != null) {
-                    mView.get().doRefreshSuccess(datas);
+                    mView.get().onRefreshSuccess(datas);
                 }
             }
 
             @Override
             public void onFailed(Throwable t) {
                 if (mView.get() != null) {
-                    mView.get().doRefreshFailed(t);
+                    mView.get().onRefreshFailed(t);
+                }
+            }
+        });
+    }
+
+
+    public void doLoadmore(int tabId) {
+        mModel.loadNextPageVideos(tabId, new IKaiyanModel.LoadDataListener<List<KaiyanVideoItem>>() {
+
+            @Override
+            public void onSuccess(List<KaiyanVideoItem> datas) {
+                if (mView.get() != null) {
+                    mView.get().onLoadmoreSuccess(datas);
+                }
+            }
+
+            @Override
+            public void onFailed(Throwable t) {
+                if (mView.get() != null) {
+                    mView.get().onLoadmoreFailed(t);
                 }
             }
         });

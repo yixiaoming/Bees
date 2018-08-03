@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IGankTabView {
 
-    void initDatas(List<GankEntity> datas);
+    void onInitDataSuccess(List<GankEntity> datas);
 
-    void initDatasFailed(Exception e);
+    void onInitDataFailed(Exception e);
 
     void onRefreshSuccess(List<GankEntity> datas);
 

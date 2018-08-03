@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,7 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
 import org.yxm.bees.util.LogUtil;
 import org.yxm.bees.util.ToastUtil;
@@ -36,7 +35,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     private int mTabId;
 
     private RecyclerView mRecyclerView;
-//    private SwipeRefreshLayout mRefresyLayout;
+    private PullRefreshLoadMoreLayout mRefreshLayout;
     private KaiyanRecyclerAdapter mAdapter;
 
 
@@ -70,11 +69,19 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     }
 
     private void initViews(View root) {
-//        mRefresyLayout = root.findViewById(R.id.swiperefresh_layout);
-        mRecyclerView = root.findViewById(R.id.recyclerview);
+        mRefreshLayout = root.findViewById(R.id.refresh_loadmore_layout);
+        mRefreshLayout.setRefreshLoadmoreListener(new PullRefreshLoadMoreLayout.IRefreshLoadmoreListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.doRefresh(mTabId);
+            }
 
-//        mRefresyLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-//        mRefresyLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mTabId));
+            @Override
+            public void onLoadmore() {
+                mPresenter.doLoadmore(mTabId);
+            }
+        });
+        mRecyclerView = root.findViewById(R.id.recyclerview);
 
         mAdapter = new KaiyanRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -85,39 +92,59 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        mRefresyLayout.setRefreshing(true);
-        mPresenter.initLocalData(mTabId);
+        mRefreshLayout.setRefreshing(true);
+        mPresenter.doInitLocalData(mTabId);
     }
 
-
     @Override
-    public void initLocalDataSuccess(List<KaiyanVideoItem> datas) {
-        Log.d(TAG, "initLocalDataSuccess: " + datas.size());
-//        mRefresyLayout.setRefreshing(false);
+    public void onInitLocalDataSuccess(List<KaiyanVideoItem> datas) {
         mAdapter.addDataFront(datas);
         mAdapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void initLocalDataFailed(Throwable t) {
-//        mRefresyLayout.setRefreshing(true);
-        mPresenter.loadLocalDataFailed(mTabId);
+    public void onInitLocalDataFailed(Throwable t) {
+        mPresenter.doLoadNetData(mTabId);
+        mRefreshLayout.setRefreshing(true);
     }
 
     @Override
-    public void initNetDataFailed(Throwable t) {
+    public void onInitNetDataSuccess(List<KaiyanVideoItem> datas) {
+        mAdapter.addDataFront(datas);
+        mAdapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onInitNetDataFailed(Throwable t) {
         ToastUtil.s(getContext(), "加载开眼数据失败：" + t);
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void doRefreshSuccess(List<KaiyanVideoItem> datas) {
-//        mRefresyLayout.setRefreshing(false);
+    public void onRefreshSuccess(List<KaiyanVideoItem> datas) {
         mAdapter.addDataFront(datas);
         mAdapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void doRefreshFailed(Throwable t) {
+    public void onRefreshFailed(Throwable t) {
         ToastUtil.s(getContext(), "刷新数据失败：" + t);
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoadmoreSuccess(List<KaiyanVideoItem> datas) {
+        mAdapter.addDatasEnd(datas);
+        mAdapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onLoadmoreFailed(Throwable t) {
+        ToastUtil.s(getContext(), "加载更多数据失败：" + t);
+        mRefreshLayout.setRefreshing(false);
     }
 }

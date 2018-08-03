@@ -291,6 +291,15 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
         mState = STATE_RESET;
     }
 
+    public void setRefreshing(boolean inRefresh){
+        if (inRefresh) {
+            moveLayoutToHeaderHeight();
+        }
+        else{
+            resetLayoutPosition();
+        }
+    }
+
     private boolean shouldInterceptRefresh(View child) {
         if (child instanceof RecyclerView) {
             return ((RecyclerView) child).computeVerticalScrollOffset() <= 0;

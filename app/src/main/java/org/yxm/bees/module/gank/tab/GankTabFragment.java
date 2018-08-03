@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +30,6 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     public static final String ARGS_TYPE = "type";
 
     private PullRefreshLoadMoreLayout mRefreshLayout;
-    //    private SwipeRefreshLayout mSwipeLayout;
     private RecyclerView mRecyclerview;
     private GankTabRecyclerAdapter mAdapter;
 
@@ -78,70 +75,18 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
 
     private void initViews(View root) {
         mRefreshLayout = root.findViewById(R.id.refresh_loadmore_layout);
-        mRefreshLayout.setPercentListener(new PullRefreshLoadMoreLayout.IProcessPercentListener() {
-            @Override
-            public void onRefreshPercent(float percent) {
-            }
-
-            @Override
-            public void onLoadmorePercent(float percent) {
-            }
-        });
-
         mRefreshLayout.setRefreshLoadmoreListener(new PullRefreshLoadMoreLayout.IRefreshLoadmoreListener() {
             @Override
             public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ToastUtil.s(getContext(), "onRefresh:");
-                                mRefreshLayout.resetLayoutPosition();
-                            }
-                        });
-
-                    }
-                }).start();
+                mPresenter.doRefresh(mType);
             }
 
             @Override
             public void onLoadmore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2 * 1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        getActivity().runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                ToastUtil.s(getContext(), "onLoadmore:");
-                                mRefreshLayout.resetLayoutPosition();
-                            }
-                        });
-
-                    }
-                }).start();
-
+                mPresenter.doLoadmore(mType);
             }
         });
-//        mSwipeLayout = root.findViewById(R.id.swiperefresh_layout);
         mRecyclerview = root.findViewById(R.id.recyclerview);
-
-//        mSwipeLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
-//
-//        mSwipeLayout.setOnRefreshListener(() -> mPresenter.onRefresh(mType));
 
         mAdapter = new GankTabRecyclerAdapter(new ArrayList<>());
         mRecyclerview.setAdapter(mAdapter);
@@ -150,46 +95,45 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     }
 
     @Override
-    public void initDatas(List<GankEntity> datas) {
+    public void onInitDataSuccess(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
         if (datas == null || datas.size() == 0) {
-//            mSwipeLayout.setRefreshing(true);
-            mPresenter.onRefresh(mType);
+            mRefreshLayout.setRefreshing(true);
+            mPresenter.doRefresh(mType);
         }
-        LogUtil.d("initDatas: type:" + mType + " size:" + datas.size());
     }
 
     @Override
-    public void initDatasFailed(Exception e) {
-        LogUtil.d("initDatasFailed:" + e);
+    public void onInitDataFailed(Exception e) {
         ToastUtil.s(getContext(), e.toString());
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onRefreshSuccess(List<GankEntity> datas) {
         mAdapter.insertFront(datas);
         mAdapter.notifyDataSetChanged();
-//        mSwipeLayout.setRefreshing(false);
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onRefreshFailed(Exception e) {
-//        mSwipeLayout.setRefreshing(false);
-        LogUtil.d("onLoadMoreFailed:" + e);
         ToastUtil.s(getContext(), e.toString());
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onLoadMoreSuccess(List<GankEntity> datas) {
         mAdapter.insertEnd(datas);
         mAdapter.notifyDataSetChanged();
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onLoadMoreFailed(Exception e) {
-        LogUtil.d("onLoadMoreFailed:" + e);
         ToastUtil.s(getContext(), e.toString());
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
