@@ -2,7 +2,7 @@ package org.yxm.bees.module.gank.tab;
 
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.entity.gankio.GankEntity;
-import org.yxm.bees.model.GankModel;
+import org.yxm.bees.model.impl.GankModel;
 import org.yxm.bees.model.IGankModel;
 
 import java.util.List;

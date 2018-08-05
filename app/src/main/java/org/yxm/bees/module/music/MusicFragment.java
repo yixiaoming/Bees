@@ -1,6 +1,11 @@
 package org.yxm.bees.module.music;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -8,26 +13,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
+import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.ting.SongBillListEntity;
-import org.yxm.bees.net.TingNetManager;
+import org.yxm.bees.entity.ting.SongEntity;
+import org.yxm.bees.module.music.service.MusicService;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MusicFragment extends BaseMvpFragment<IMusicView, MusicPresenter>
+public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         implements IMusicView {
 
     private static final String TAG = "MusicFragment";
 
+    private MusicService mMusicService;
+    private MusicService.MyBinder mMusicBinder;
+
+    private Button mBtnPreSong;
+    private Button mBtnNextSong;
+    private Button mBtnPlayStop;
+    private ImageView mSongCover;
+
+    private List<SongEntity> mSongList;
+    private int mCurSoneIndex;
+
     @Override
-    protected MusicPresenter createPresenter() {
-        return new MusicPresenter();
+    protected TingPresenter createPresenter() {
+        return new TingPresenter();
     }
 
     public static MusicFragment newInstance() {
@@ -48,34 +64,47 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, MusicPresenter>
     }
 
     private void initViews(View root) {
-        Button btn = root.findViewById(R.id.btn_music_list);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TingNetManager.getSongBillListData(1, 5, 0, new Callback<SongBillListEntity>() {
-                    @Override
-                    public void onResponse(Call<SongBillListEntity> call, Response<SongBillListEntity> response) {
-                        SongBillListEntity songBillListBean = response.body();
-                        List<SongBillListEntity> list = songBillListBean.song_list;
-                        if (list != null) {
-                            Log.d(TAG, "onSuccess: :" + list.size());
-                        } else {
-                            Log.d(TAG, "onSuccess: " + songBillListBean);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SongBillListEntity> call, Throwable t) {
-
-                    }
-                });
-            }
+        mSongCover = root.findViewById(R.id.song_cover);
+        mBtnPreSong = root.findViewById(R.id.btn_pre_song);
+        mBtnNextSong = root.findViewById(R.id.btn_next_song);
+        mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
+        mBtnPlayStop.setOnClickListener(v -> {
+            SongEntity song = mSongList.get(mCurSoneIndex);
+            mMusicBinder.playMusic(song);
         });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mPresenter.doInitMusicList();
+        Intent intent = new Intent(getContext(), MusicService.class);
+        getContext().bindService(intent, new MusicServiceConnection(), Context.BIND_AUTO_CREATE);
     }
 
+    @Override
+    public void onInitMusicListSuccess(SongBillListEntity songBillListEntity) {
+        if (mSongList == null) {
+            mSongList = new ArrayList<>();
+        }
+        mSongList.addAll(songBillListEntity.song_list);
+        mCurSoneIndex = 0;
+        GlideApp.with(getContext())
+                .load(mSongList.get(mCurSoneIndex).pic_big)
+                .into(mSongCover);
+    }
+
+    private class MusicServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "onServiceConnected: " + name);
+            mMusicBinder = (MusicService.MyBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, "onServiceDisconnected: " + name);
+        }
+    }
 }

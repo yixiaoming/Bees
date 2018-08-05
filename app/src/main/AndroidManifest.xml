@@ -28,6 +28,8 @@
         <activity
             android:name=".module.common.WebViewActivity"
             android:theme="@style/AppTheme.Transparent"/>
+
+        <service android:name=".module.music.service.MusicService"/>
     </application>
 
 </manifest>

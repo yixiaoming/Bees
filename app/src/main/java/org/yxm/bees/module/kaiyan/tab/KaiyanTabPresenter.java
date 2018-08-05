@@ -3,11 +3,9 @@ package org.yxm.bees.module.kaiyan.tab;
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.model.IKaiyanModel;
-import org.yxm.bees.model.KaiyanModel;
+import org.yxm.bees.model.impl.KaiyanModel;
 
 import java.util.List;
-
-import io.reactivex.internal.operators.flowable.FlowableGroupBy;
 
 /**
  * Created by yxm on 2018.7.29.

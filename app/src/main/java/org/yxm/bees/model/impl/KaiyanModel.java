@@ -1,4 +1,4 @@
-package org.yxm.bees.model;
+package org.yxm.bees.model.impl;
 
 
 import android.os.Handler;
@@ -9,6 +9,7 @@ import org.yxm.bees.db.dao.KaiyanDao;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
+import org.yxm.bees.model.IKaiyanModel;
 import org.yxm.bees.net.RetrofitManager;
 
 import java.util.ArrayList;

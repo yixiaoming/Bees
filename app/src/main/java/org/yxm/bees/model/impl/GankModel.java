@@ -1,4 +1,4 @@
-package org.yxm.bees.model;
+package org.yxm.bees.model.impl;
 
 import android.os.Handler;
 
@@ -7,6 +7,7 @@ import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.db.dao.GankDao;
+import org.yxm.bees.model.IGankModel;
 import org.yxm.bees.net.RetrofitManager;
 
 import java.util.ArrayList;

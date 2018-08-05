@@ -1,7 +1,7 @@
 package org.yxm.bees.module.gank;
 
 import org.yxm.bees.base.BasePresenter;
-import org.yxm.bees.model.GankModel;
+import org.yxm.bees.model.impl.GankModel;
 import org.yxm.bees.model.IGankModel;
 
 public class GankPresenter extends BasePresenter<IGankView> {

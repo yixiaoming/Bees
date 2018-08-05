@@ -10,15 +10,13 @@ public class SongBillListEntity {
 
     public BillboardBean billboard;
     public String error_code;
-    public List<SongBillListEntity> song_list;
+    public List<SongEntity> song_list;
 
     protected SongBillListEntity(Parcel in) {
         error_code = in.readString();
     }
 
     public static class BillboardBean {
-
-
         public String billboard_type;
         public String billboard_no;
         public String update_date;
@@ -32,7 +30,31 @@ public class SongBillListEntity {
         public String pic_s210;
         public String web_url;
 
-
+        @Override
+        public String toString() {
+            return "BillboardBean{" +
+                    "billboard_type='" + billboard_type + '\'' +
+                    ", billboard_no='" + billboard_no + '\'' +
+                    ", update_date='" + update_date + '\'' +
+                    ", billboard_songnum='" + billboard_songnum + '\'' +
+                    ", havemore='" + havemore + '\'' +
+                    ", name='" + name + '\'' +
+                    ", comment='" + comment + '\'' +
+                    ", pic_s640='" + pic_s640 + '\'' +
+                    ", pic_s444='" + pic_s444 + '\'' +
+                    ", pic_s260='" + pic_s260 + '\'' +
+                    ", pic_s210='" + pic_s210 + '\'' +
+                    ", web_url='" + web_url + '\'' +
+                    '}';
+        }
     }
 
+    @Override
+    public String toString() {
+        return "SongBillListEntity{" +
+                "billboard=" + billboard +
+                ", error_code='" + error_code + '\'' +
+                ", song_list=" + song_list +
+                '}';
+    }
 }
