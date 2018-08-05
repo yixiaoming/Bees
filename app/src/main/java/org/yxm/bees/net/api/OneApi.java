@@ -1,4 +1,4 @@
-package org.yxm.bees.api;
+package org.yxm.bees.net.api;
 
 
 import org.yxm.bees.entity.oneapi.OneApiListEntity;

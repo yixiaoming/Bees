@@ -1,4 +1,4 @@
-package org.yxm.bees.api;
+package org.yxm.bees.net.api;
 
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
@@ -14,6 +14,8 @@ import retrofit2.http.Query;
  */
 
 public interface KaiyanApi {
+
+    public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
 
     @GET("api/v4/categories/")
     Call<List<KaiyanCategory>> getCategories();

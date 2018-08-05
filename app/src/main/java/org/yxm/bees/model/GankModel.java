@@ -2,12 +2,12 @@ package org.yxm.bees.model;
 
 import android.os.Handler;
 
-import org.yxm.bees.api.GankApi;
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.db.dao.GankDao;
+import org.yxm.bees.net.RetrofitManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +15,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GankModel implements IGankModel {
 
     private static final String TAG = "GankModel";
-
-    private static final String GANKIO_DOMAIN = "http://gank.io/api/";
 
     public static final String[] DEFAULT_TYPES = {
 //            "all",
@@ -56,13 +52,8 @@ public class GankModel implements IGankModel {
 
     @Override
     public void loadNetData(String type, LoadDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GANKIO_DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                .create(GankApi.class)
-                .getRandomContents(type, DEFAULT_PAGESIZE);
+        Call<GankBaseEntity<List<GankEntity>>> call = RetrofitManager.getInstance()
+                .getGankApi().getRandomContents(type, DEFAULT_PAGESIZE);
 
         call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
             @Override

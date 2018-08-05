@@ -3,24 +3,20 @@ package org.yxm.bees.model;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 
-import org.yxm.bees.api.KaiyanApi;
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.db.dao.KaiyanDao;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
+import org.yxm.bees.net.RetrofitManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.internal.operators.maybe.MaybeIsEmpty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by yxm on 2018.7.29.
@@ -29,8 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class KaiyanModel implements IKaiyanModel {
 
     public static final String TAG = "KaiyanModel";
-    public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
-    public static final String DEFAULT_NEXT_PAGE_URL = "http://baobab.kaiyanapp.com/api/v4/categories/videoList?start=10&num=10&strategy=date&id=";
 
     private static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -52,13 +46,8 @@ public class KaiyanModel implements IKaiyanModel {
 
     @Override
     public void loadNetCategories(LoadDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<List<KaiyanCategory>> call = retrofit
-                .create(KaiyanApi.class)
-                .getCategories();
+        Call<List<KaiyanCategory>> call = RetrofitManager.getInstance()
+                .getKaiyanApi().getCategories();
         call.enqueue(new Callback<List<KaiyanCategory>>() {
             @Override
             public void onResponse(Call<List<KaiyanCategory>> call,
@@ -84,12 +73,8 @@ public class KaiyanModel implements IKaiyanModel {
 
     @Override
     public void loadNextPageVideos(int tabId, LoadDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<KaiyanVideoList> call = retrofit
-                .create(KaiyanApi.class)
+        Call<KaiyanVideoList> call = RetrofitManager.getInstance()
+                .getKaiyanApi()
                 .getVideoList(tabId, mStart, DEFAULT_PAGE_SIZE);
         call.enqueue(new Callback<KaiyanVideoList>() {
             @Override
@@ -139,12 +124,8 @@ public class KaiyanModel implements IKaiyanModel {
 
     @Override
     public void loadNetVideos(int tabid, LoadDataListener listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<KaiyanVideoList> call = retrofit
-                .create(KaiyanApi.class)
+        Call<KaiyanVideoList> call = RetrofitManager.getInstance()
+                .getKaiyanApi()
                 .getVideoList(tabid);
         call.enqueue(new Callback<KaiyanVideoList>() {
             @Override

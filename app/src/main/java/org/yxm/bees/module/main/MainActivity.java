@@ -11,6 +11,7 @@ import org.yxm.bees.base.BaseMvpActivity;
 import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.module.kaiyan.KaiyanFragment;
 import org.yxm.bees.module.gank.GankFragment;
+import org.yxm.bees.module.music.MusicFragment;
 import org.yxm.bees.util.BottomNavigationViewHelper;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -73,7 +74,7 @@ public class MainActivity extends BaseMvpActivity
                 fragment = KaiyanFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_MUSIC)) {
-                fragment = GankFragment.newInstance();
+                fragment = MusicFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {
                 fragment = GankFragment.newInstance();

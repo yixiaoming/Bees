@@ -5,7 +5,7 @@ import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.yxm.bees.api.KaiyanApi;
+import org.yxm.bees.net.api.KaiyanApi;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
