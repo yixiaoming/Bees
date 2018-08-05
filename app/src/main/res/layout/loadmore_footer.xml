@@ -4,15 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/loadmore_footer_height">
 
-    <TextView
-        android:id="@+id/state_text"
+    <RelativeLayout
+        android:id="@+id/logo_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/logo_container"
-        android:text="@string/push_to_loadmore"
-        android:textSize="16sp"/>
+        android:layout_centerInParent="true">
+
+        <ProgressBar
+            android:id="@+id/state_progress"
+            android:layout_width="@dimen/refresh_state_logo_width"
+            android:layout_height="@dimen/refresh_state_logo_width"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/state_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/state_progress"
+            android:text="@string/push_to_loadmore"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

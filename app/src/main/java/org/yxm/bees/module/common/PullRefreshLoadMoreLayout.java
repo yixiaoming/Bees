@@ -36,6 +36,7 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
     private TextView mHeaderStateText;
     private ImageView mHeaderLogo;
     private ProgressBar mHeaderProgress;
+    private ProgressBar mFooterProgress;
 
     private TextView mFooterStateText;
 
@@ -94,6 +95,7 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
             mFooter = LayoutInflater.from(getContext()).inflate(R.layout.loadmore_footer, this, false);
             addView(mFooter);
             mFooterStateText = mFooter.findViewById(R.id.state_text);
+            mFooterProgress = mFooter.findViewById(R.id.state_progress);
         }
         mTargetView = getChildAt(0);
     }
@@ -170,7 +172,7 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
                     releaseTouchevent(ev);
                     break;
                 }
-                // 下拉过程中，方向方向导致view下移
+                // 上拉过程中，方向方向导致view下移
                 if (scrollY < 0 && (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING)) {
                     scrollTo(0, 0);
                     mState = STATE_RESET;
@@ -239,8 +241,7 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
                     } else {
                         resetLayoutPosition();
                     }
-                }
-                else {
+                } else {
                     resetLayoutPosition();
                 }
                 break;
@@ -276,7 +277,10 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
      * 回到footer显示完全位置
      */
     private void moveLayoutToFooterHeight() {
-        ObjectAnimator.ofInt(this, "scrollY", getScrollY(), mFooter.getHeight()).setDuration(ANIMATION_DURATION).start();
+        mFooterProgress.setVisibility(VISIBLE);
+        // 加载更多时不显示footer
+        // ObjectAnimator.ofInt(this, "scrollY", getScrollY(), mFooter.getHeight()).setDuration(ANIMATION_DURATION).start();
+        ObjectAnimator.ofInt(this, "scrollY", getScrollY(), 0).setDuration(ANIMATION_DURATION).start();
         mState = STATE_LOADMOREING;
     }
 
@@ -291,13 +295,21 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
         mState = STATE_RESET;
     }
 
-    public void setRefreshing(boolean inRefresh){
+    public void setRefreshing(boolean inRefresh) {
         if (inRefresh) {
             moveLayoutToHeaderHeight();
-        }
-        else{
+        } else {
             resetLayoutPosition();
         }
+    }
+
+    public void setLoadingmoreing(boolean isLoading) {
+        if (isLoading) {
+            mFooterProgress.setVisibility(VISIBLE);
+        } else {
+            mFooterProgress.setVisibility(GONE);
+        }
+        resetLayoutPosition();
     }
 
     private boolean shouldInterceptRefresh(View child) {

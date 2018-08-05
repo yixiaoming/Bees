@@ -127,13 +127,13 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     public void onLoadMoreSuccess(List<GankEntity> datas) {
         mAdapter.insertEnd(datas);
         mAdapter.notifyDataSetChanged();
-        mRefreshLayout.setRefreshing(false);
+        mRefreshLayout.setLoadingmoreing(false);
     }
 
     @Override
     public void onLoadMoreFailed(Exception e) {
         ToastUtil.s(getContext(), e.toString());
-        mRefreshLayout.setRefreshing(false);
+        mRefreshLayout.setLoadingmoreing(false);
     }
 
     @Override
