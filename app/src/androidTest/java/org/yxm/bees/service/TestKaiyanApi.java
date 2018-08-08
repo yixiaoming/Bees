@@ -28,54 +28,54 @@ public class TestKaiyanApi {
     public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
 
     public void testGetCategories() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<List<KaiyanCategory>> call = retrofit
-                .create(KaiyanApi.class)
-                .getCategories();
-        call.enqueue(new Callback<List<KaiyanCategory>>() {
-            @Override
-            public void onResponse(Call<List<KaiyanCategory>> call,
-                                   Response<List<KaiyanCategory>> response) {
-                List<KaiyanCategory> list = response.body();
-                for (KaiyanCategory category : list) {
-                    Log.d(TAG, "onResponse: " + category);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<KaiyanCategory>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-            }
-        });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        Call<List<KaiyanCategory>> call = retrofit
+//                .create(KaiyanApi.class)
+//                .getCategories();
+//        call.enqueue(new Callback<List<KaiyanCategory>>() {
+//            @Override
+//            public void onResponse(Call<List<KaiyanCategory>> call,
+//                                   Response<List<KaiyanCategory>> response) {
+//                List<KaiyanCategory> list = response.body();
+//                for (KaiyanCategory category : list) {
+//                    Log.d(TAG, "onResponse: " + category);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<KaiyanCategory>> call, Throwable t) {
+//                Log.d(TAG, "onFailure: " + t);
+//            }
+//        });
     }
 
     @Test
     public void testGetVideoList() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<KaiyanVideoList> call = retrofit
-                .create(KaiyanApi.class)
-                .getVideoList(18);
-        call.enqueue(new Callback<KaiyanVideoList>() {
-            @Override
-            public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
-                KaiyanVideoList list = response.body();
-                Log.d(TAG, "onResponse: " + list.nextPageUrl);
-                List<KaiyanVideoItem> items = list.itemList;
-                for (KaiyanVideoItem item : items) {
-                    Log.d(TAG, "onResponse: " + item);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<KaiyanVideoList> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-            }
-        });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        Call<KaiyanVideoList> call = retrofit
+//                .create(KaiyanApi.class)
+//                .getVideoList(18);
+//        call.enqueue(new Callback<KaiyanVideoList>() {
+//            @Override
+//            public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
+//                KaiyanVideoList list = response.body();
+//                Log.d(TAG, "onResponse: " + list.nextPageUrl);
+//                List<KaiyanVideoItem> items = list.itemList;
+//                for (KaiyanVideoItem item : items) {
+//                    Log.d(TAG, "onResponse: " + item);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<KaiyanVideoList> call, Throwable t) {
+//                Log.d(TAG, "onFailure: " + t);
+//            }
+//        });
     }
 }

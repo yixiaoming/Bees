@@ -1,8 +1,6 @@
 package org.yxm.bees.model.impl;
 
 import android.annotation.SuppressLint;
-import android.media.MediaSync;
-import android.util.Log;
 
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.db.dao.GankDao;
@@ -16,18 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class GankModel implements IGankModel {
 
@@ -57,21 +46,14 @@ public class GankModel implements IGankModel {
     @Override
     public void loadLocalData(String type, LoadDataListener listener) {
 
-        Observable.create(new ObservableOnSubscribe<List<GankEntity>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<GankEntity>> emitter) throws Exception {
-                GankDao dao = AppDatabase.getInstance().getGankDao();
-                List<GankEntity> datas = dao.getLastDatas(type);
-                emitter.onNext(datas);
-            }
-        }).subscribeOn(Schedulers.io())
+        Observable.create((ObservableOnSubscribe<List<GankEntity>>) emitter -> {
+            GankDao dao = AppDatabase.getInstance().getGankDao();
+            List<GankEntity> datas = dao.getLastDatas(type);
+            emitter.onNext(datas);
+        })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<GankEntity>>() {
-                    @Override
-                    public void accept(List<GankEntity> gankEntities) throws Exception {
-                        listener.onSuccess(gankEntities);
-                    }
-                });
+                .subscribe(gankEntities -> listener.onSuccess(gankEntities));
     }
 
     @SuppressLint("CheckResult")
@@ -82,24 +64,12 @@ public class GankModel implements IGankModel {
                 .getGankApi()
                 .getRandomContentsRx(type, DEFAULT_PAGESIZE);
         call.subscribeOn(Schedulers.io())
-                .doOnNext(new Consumer<GankBaseEntity<List<GankEntity>>>() {
-                    @Override
-                    public void accept(GankBaseEntity<List<GankEntity>> listGankBaseEntity) throws Exception {
-                        GankDao gankDao = AppDatabase.getInstance().getGankDao();
-                        gankDao.insertAll(listGankBaseEntity.results);
-                    }
+                .doOnNext(listGankBaseEntity -> {
+                    GankDao gankDao = AppDatabase.getInstance().getGankDao();
+                    gankDao.insertAll(listGankBaseEntity.results);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GankBaseEntity<List<GankEntity>>>() {
-                    @Override
-                    public void accept(GankBaseEntity<List<GankEntity>> listGankBaseEntity) throws Exception {
-                        listener.onSuccess(listGankBaseEntity.results);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        listener.onFailed(throwable);
-                    }
-                });
+                .subscribe(listGankBaseEntity -> listener.onSuccess(listGankBaseEntity.results),
+                        throwable -> listener.onFailed(throwable));
     }
 }

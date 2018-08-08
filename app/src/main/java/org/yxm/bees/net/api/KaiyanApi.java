@@ -5,6 +5,7 @@ import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -27,6 +28,21 @@ public interface KaiyanApi {
 
     @GET("api/v3/categories/videoList")
     Call<KaiyanVideoList> getVideoList(
+            @Query("id") int id,
+            @Query("start") int start,
+            @Query("num") int num
+    );
+
+    @GET("api/v4/categories/")
+    Observable<List<KaiyanCategory>> getCategoriesRx();
+
+    @GET("api/v3/categories/videoList")
+    Observable<KaiyanVideoList> getVideoListRx(
+            @Query("id") int id
+    );
+
+    @GET("api/v3/categories/videoList")
+    Observable<KaiyanVideoList> getVideoListRx(
             @Query("id") int id,
             @Query("start") int start,
             @Query("num") int num

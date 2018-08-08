@@ -53,27 +53,27 @@ public class TestGankioApi {
 
     @Test
     public void testGetContent() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Call<GankBaseEntity<List<GankEntity>>> call = retrofit
-                .create(GankApi.class)
-                .getRandomContents("all", 10);
-
-        call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
-            @Override
-            public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
-                                   Response<GankBaseEntity<List<GankEntity>>> response) {
-                Log.d(TAG, "onResponse: " + response.body().results);
-            }
-
-            @Override
-            public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
-                                  Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-            }
-        });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(DOMAIN)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        Call<GankBaseEntity<List<GankEntity>>> call = retrofit
+//                .create(GankApi.class)
+//                .getRandomContents("all", 10);
+//
+//        call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
+//            @Override
+//            public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
+//                                   Response<GankBaseEntity<List<GankEntity>>> response) {
+//                Log.d(TAG, "onResponse: " + response.body().results);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
+//                                  Throwable t) {
+//                Log.d(TAG, "onFailure: " + t);
+//            }
+//        });
     }
 
 }
