@@ -7,6 +7,8 @@ import org.yxm.bees.entity.gankio.GankEntity;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -27,6 +29,12 @@ public interface GankApi {
 
     @GET("random/data/{type}/{count}")
     Call<GankBaseEntity<List<GankEntity>>> getRandomContents(
+            @Path("type") String type,
+            @Path("count") int count
+    );
+
+    @GET("random/data/{type}/{count}")
+    Observable<GankBaseEntity<List<GankEntity>>> getRandomContentsRx(
             @Path("type") String type,
             @Path("count") int count
     );

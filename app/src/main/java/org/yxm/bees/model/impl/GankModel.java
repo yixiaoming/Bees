@@ -74,46 +74,31 @@ public class GankModel implements IGankModel {
                 });
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadNetData(String type, LoadDataListener listener) {
-        Observable.create(new ObservableOnSubscribe<List<GankEntity>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<GankEntity>> emitter) throws Exception {
-                Log.d(TAG, "subscribe: " + Thread.currentThread());
-                Call<GankBaseEntity<List<GankEntity>>> call = RetrofitManager.getInstance()
-                        .getGankApi().getRandomContents(type, DEFAULT_PAGESIZE);
-                Response response = call.execute();
-                if (response.isSuccessful()) {
-                    GankBaseEntity<List<GankEntity>> body = (GankBaseEntity<List<GankEntity>>) response.body();
-                    emitter.onNext(body.results);
-                    GankDao gankDao = AppDatabase.getInstance().getGankDao();
-                    gankDao.insertAll(body.results);
-                } else {
-                    emitter.onError(new RuntimeException("request failed"));
-                }
-            }
-        })
+
+        Observable<GankBaseEntity<List<GankEntity>>> call = RetrofitManager.getInstance()
+                .getGankApi()
+                .getRandomContentsRx(type, DEFAULT_PAGESIZE);
+        call.subscribeOn(Schedulers.io())
+                .doOnNext(new Consumer<GankBaseEntity<List<GankEntity>>>() {
+                    @Override
+                    public void accept(GankBaseEntity<List<GankEntity>> listGankBaseEntity) throws Exception {
+                        GankDao gankDao = AppDatabase.getInstance().getGankDao();
+                        gankDao.insertAll(listGankBaseEntity.results);
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<GankEntity>>() {
+                .subscribe(new Consumer<GankBaseEntity<List<GankEntity>>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void accept(GankBaseEntity<List<GankEntity>> listGankBaseEntity) throws Exception {
+                        listener.onSuccess(listGankBaseEntity.results);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onNext(List<GankEntity> gankEntities) {
-                        listener.onSuccess(gankEntities);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        listener.onFailed(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void accept(Throwable throwable) throws Exception {
+                        listener.onFailed(throwable);
                     }
                 });
     }

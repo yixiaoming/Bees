@@ -7,6 +7,7 @@ import org.yxm.bees.net.api.TingApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
@@ -40,6 +41,7 @@ public class RetrofitManager {
             mGankRetrofit = new Retrofit.Builder()
                     .baseUrl(GankApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
             mGankApi = mGankRetrofit.create(GankApi.class);
@@ -48,6 +50,7 @@ public class RetrofitManager {
             mKaiyanRetrofit = new Retrofit.Builder()
                     .baseUrl(KaiyanApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
             mKaiyanApi = mKaiyanRetrofit.create(KaiyanApi.class);
@@ -56,6 +59,7 @@ public class RetrofitManager {
             mTingRetrofit = new Retrofit.Builder()
                     .baseUrl(TingApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
             mTingApi = mTingRetrofit.create(TingApi.class);
