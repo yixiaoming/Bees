@@ -185,7 +185,7 @@ public class PullRefreshLoadMoreLayout extends ViewGroup {
                     scrollBy(0, -dy / SCROLL_RATE);
                 }
                 if (mState == STATE_TRY_LOADMORE || mState == STATE_LOADMOREING && scrollY >= 0) {
-                    scrollBy(0, -dy / SCROLL_RATE);
+                    scrollBy(0, -dy);
                 }
 
                 if (mState == STATE_TRY_REFRESH || mState == STATE_REFRESHING) {
