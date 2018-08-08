@@ -26,7 +26,7 @@ public class GankTabPresenter extends BasePresenter<IGankTabView> {
             }
 
             @Override
-            public void onFailed(Exception e) {
+            public void onFailed(Throwable e) {
                 if (mView.get() != null) {
                     mView.get().onInitDataFailed(e);
                 }
@@ -45,7 +45,7 @@ public class GankTabPresenter extends BasePresenter<IGankTabView> {
             }
 
             @Override
-            public void onFailed(Exception e) {
+            public void onFailed(Throwable e) {
                 if (mView.get() != null) {
                     mView.get().onRefreshFailed(e);
                 }
@@ -64,7 +64,7 @@ public class GankTabPresenter extends BasePresenter<IGankTabView> {
             }
 
             @Override
-            public void onFailed(Exception e) {
+            public void onFailed(Throwable e) {
                 if (mView.get() != null) {
                     mView.get().onLoadMoreFailed(e);
                 }

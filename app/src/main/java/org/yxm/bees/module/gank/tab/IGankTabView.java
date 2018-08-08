@@ -8,15 +8,15 @@ public interface IGankTabView {
 
     void onInitDataSuccess(List<GankEntity> datas);
 
-    void onInitDataFailed(Exception e);
+    void onInitDataFailed(Throwable e);
 
     void onRefreshSuccess(List<GankEntity> datas);
 
-    void onRefreshFailed(Exception e);
+    void onRefreshFailed(Throwable e);
 
     void onLoadMoreSuccess(List<GankEntity> datas);
 
-    void onLoadMoreFailed(Exception e);
+    void onLoadMoreFailed(Throwable e);
 
     void showToast(String msg);
 }

@@ -81,6 +81,10 @@ public class KaiyanModel implements IKaiyanModel {
             @Override
             public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
                 KaiyanVideoList list = response.body();
+                if (list == null || list.itemList == null) {
+                    listener.onFailed(new RuntimeException("load data failed"));
+                    return;
+                }
                 List<KaiyanVideoItem> videoItems = new ArrayList<>();
                 for (KaiyanVideoItem item : list.itemList) {
                     if (item.data == null || item.data.author == null || item.data.cover == null
@@ -132,6 +136,10 @@ public class KaiyanModel implements IKaiyanModel {
             @Override
             public void onResponse(Call<KaiyanVideoList> call, Response<KaiyanVideoList> response) {
                 KaiyanVideoList list = response.body();
+                if (list == null || list.itemList == null) {
+                    listener.onFailed(new RuntimeException("load video net data failed"));
+                    return;
+                }
                 List<KaiyanVideoItem> videoItems = new ArrayList<>();
                 for (KaiyanVideoItem item : list.itemList) {
                     if (item.data == null || item.data.author == null || item.data.cover == null

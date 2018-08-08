@@ -105,7 +105,7 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     }
 
     @Override
-    public void onInitDataFailed(Exception e) {
+    public void onInitDataFailed(Throwable e) {
         ToastUtil.s(getContext(), e.toString());
         mRefreshLayout.setRefreshing(false);
     }
@@ -118,7 +118,7 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     }
 
     @Override
-    public void onRefreshFailed(Exception e) {
+    public void onRefreshFailed(Throwable e) {
         ToastUtil.s(getContext(), e.toString());
         mRefreshLayout.setRefreshing(false);
     }
@@ -131,7 +131,7 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     }
 
     @Override
-    public void onLoadMoreFailed(Exception e) {
+    public void onLoadMoreFailed(Throwable e) {
         ToastUtil.s(getContext(), e.toString());
         mRefreshLayout.setLoadingmoreing(false);
     }

@@ -1,20 +1,32 @@
 package org.yxm.bees.model.impl;
 
-import android.os.Handler;
+import android.annotation.SuppressLint;
+import android.media.MediaSync;
+import android.util.Log;
 
 import org.yxm.bees.db.AppDatabase;
+import org.yxm.bees.db.dao.GankDao;
 import org.yxm.bees.entity.gankio.GankBaseEntity;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
-import org.yxm.bees.db.dao.GankDao;
 import org.yxm.bees.model.IGankModel;
 import org.yxm.bees.net.RetrofitManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GankModel implements IGankModel {
@@ -41,40 +53,68 @@ public class GankModel implements IGankModel {
         return tabs;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadLocalData(String type, LoadDataListener listener) {
-        Handler handler = new Handler();
-        new Thread(() -> {
-            GankDao dao = AppDatabase.getInstance().getGankDao();
-            List<GankEntity> datas = dao.getLastDatas(type);
-            handler.post(() -> listener.onSuccess(datas));
-        }).start();
+
+        Observable.create(new ObservableOnSubscribe<List<GankEntity>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<GankEntity>> emitter) throws Exception {
+                GankDao dao = AppDatabase.getInstance().getGankDao();
+                List<GankEntity> datas = dao.getLastDatas(type);
+                emitter.onNext(datas);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<GankEntity>>() {
+                    @Override
+                    public void accept(List<GankEntity> gankEntities) throws Exception {
+                        listener.onSuccess(gankEntities);
+                    }
+                });
     }
 
     @Override
     public void loadNetData(String type, LoadDataListener listener) {
-        Call<GankBaseEntity<List<GankEntity>>> call = RetrofitManager.getInstance()
-                .getGankApi().getRandomContents(type, DEFAULT_PAGESIZE);
-
-        call.enqueue(new Callback<GankBaseEntity<List<GankEntity>>>() {
+        Observable.create(new ObservableOnSubscribe<List<GankEntity>>() {
             @Override
-            public void onResponse(Call<GankBaseEntity<List<GankEntity>>> call,
-                                   Response<GankBaseEntity<List<GankEntity>>> response) {
-                if (response.body() != null) {
-                    List<GankEntity> results = response.body().results;
-                    listener.onSuccess(results);
-                    new Thread(() -> {
-                        GankDao gankDao = AppDatabase.getInstance().getGankDao();
-                        gankDao.insertAll(results);
-                    }).start();
+            public void subscribe(ObservableEmitter<List<GankEntity>> emitter) throws Exception {
+                Log.d(TAG, "subscribe: " + Thread.currentThread());
+                Call<GankBaseEntity<List<GankEntity>>> call = RetrofitManager.getInstance()
+                        .getGankApi().getRandomContents(type, DEFAULT_PAGESIZE);
+                Response response = call.execute();
+                if (response.isSuccessful()) {
+                    GankBaseEntity<List<GankEntity>> body = (GankBaseEntity<List<GankEntity>>) response.body();
+                    emitter.onNext(body.results);
+                    GankDao gankDao = AppDatabase.getInstance().getGankDao();
+                    gankDao.insertAll(body.results);
+                } else {
+                    emitter.onError(new RuntimeException("request failed"));
                 }
             }
+        })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<GankEntity>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onFailure(Call<GankBaseEntity<List<GankEntity>>> call,
-                                  Throwable t) {
-                listener.onFailed(new Exception(t));
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(List<GankEntity> gankEntities) {
+                        listener.onSuccess(gankEntities);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onFailed(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

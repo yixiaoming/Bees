@@ -16,6 +16,6 @@ public interface IGankModel {
     interface LoadDataListener {
         void onSuccess(List<GankEntity> contents);
 
-        void onFailed(Exception e);
+        void onFailed(Throwable e);
     }
 }
