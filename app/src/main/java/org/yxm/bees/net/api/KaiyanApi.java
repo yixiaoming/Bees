@@ -20,12 +20,12 @@ public interface KaiyanApi {
     @GET("api/v4/categories/")
     Call<List<KaiyanCategory>> getCategories();
 
-    @GET("api/v4/categories/videoList")
+    @GET("api/v3/categories/videoList")
     Call<KaiyanVideoList> getVideoList(
             @Query("id") int id
     );
 
-    @GET("api/v4/categories/videoList")
+    @GET("api/v3/categories/videoList")
     Call<KaiyanVideoList> getVideoList(
             @Query("id") int id,
             @Query("start") int start,
