@@ -6,12 +6,12 @@ import java.lang.ref.WeakReference;
  * Created by yixiaoming on 2018/6/8.
  */
 
-public abstract class BasePresenter<T> {
+public abstract class BasePresenter<V> {
 
-    protected WeakReference<T> mView;
+    protected WeakReference<V> mView;
 
-    public void attachView(T view) {
-        mView = new WeakReference<T>(view);
+    public void attachView(V view) {
+        mView = new WeakReference<V>(view);
     }
 
     public void detachView() {
