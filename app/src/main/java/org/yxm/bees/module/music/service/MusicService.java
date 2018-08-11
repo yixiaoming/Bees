@@ -11,7 +11,7 @@ import android.util.Log;
 import org.yxm.bees.entity.ting.PaySongEntity;
 import org.yxm.bees.entity.ting.SongEntity;
 import org.yxm.bees.net.TingNetManager;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.utils.LogUtil;
 
 import java.io.IOException;
 
@@ -51,7 +51,6 @@ public class MusicService extends Service {
                     @Override
                     public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
                         PaySongEntity entity = response.body();
-                        Log.d(TAG, "onResponse: " + entity.bitrate.file_link);
 
                         try {
                             mMediaPlayer.setDataSource(entity.bitrate.file_link);
@@ -60,19 +59,17 @@ public class MusicService extends Service {
                                 @Override
                                 public void onPrepared(MediaPlayer mp) {
                                     mMediaPlayer.start();
-                                    Log.d(TAG, "onPrepared: playsuccess");
                                 }
                             });
                         } catch (IOException e) {
                             e.printStackTrace();
-                            Log.d(TAG, "onResponse: " + e);
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<PaySongEntity> call, Throwable t) {
-                        Log.d(TAG, "onFailure: ");
+                        LogUtil.d(TAG, "onFailure");
                     }
                 });
             } else {

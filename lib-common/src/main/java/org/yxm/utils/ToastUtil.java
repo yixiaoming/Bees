@@ -1,4 +1,4 @@
-package org.yxm.bees.util;
+package org.yxm.utils;
 
 import android.content.Context;
 import android.support.annotation.StringRes;

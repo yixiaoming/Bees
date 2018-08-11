@@ -21,6 +21,7 @@ import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.ting.SongBillListEntity;
 import org.yxm.bees.entity.ting.SongEntity;
 import org.yxm.bees.module.music.service.MusicService;
+import org.yxm.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,13 +99,13 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected: " + name);
+            LogUtil.d(TAG, "onServiceConcted:" + name);
             mMusicBinder = (MusicService.MyBinder) service;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "onServiceDisconnected: " + name);
+            LogUtil.d(TAG, "onServiceDisconnected: " + name);
         }
     }
 }

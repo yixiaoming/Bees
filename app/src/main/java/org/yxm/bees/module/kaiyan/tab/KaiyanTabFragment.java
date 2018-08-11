@@ -16,8 +16,7 @@ import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
-import org.yxm.bees.util.LogUtil;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.utils.ToastUtil;
 
 import java.util.List;
 
@@ -56,7 +55,6 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        LogUtil.e(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.main_title_fragment_layout, container, false);
         initViews(view);
 

@@ -14,7 +14,7 @@ import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.module.kaiyan.tab.KaiyanTabFragment;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;

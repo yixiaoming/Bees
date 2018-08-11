@@ -1,8 +1,6 @@
-package org.yxm.bees.util;
+package org.yxm.utils;
 
 import android.util.Log;
-
-import org.yxm.bees.config.AppConfig;
 
 /**
  * Created by yixiaoming on 2018/4/6.
@@ -10,7 +8,7 @@ import org.yxm.bees.config.AppConfig;
 
 public class LogUtil {
 
-    private static final boolean DEBUG = AppConfig.DEBUG;
+    private static final boolean DEBUG = true;
     public static String TAG = "Bees";
 
     public static void d(String tag, String msg) {

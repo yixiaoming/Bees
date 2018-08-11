@@ -57,13 +57,12 @@ ext {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:support-v13:${SUPPORT_LIBRARY_VERSION}"
@@ -71,24 +70,21 @@ dependencies {
     implementation "com.android.support:support-annotations:${SUPPORT_LIBRARY_VERSION}"
     //    implementation "com.android.support:customtabs:$SUPPORT_LIBRARY_VERSION"
     //    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
-
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
     implementation "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
     implementation "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
-
     implementation "android.arch.persistence.room:runtime:${ROOM_VERSION}"
     annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
     implementation "android.arch.lifecycle:reactivestreams:${ROOM_VERSION}"
-
     implementation "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
     annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
-
     // jiecao视频播放器
     implementation 'fm.jiecao:jiecaovideoplayer:4.8.3'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
-
     // debug使用，轻松查看数据库和sp
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
+    implementation project(':lib-base')
+    implementation project(':lib-common')
 }

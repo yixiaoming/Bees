@@ -16,8 +16,7 @@ import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
-import org.yxm.bees.util.LogUtil;
-import org.yxm.bees.util.ToastUtil;
+import org.yxm.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,6 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        LogUtil.e(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.main_title_fragment_layout, container, false);
         initViews(view);
 
