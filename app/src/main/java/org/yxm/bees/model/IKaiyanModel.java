@@ -1,8 +1,6 @@
 package org.yxm.bees.model;
 
-import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
-
-import java.util.List;
+import org.yxm.entity.kaiyan.KaiyanVideoItem;
 
 /**
  * Created by yxm on 2018.7.29.

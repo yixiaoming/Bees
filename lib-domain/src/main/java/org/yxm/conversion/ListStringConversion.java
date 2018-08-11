@@ -1,4 +1,4 @@
-package org.yxm.bees.db.conversion;
+package org.yxm.conversion;
 
 import android.arch.persistence.room.TypeConverter;
 

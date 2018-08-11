@@ -1,6 +1,6 @@
 package org.yxm.bees.model.impl;
 
-import org.yxm.bees.entity.ting.SongBillListEntity;
+import org.yxm.entity.ting.SongBillListEntity;
 import org.yxm.bees.model.ITingModel;
 import org.yxm.bees.net.TingNetManager;
 

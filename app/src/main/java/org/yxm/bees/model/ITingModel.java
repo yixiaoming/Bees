@@ -1,6 +1,6 @@
 package org.yxm.bees.model;
 
-import org.yxm.bees.entity.ting.SongBillListEntity;
+import org.yxm.entity.ting.SongBillListEntity;
 
 public interface ITingModel {
 

@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.ting;
+package org.yxm.entity.ting;
 
 
 import android.os.Parcel;

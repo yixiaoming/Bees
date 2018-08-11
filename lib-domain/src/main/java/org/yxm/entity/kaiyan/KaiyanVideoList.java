@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.kaiyan;
+package org.yxm.entity.kaiyan;
 
 import java.util.List;
 

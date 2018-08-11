@@ -1,12 +1,9 @@
-package org.yxm.bees.entity.kaiyan;
+package org.yxm.entity.kaiyan;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
-import retrofit2.http.PUT;
 
 /**
  * Created by yxm on 2018.7.29.

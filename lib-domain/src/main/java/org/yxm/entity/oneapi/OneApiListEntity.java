@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.oneapi;
+package org.yxm.entity.oneapi;
 
 import java.util.List;
 

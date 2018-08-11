@@ -1,22 +1,12 @@
 package org.yxm.bees.service;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.yxm.bees.net.api.KaiyanApi;
-import org.yxm.bees.entity.kaiyan.KaiyanCategory;
-import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
-import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import org.yxm.entity.kaiyan.KaiyanCategory;
+import org.yxm.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.entity.kaiyan.KaiyanVideoList;
 
 /**
  * Created by yxm on 2018.7.29.

@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.entity.gankio.GankEntity;
-import org.yxm.bees.entity.gankio.GankTabEntity;
+import org.yxm.entity.gankio.GankEntity;
+import org.yxm.entity.gankio.GankTabEntity;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
 import org.yxm.utils.ToastUtil;

@@ -1,6 +1,6 @@
 package org.yxm.bees.module.gank;
 
-import org.yxm.bees.entity.gankio.GankTabEntity;
+import org.yxm.entity.gankio.GankTabEntity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.toutiao;
+package org.yxm.entity.toutiao;
 
 public class ToutiaoTab {
 

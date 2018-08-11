@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.module.kaiyan.tab.KaiyanTabFragment;
 import org.yxm.utils.ToastUtil;
 

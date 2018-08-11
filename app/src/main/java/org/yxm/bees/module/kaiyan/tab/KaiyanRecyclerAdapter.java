@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
-import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.WebViewActivity;
 
 import java.text.SimpleDateFormat;

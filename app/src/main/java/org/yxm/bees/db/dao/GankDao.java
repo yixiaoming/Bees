@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.entity.gankio.GankEntity;
 
 import java.util.List;
 

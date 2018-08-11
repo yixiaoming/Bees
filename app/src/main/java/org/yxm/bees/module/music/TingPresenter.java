@@ -1,7 +1,7 @@
 package org.yxm.bees.module.music;
 
 import org.yxm.bees.base.BasePresenter;
-import org.yxm.bees.entity.ting.SongBillListEntity;
+import org.yxm.entity.ting.SongBillListEntity;
 import org.yxm.bees.model.ITingModel;
 import org.yxm.bees.model.impl.TingModel;
 

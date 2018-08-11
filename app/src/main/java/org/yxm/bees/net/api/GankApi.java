@@ -1,14 +1,13 @@
 package org.yxm.bees.net.api;
 
 
-import org.yxm.bees.entity.gankio.GankBaseEntity;
-import org.yxm.bees.entity.gankio.GankCategoryEntity;
-import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.entity.gankio.GankBaseEntity;
+import org.yxm.entity.gankio.GankCategoryEntity;
+import org.yxm.entity.gankio.GankEntity;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

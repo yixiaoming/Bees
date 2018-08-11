@@ -1,15 +1,14 @@
-package org.yxm.bees.entity.gankio;
+package org.yxm.entity.gankio;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.yxm.bees.db.conversion.ListStringConversion;
+import org.yxm.conversion.ListStringConversion;
 
 import java.util.List;
 

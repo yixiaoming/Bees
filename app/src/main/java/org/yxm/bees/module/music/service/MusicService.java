@@ -6,10 +6,9 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import org.yxm.bees.entity.ting.PaySongEntity;
-import org.yxm.bees.entity.ting.SongEntity;
+import org.yxm.entity.ting.PaySongEntity;
+import org.yxm.entity.ting.SongEntity;
 import org.yxm.bees.net.TingNetManager;
 import org.yxm.utils.LogUtil;
 

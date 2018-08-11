@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.entity.kaiyan.KaiyanCategory;
-import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.entity.kaiyan.KaiyanCategory;
+import org.yxm.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
 import org.yxm.utils.ToastUtil;

@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.ting;
+package org.yxm.entity.ting;
 
 public class PaySongEntity {
     public String error_code;

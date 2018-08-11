@@ -1,6 +1,6 @@
 package org.yxm.bees.module.kaiyan;
 
-import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.entity.kaiyan.KaiyanCategory;
 
 import java.util.List;
 

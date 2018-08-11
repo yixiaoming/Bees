@@ -1,4 +1,4 @@
-package org.yxm.bees.entity.gankio;
+package org.yxm.entity.gankio;
 
 public class GankBaseEntity<T> {
 

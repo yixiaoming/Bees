@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.GlideApp;
-import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.entity.gankio.GankEntity;
 import org.yxm.bees.module.common.WebViewActivity;
 import org.yxm.bees.module.gank.tab.viewholder.ViewHolderBigImg;
 import org.yxm.bees.module.gank.tab.viewholder.ViewHolderNoImg;

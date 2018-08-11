@@ -7,12 +7,12 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import org.yxm.bees.base.BeesApp;
-import org.yxm.bees.db.conversion.DateConversionFactory;
+import org.yxm.conversion.DateConversionFactory;
 import org.yxm.bees.db.dao.KaiyanDao;
-import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.entity.gankio.GankEntity;
 import org.yxm.bees.db.dao.GankDao;
-import org.yxm.bees.entity.kaiyan.KaiyanCategory;
-import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.entity.kaiyan.KaiyanCategory;
+import org.yxm.entity.kaiyan.KaiyanVideoItem;
 
 @Database(entities = {GankEntity.class, KaiyanCategory.class, KaiyanVideoItem.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})
