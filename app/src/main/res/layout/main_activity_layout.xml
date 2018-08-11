@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_bottom_nav_bar_height"
             android:paddingTop="2dp"
+            app:itemTextColor="#332522"
             app:menu="@menu/bottom_navigation_menu"/>
 
     </LinearLayout>
