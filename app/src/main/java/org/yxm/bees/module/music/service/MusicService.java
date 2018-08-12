@@ -7,10 +7,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import org.yxm.bees.net.TingNetManager;
 import org.yxm.entity.ting.PaySongEntity;
 import org.yxm.entity.ting.SongEntity;
+import org.yxm.bees.net.TingNetManager;
 import org.yxm.utils.LogUtil;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +30,6 @@ public class MusicService extends Service {
         if (mBinder == null) {
             mBinder = new MyBinder();
         }
-        if (mMediaPlayer == null) {
-            mMediaPlayer = new MediaPlayer();
-        }
     }
 
     @Nullable
@@ -40,29 +39,47 @@ public class MusicService extends Service {
     }
 
     public class MyBinder extends Binder {
-        public void playMusic(SongEntity song) {
-            mMediaPlayer.reset();
-
-            TingNetManager.getPaySongData(song.song_id, new Callback<PaySongEntity>() {
-                @Override
-                public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
-                    PaySongEntity entity = response.body();
-
-                    try {
-                        mMediaPlayer.setDataSource(entity.bitrate.file_link);
-                        mMediaPlayer.prepare();
-                        mMediaPlayer.setOnPreparedListener(mp -> mMediaPlayer.start());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<PaySongEntity> call, Throwable t) {
-                    LogUtil.d(TAG, "onFailure");
-                }
-            });
+        public void playMusicWithPause(SongEntity song) {
+            if (mMediaPlayer == null) {
+                playMusicWithoutPause(song);
+                return;
+            }
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.pause();
+            } else {
+                mMediaPlayer.start();
+            }
         }
+
+        public void playMusicWithoutPause(SongEntity song) {
+            if (mMediaPlayer == null) {
+                mMediaPlayer = new MediaPlayer();
+            }
+            mMediaPlayer.reset();
+            playNetMusic(song);
+        }
+    }
+
+    private void playNetMusic(SongEntity song) {
+        TingNetManager.getPaySongData(song.song_id, new Callback<PaySongEntity>() {
+            @Override
+            public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
+                PaySongEntity entity = response.body();
+
+                try {
+                    mMediaPlayer.setDataSource(entity.bitrate.file_link);
+                    mMediaPlayer.prepare();
+                    mMediaPlayer.setOnPreparedListener(mp -> mMediaPlayer.start());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PaySongEntity> call, Throwable t) {
+                LogUtil.d(TAG, "onFailure");
+            }
+        });
     }
 }

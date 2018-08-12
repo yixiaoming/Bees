@@ -12,6 +12,8 @@
     <color name="bottombar_text_color">@color/grey700</color>
     <color name="bottombar_text_checked_color">@color/grey800</color>
 
+    <color name="music_btn_pressed_color">#EEB300</color>
+
     <!--base color-->
     <color name="red">#f44336</color>
     <color name="pink">#e91e63</color>

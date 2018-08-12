@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import org.yxm.bees.R;
@@ -33,9 +32,9 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
     private MusicService mMusicService;
     private MusicService.MyBinder mMusicBinder;
 
-    private Button mBtnPreSong;
-    private Button mBtnNextSong;
-    private Button mBtnPlayStop;
+    private ImageView mBtnPreSong;
+    private ImageView mBtnNextSong;
+    private ImageView mBtnPlayStop;
     private ImageView mSongCover;
 
     private List<SongEntity> mSongList;
@@ -69,20 +68,20 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         mBtnPreSong.setOnClickListener(v -> {
             mCurSoneIndex = getPreSongIndex();
             SongEntity song = mSongList.get(mCurSoneIndex);
-            mMusicBinder.playMusic(song);
+            mMusicBinder.playMusicWithoutPause(song);
             updateSongCover();
         });
         mBtnNextSong = root.findViewById(R.id.btn_next_song);
         mBtnNextSong.setOnClickListener(v -> {
             mCurSoneIndex = getNextSongIndex();
             SongEntity song = mSongList.get(mCurSoneIndex);
-            mMusicBinder.playMusic(song);
+            mMusicBinder.playMusicWithoutPause(song);
             updateSongCover();
         });
         mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
         mBtnPlayStop.setOnClickListener(v -> {
             SongEntity song = mSongList.get(mCurSoneIndex);
-            mMusicBinder.playMusic(song);
+            mMusicBinder.playMusicWithPause(song);
         });
     }
 
@@ -134,7 +133,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         return mCurSoneIndex - 1;
     }
 
-    private void updateSongCover(){
+    private void updateSongCover() {
         GlideApp.with(this)
                 .load(mSongList.get(mCurSoneIndex).pic_big)
                 .into(mSongCover);
