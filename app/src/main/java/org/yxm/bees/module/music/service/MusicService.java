@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import org.yxm.entity.ting.PaySongEntity;
 import org.yxm.entity.ting.SongEntity;
 import org.yxm.bees.net.TingNetManager;
+import org.yxm.rxbus.RxBus;
+import org.yxm.rxbus.events.MusicEvent;
 import org.yxm.utils.LogUtil;
 
 import java.io.IOException;
@@ -42,12 +44,15 @@ public class MusicService extends Service {
         public void playMusicWithPause(SongEntity song) {
             if (mMediaPlayer == null) {
                 playMusicWithoutPause(song);
+                postPlayEvent();
                 return;
             }
             if (mMediaPlayer.isPlaying()) {
                 mMediaPlayer.pause();
+                postPauseEvent();
             } else {
                 mMediaPlayer.start();
+                postPlayEvent();
             }
         }
 
@@ -69,17 +74,42 @@ public class MusicService extends Service {
                 try {
                     mMediaPlayer.setDataSource(entity.bitrate.file_link);
                     mMediaPlayer.prepare();
-                    mMediaPlayer.setOnPreparedListener(mp -> mMediaPlayer.start());
+                    mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mMediaPlayer.start();
+                            postPlayEvent();
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
+                    postPauseEvent();
                 }
-
             }
 
             @Override
             public void onFailure(Call<PaySongEntity> call, Throwable t) {
                 LogUtil.d(TAG, "onFailure");
+                postPauseEvent();
             }
         });
+    }
+
+    public void postPlayEvent() {
+        MusicEvent event = new MusicEvent();
+        event.state = MusicEvent.STATE_PLAY;
+        RxBus.getInstance().post(event);
+    }
+
+    public void postPauseEvent() {
+        MusicEvent event = new MusicEvent();
+        event.state = MusicEvent.STATE_PAUSE;
+        RxBus.getInstance().post(event);
+    }
+
+    public interface IPlayMusicInterface {
+        void onPlaySuceess();
+
+        void onPlayFailed();
     }
 }

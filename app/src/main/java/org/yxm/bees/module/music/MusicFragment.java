@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import org.yxm.bees.R;
@@ -19,10 +21,15 @@ import org.yxm.bees.base.GlideApp;
 import org.yxm.entity.ting.SongBillListEntity;
 import org.yxm.entity.ting.SongEntity;
 import org.yxm.bees.module.music.service.MusicService;
+import org.yxm.rxbus.RxBus;
+import org.yxm.rxbus.events.MusicEvent;
 import org.yxm.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         implements IMusicView {
@@ -91,6 +98,29 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         mPresenter.doInitMusicList();
         Intent intent = new Intent(getContext(), MusicService.class);
         getContext().bindService(intent, new MusicServiceConnection(), Context.BIND_AUTO_CREATE);
+
+        // rxbux注册控制play和stop按钮显示
+        RxBus.getInstance().toObservable().map(new Function<Object, MusicEvent>() {
+            @Override
+            public MusicEvent apply(Object o) throws Exception {
+                return (MusicEvent) o;
+            }
+        }).subscribe(new Consumer<MusicEvent>() {
+            @Override
+            public void accept(MusicEvent eventMsg) throws Exception {
+                if (eventMsg != null) {
+                    if (eventMsg.state == MusicEvent.STATE_PLAY) {
+                        mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
+                        Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.music_cover_rotate_anim);
+                        mSongCover.setAnimation(rotate);
+                        mSongCover.startAnimation(rotate);
+                    } else if (eventMsg.state == MusicEvent.STATE_PAUSE) {
+                        mSongCover.clearAnimation();
+                        mBtnPlayStop.setImageResource(R.drawable.ic_play_music);
+                    }
+                }
+            }
+        });
     }
 
     @Override

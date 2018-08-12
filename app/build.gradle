@@ -62,8 +62,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.RETROFIT_VERSION}"
-    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.RXJAVA_VERSION}"
-    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.RXANDROID_VERSION}"
+
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.ROOM_VERSION}"
     annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.ROOM_VERSION}"
     implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.ROOM_VERSION}"

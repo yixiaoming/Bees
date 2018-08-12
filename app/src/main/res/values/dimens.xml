@@ -44,7 +44,7 @@
     <dimen name="song_cover_margin_top">50dp</dimen>
 
     <dimen name="song_play_control_layout_height">80dp</dimen>
-    <dimen name="song_play_small_btn_padding">20dp</dimen>
+    <dimen name="song_play_small_btn_padding">15dp</dimen>
 
 
 </resources>
