@@ -66,7 +66,19 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
     private void initViews(View root) {
         mSongCover = root.findViewById(R.id.song_cover);
         mBtnPreSong = root.findViewById(R.id.btn_pre_song);
+        mBtnPreSong.setOnClickListener(v -> {
+            mCurSoneIndex = getPreSongIndex();
+            SongEntity song = mSongList.get(mCurSoneIndex);
+            mMusicBinder.playMusic(song);
+            updateSongCover();
+        });
         mBtnNextSong = root.findViewById(R.id.btn_next_song);
+        mBtnNextSong.setOnClickListener(v -> {
+            mCurSoneIndex = getNextSongIndex();
+            SongEntity song = mSongList.get(mCurSoneIndex);
+            mMusicBinder.playMusic(song);
+            updateSongCover();
+        });
         mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
         mBtnPlayStop.setOnClickListener(v -> {
             SongEntity song = mSongList.get(mCurSoneIndex);
@@ -89,7 +101,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         }
         mSongList.addAll(songBillListEntity.song_list);
         mCurSoneIndex = 0;
-        GlideApp.with(getContext())
+        GlideApp.with(this)
                 .load(mSongList.get(mCurSoneIndex).pic_big)
                 .into(mSongCover);
     }
@@ -106,5 +118,25 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         public void onServiceDisconnected(ComponentName name) {
             LogUtil.d(TAG, "onServiceDisconnected: " + name);
         }
+    }
+
+    private int getNextSongIndex() {
+        if (mCurSoneIndex == mSongList.size() - 1) {
+            return 0;
+        }
+        return mCurSoneIndex + 1;
+    }
+
+    private int getPreSongIndex() {
+        if (mCurSoneIndex == 0) {
+            return mSongList.size() - 1;
+        }
+        return mCurSoneIndex - 1;
+    }
+
+    private void updateSongCover(){
+        GlideApp.with(this)
+                .load(mSongList.get(mCurSoneIndex).pic_big)
+                .into(mSongCover);
     }
 }

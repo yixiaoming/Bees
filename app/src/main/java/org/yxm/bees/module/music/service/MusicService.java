@@ -7,12 +7,10 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import org.yxm.bees.net.TingNetManager;
 import org.yxm.entity.ting.PaySongEntity;
 import org.yxm.entity.ting.SongEntity;
-import org.yxm.bees.net.TingNetManager;
 import org.yxm.utils.LogUtil;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,37 +41,28 @@ public class MusicService extends Service {
 
     public class MyBinder extends Binder {
         public void playMusic(SongEntity song) {
-            if (!mMediaPlayer.isPlaying()) {
-                mMediaPlayer.reset();
+            mMediaPlayer.reset();
 
-                TingNetManager.getPaySongData(song.song_id, new Callback<PaySongEntity>() {
-                    @Override
-                    public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
-                        PaySongEntity entity = response.body();
+            TingNetManager.getPaySongData(song.song_id, new Callback<PaySongEntity>() {
+                @Override
+                public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
+                    PaySongEntity entity = response.body();
 
-                        try {
-                            mMediaPlayer.setDataSource(entity.bitrate.file_link);
-                            mMediaPlayer.prepare();
-                            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                @Override
-                                public void onPrepared(MediaPlayer mp) {
-                                    mMediaPlayer.start();
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                    try {
+                        mMediaPlayer.setDataSource(entity.bitrate.file_link);
+                        mMediaPlayer.prepare();
+                        mMediaPlayer.setOnPreparedListener(mp -> mMediaPlayer.start());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
-                    @Override
-                    public void onFailure(Call<PaySongEntity> call, Throwable t) {
-                        LogUtil.d(TAG, "onFailure");
-                    }
-                });
-            } else {
-                mMediaPlayer.pause();
-            }
+                }
+
+                @Override
+                public void onFailure(Call<PaySongEntity> call, Throwable t) {
+                    LogUtil.d(TAG, "onFailure");
+                }
+            });
         }
     }
 }
