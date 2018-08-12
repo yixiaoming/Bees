@@ -43,6 +43,7 @@ public class MainActivity extends BaseMvpActivity
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
