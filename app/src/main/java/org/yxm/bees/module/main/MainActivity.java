@@ -69,15 +69,18 @@ public class MainActivity extends BaseMvpActivity
                     switch (item.getItemId()) {
                         case R.id.action_news:
                             showFragment(TAG_FRAGMENT_NEWS);
+                            JCVideoPlayer.releaseAllVideos();
                             return true;
                         case R.id.action_video:
                             showFragment(TAG_FRAGMENT_VIDEO);
                             return true;
                         case R.id.action_music:
                             showFragment(TAG_FRAGMENT_MUSIC);
+                            JCVideoPlayer.releaseAllVideos();
                             return true;
                         case R.id.action_personal:
                             showFragment(TAG_FRAGMENT_PERSONAL);
+                            JCVideoPlayer.releaseAllVideos();
                             return true;
                     }
                     return false;
@@ -93,6 +96,7 @@ public class MainActivity extends BaseMvpActivity
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // 设置fragment切换动画
         if (mCurrentFragment != null) {
             String curTag = mCurrentFragment.getTag();
             int curIndex = mFragmetnIndex.indexOf(curTag);
@@ -112,6 +116,7 @@ public class MainActivity extends BaseMvpActivity
             }
         }
 
+        // 要显示的fragment
         if (fragment == null) {
             if (fragmentTag.equals(TAG_FRAGMENT_NEWS)) {
                 fragment = GankFragment.newInstance();
@@ -128,6 +133,7 @@ public class MainActivity extends BaseMvpActivity
             }
         }
 
+        // 要隐藏的fragment
         if (mCurrentFragment != null) {
             transaction.hide(mCurrentFragment);
         }
