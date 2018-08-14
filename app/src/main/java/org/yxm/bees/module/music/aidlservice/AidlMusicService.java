@@ -1,15 +1,15 @@
-package org.yxm.bees.module.music.service;
+package org.yxm.bees.module.music.aidlservice;
 
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 
-import org.yxm.entity.ting.PaySongEntity;
-import org.yxm.entity.ting.SongEntity;
+import org.yxm.bees.IMusicPlayer;
 import org.yxm.bees.net.TingNetManager;
+import org.yxm.entity.ting.PaySongEntity;
 import org.yxm.rxbus.RxBus;
 import org.yxm.rxbus.events.MusicEvent;
 import org.yxm.utils.LogUtil;
@@ -18,13 +18,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MusicService extends Service {
-    public static final String TAG = "MusicService";
+public class AidlMusicService extends Service {
 
-    private MyBinder mBinder = new MyBinder();
+    private static final String TAG = "AidlMusicService";
+
     private MediaPlayer mMediaPlayer;
-
-    private SongEntity mCurSong;
 
     @Nullable
     @Override
@@ -32,46 +30,35 @@ public class MusicService extends Service {
         return mBinder;
     }
 
-    public class MyBinder extends Binder {
-
-        public MusicService getService() {
-            return MusicService.this;
+    private IMusicPlayer.Stub mBinder = new IMusicPlayer.Stub() {
+        @Override
+        public void playMusicWithPause(String songId) throws RemoteException {
+            if (mMediaPlayer == null) {
+                playMusicWithoutPause(songId);
+                postPlayEvent();
+                return;
+            }
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.pause();
+                postPauseEvent();
+            } else {
+                mMediaPlayer.start();
+                postPlayEvent();
+            }
         }
-    }
 
-    public void playMusicWithPause(SongEntity song) {
-        mCurSong = song;
-        if (mMediaPlayer == null) {
-            playMusicWithoutPause(song);
-            postPlayEvent();
-            return;
+        @Override
+        public void playMusicWithoutPause(String songId) throws RemoteException {
+            if (mMediaPlayer == null) {
+                mMediaPlayer = new MediaPlayer();
+            }
+            mMediaPlayer.reset();
+            playNetMusic(songId);
         }
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.pause();
-            postPauseEvent();
-        } else {
-            mMediaPlayer.start();
-            postPlayEvent();
-        }
-    }
+    };
 
-    public void playMusicWithoutPause(SongEntity song) {
-        mCurSong = song;
-        if (mMediaPlayer == null) {
-            mMediaPlayer = new MediaPlayer();
-        }
-        mMediaPlayer.reset();
-        playNetMusic(song);
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        mMediaPlayer.stop();
-        return super.onUnbind(intent);
-    }
-
-    private void playNetMusic(SongEntity song) {
-        TingNetManager.getPaySongData(song.song_id, new Callback<PaySongEntity>() {
+    private void playNetMusic(String songId) {
+        TingNetManager.getPaySongData(songId, new Callback<PaySongEntity>() {
             @Override
             public void onResponse(Call<PaySongEntity> call, Response<PaySongEntity> response) {
                 PaySongEntity entity = response.body();
@@ -112,8 +99,5 @@ public class MusicService extends Service {
         RxBus.get().post(event);
     }
 
-    public SongEntity getCurSong(){
-        return mCurSong;
-    }
 
 }

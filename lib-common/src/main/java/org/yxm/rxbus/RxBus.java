@@ -17,17 +17,6 @@ public class RxBus {
         mBus = PublishSubject.create().toSerialized();
     }
 
-    public static RxBus getInstance() {
-        if (instance == null) {
-            synchronized (RxBus.class) {
-                if (instance == null) {
-                    instance = Holder.BUS;
-                }
-            }
-        }
-        return instance;
-    }
-
     public static RxBus get() {
         return Holder.BUS;
     }

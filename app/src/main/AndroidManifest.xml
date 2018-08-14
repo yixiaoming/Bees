@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="org.yxm.bees">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".module.main.MainActivity"
             android:label="@string/app_name"
@@ -29,7 +31,15 @@
             android:name=".module.common.WebViewActivity"
             android:theme="@style/AppTheme.Transparent"/>
 
-        <service android:name=".module.music.service.MusicService"/>
+        <service
+            android:name=".module.music.service.MusicService"/>
+
+        <service
+            android:name=".module.music.aidlservice.AidlMusicService"
+            android:exported="true"
+            android:process=":remote">
+        </service>
     </application>
+
 
 </manifest>
