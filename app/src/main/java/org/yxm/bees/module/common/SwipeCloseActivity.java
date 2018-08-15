@@ -49,7 +49,7 @@ public class SwipeCloseActivity extends AppCompatActivity {
             case MotionEvent.ACTION_DOWN:
                 mStartX = ev.getX();
                 mStartY = ev.getY();
-                if (mStartX < screenWidth / 4) {
+                if (mStartX < screenWidth / 4 && Math.abs(mStartY) > 200) {
                     mMoveFlag = MoveStatus.START_MOVE;
                     return false;
                 }
