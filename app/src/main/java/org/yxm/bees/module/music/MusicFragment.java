@@ -8,17 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.entity.ting.SongBillListEntity;
 import org.yxm.entity.ting.SongEntity;
@@ -29,10 +27,10 @@ import org.yxm.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
+@SuppressLint("NewApi")
 public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         implements IMusicView {
 
@@ -77,15 +75,15 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         mBtnPreSong.setOnClickListener(v -> {
             mCurSoneIndex = getPreSongIndex();
             SongEntity song = mSongList.get(mCurSoneIndex);
-            MusicServiceManager.getInstance().getService().playMusicWithoutPause(song);
-            updateSongCover();
+            MusicServiceManager.getInstance().getService().playNextMusic(song);
+            updateSongCover(song);
         });
         mBtnNextSong = root.findViewById(R.id.btn_next_song);
         mBtnNextSong.setOnClickListener(v -> {
             mCurSoneIndex = getNextSongIndex();
             SongEntity song = mSongList.get(mCurSoneIndex);
-            MusicServiceManager.getInstance().getService().playMusicWithoutPause(song);
-            updateSongCover();
+            MusicServiceManager.getInstance().getService().playNextMusic(song);
+            updateSongCover(song);
         });
         mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
         mBtnPlayStop.setOnClickListener(v -> {
@@ -94,7 +92,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
                 return;
             }
             SongEntity song = mSongList.get(mCurSoneIndex);
-            MusicServiceManager.getInstance().getService().playMusicWithPause(song);
+            MusicServiceManager.getInstance().getService().playPauseMusic(song);
         });
     }
 
@@ -116,19 +114,9 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
                 if (eventMsg != null) {
                     if (eventMsg.state == MusicEvent.STATE_PLAY) {
                         mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
-                        boolean init = initCoverRotateAnimator();
-                        if (init) {
-                            mCoverAnimator.start();
-                        } else {
-                            mCoverAnimator.resume();
-                        }
-
-//                        Animation rotate = AnimationUtils.loadAnimation(BeesApp.getInstance(), R.anim.music_cover_rotate_anim);
-//                        mSongCover.setAnimation(rotate);
-//                        mSongCover.startAnimation(rotate);
+                        startCoverRotateAnim();
                     } else if (eventMsg.state == MusicEvent.STATE_PAUSE) {
-                        initCoverRotateAnimator();
-                        mCoverAnimator.pause();
+                        stopCoverRotateAnim();
                         mBtnPlayStop.setImageResource(R.drawable.ic_play_music);
                     }
                 }
@@ -138,23 +126,22 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         MusicServiceManager.getInstance().init();
     }
 
-    private boolean initCoverRotateAnimator() {
-        boolean init = false;
+    private void startCoverRotateAnim() {
         if (mCoverAnimator == null) {
             mCoverAnimator = ObjectAnimator.ofFloat(mSongCover, "rotation", 0f, 360.0f);
             mCoverAnimator.setDuration(10000);
             mCoverAnimator.setInterpolator(new LinearInterpolator());
             mCoverAnimator.setRepeatCount(-1);
             mCoverAnimator.setRepeatMode(ValueAnimator.RESTART);
-            init = true;
+            mCoverAnimator.start();
         }
-        return init;
+        mCoverAnimator.resume();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        mMusicService.unbindService(mMusicConnection);
+    private void stopCoverRotateAnim() {
+        if (mCoverAnimator != null) {
+            mCoverAnimator.pause();
+        }
     }
 
     @Override
@@ -164,9 +151,23 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         }
         mSongList.addAll(songBillListEntity.song_list);
         mCurSoneIndex = 0;
-        GlideApp.with(this)
-                .load(mSongList.get(mCurSoneIndex).pic_big)
-                .into(mSongCover);
+        if (MusicServiceManager.getInstance().getService() != null
+                && MusicServiceManager.getInstance().getService().getCurSong() != null) {
+            updateSongCover(MusicServiceManager.getInstance().getService().getCurSong());
+            if (MusicServiceManager.getInstance().getService().isMediaPlaying()) {
+                mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
+                startCoverRotateAnim();
+            }
+            SongEntity serviceCurSong = (MusicServiceManager.getInstance().getService().getCurSong());
+            for (int i = 0; i < mSongList.size(); i++) {
+                SongEntity song = mSongList.get(i);
+                if (TextUtils.equals(song.song_id, serviceCurSong.song_id)) {
+                    mCurSoneIndex = i;
+                }
+            }
+        } else {
+            updateSongCover(mSongList.get(mCurSoneIndex));
+        }
     }
 
     private int getNextSongIndex() {
@@ -183,9 +184,9 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         return mCurSoneIndex - 1;
     }
 
-    private void updateSongCover() {
+    private void updateSongCover(SongEntity songEntity) {
         GlideApp.with(this)
-                .load(mSongList.get(mCurSoneIndex).pic_big)
+                .load(songEntity.pic_big)
                 .into(mSongCover);
     }
 }

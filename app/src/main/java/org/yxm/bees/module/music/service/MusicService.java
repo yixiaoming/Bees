@@ -7,12 +7,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import org.yxm.bees.net.TingNetManager;
 import org.yxm.entity.ting.PaySongEntity;
 import org.yxm.entity.ting.SongEntity;
-import org.yxm.bees.net.TingNetManager;
 import org.yxm.rxbus.RxBus;
 import org.yxm.rxbus.events.MusicEvent;
-import org.yxm.utils.LogUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +20,7 @@ import retrofit2.Response;
 public class MusicService extends Service {
     public static final String TAG = "MusicService";
 
-    private MyBinder mBinder = new MyBinder();
+    private MusicBinder mBinder = new MusicBinder();
     private MediaPlayer mMediaPlayer;
 
     private SongEntity mCurSong;
@@ -32,30 +31,26 @@ public class MusicService extends Service {
         return mBinder;
     }
 
-    public class MyBinder extends Binder {
-
+    public class MusicBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
         }
     }
 
-    public void playMusicWithPause(SongEntity song) {
+    public void playPauseMusic(SongEntity song) {
         mCurSong = song;
         if (mMediaPlayer == null) {
-            playMusicWithoutPause(song);
-            postPlayEvent();
+            playNextMusic(song);
             return;
         }
         if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.pause();
-            postPauseEvent();
+            pauseMediaPlayer();
         } else {
-            mMediaPlayer.start();
-            postPlayEvent();
+            startMediaPlayer();
         }
     }
 
-    public void playMusicWithoutPause(SongEntity song) {
+    public void playNextMusic(SongEntity song) {
         mCurSong = song;
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
@@ -66,7 +61,7 @@ public class MusicService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        mMediaPlayer.stop();
+        stopMediaPlayer();
         return super.onUnbind(intent);
     }
 
@@ -82,23 +77,48 @@ public class MusicService extends Service {
                     mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
-                            mMediaPlayer.start();
-                            postPlayEvent();
+                            startMediaPlayer();
                         }
                     });
                 } catch (Exception e) {
-                    e.printStackTrace();
                     postPauseEvent();
                 }
             }
 
             @Override
             public void onFailure(Call<PaySongEntity> call, Throwable t) {
-                LogUtil.d(TAG, "onFailure");
                 postPauseEvent();
             }
         });
     }
+
+    public boolean isMediaPlaying(){
+        if (mMediaPlayer != null) {
+            return mMediaPlayer.isPlaying();
+        }
+        return false;
+    }
+
+    private void startMediaPlayer(){
+        if (mMediaPlayer != null) {
+            mMediaPlayer.start();
+            postPlayEvent();
+        }
+    }
+
+    private void stopMediaPlayer(){
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+        }
+    }
+
+    private void pauseMediaPlayer(){
+        if (mMediaPlayer != null) {
+            mMediaPlayer.pause();
+            postPauseEvent();
+        }
+    }
+
 
     public void postPlayEvent() {
         MusicEvent event = new MusicEvent();

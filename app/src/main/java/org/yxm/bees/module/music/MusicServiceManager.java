@@ -19,6 +19,7 @@ public class MusicServiceManager {
     private MusicService mMusicService;
     private MusicServiceConnection mMusicConnection;
 
+
     private MusicServiceManager() {
         Intent intent = new Intent(BeesApp.getInstance(), MusicService.class);
         mMusicConnection = new MusicServiceConnection();
@@ -48,7 +49,8 @@ public class MusicServiceManager {
     }
 
     public void init() {
-        if (mMusicService != null && mMusicService.getCurSong() != null) {
+        if (mMusicService != null && mMusicService.isMediaPlaying() && mMusicService.getCurSong() != null) {
+
         }
     }
 
@@ -56,7 +58,7 @@ public class MusicServiceManager {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mMusicService = ((MusicService.MyBinder) service).getService();
+            mMusicService = ((MusicService.MusicBinder) service).getService();
         }
 
         @Override
