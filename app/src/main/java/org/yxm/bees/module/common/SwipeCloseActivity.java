@@ -62,28 +62,18 @@ public class SwipeCloseActivity extends AppCompatActivity {
                 if (mMoveFlag != MoveStatus.START_MOVE) {
                     break;
                 }
-                if (mDistanceX > 0
-                        && (Math.abs(mDistanceX) > Math.abs(mDistanceY))) {
+                if (mDistanceX > 0) {
                     mDecorView.setX(mDistanceX);
                 }
                 return false;
             case MotionEvent.ACTION_UP:
-                mEndX = ev.getX();
-                mEndY = ev.getY();
-                mDistanceX = mEndX - mStartX;
-                mDistanceY = mEndY - mStartY;
                 if (mMoveFlag != MoveStatus.START_MOVE) {
                     break;
                 }
-                if (mDistanceX > 0) {
-                    if ((Math.abs(mDistanceX) > Math.abs(mDistanceY)
-                            && mDistanceX > screenWidth / 3)) {
-                        decorViewMoveOut(mDistanceX);
-                    } else {
-                        decorViewBackToOrigin(mDistanceX);
-                    }
+                if (mDecorView.getX() > screenWidth / 3) {
+                    decorViewMoveOut(mDecorView.getX());
                 } else {
-                    mDecorView.setX(0);
+                    decorViewBackToOrigin(mDecorView.getX());
                 }
                 mMoveFlag = MoveStatus.END_MOVE;
                 return true;
