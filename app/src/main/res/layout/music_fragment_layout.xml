@@ -19,7 +19,18 @@
             android:src="@mipmap/bees_logo"/>
     </android.support.v7.widget.CardView>
 
+    <SeekBar
+        android:id="@+id/music_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/control_layout"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginRight="30dp"
+        android:visibility="gone"/>
+
     <LinearLayout
+        android:id="@+id/control_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/song_play_control_layout_height"
         android:layout_alignParentBottom="true"

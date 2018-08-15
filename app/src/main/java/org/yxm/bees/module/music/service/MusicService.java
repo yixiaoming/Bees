@@ -25,6 +25,8 @@ public class MusicService extends Service {
 
     private SongEntity mCurSong;
 
+//    private SeekBarThread mSeekbarThread;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -78,6 +80,11 @@ public class MusicService extends Service {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
                             startMediaPlayer();
+
+//                            if (mSeekbarThread == null) {
+//                                mSeekbarThread = new SeekBarThread();
+//                                mSeekbarThread.start();
+//                            }
                         }
                     });
                 } catch (Exception e) {
@@ -92,27 +99,27 @@ public class MusicService extends Service {
         });
     }
 
-    public boolean isMediaPlaying(){
+    public boolean isMediaPlaying() {
         if (mMediaPlayer != null) {
             return mMediaPlayer.isPlaying();
         }
         return false;
     }
 
-    private void startMediaPlayer(){
+    private void startMediaPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.start();
             postPlayEvent();
         }
     }
 
-    private void stopMediaPlayer(){
+    private void stopMediaPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
         }
     }
 
-    private void pauseMediaPlayer(){
+    private void pauseMediaPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.pause();
             postPauseEvent();
@@ -132,8 +139,25 @@ public class MusicService extends Service {
         RxBus.get().post(event);
     }
 
-    public SongEntity getCurSong(){
+    public SongEntity getCurSong() {
         return mCurSong;
     }
 
+
+    public class SeekBarThread extends Thread {
+        @Override
+        public void run() {
+            while (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+                MusicEvent event = new MusicEvent();
+                event.state = MusicEvent.STATE_UPDATE_PROGRESS;
+//                event.progress = (int) ((mMediaPlayer.getCurrentPosition() / 1000.0) / Integer.valueOf(mCurSong.file_duration) * 100);
+                RxBus.get().post(event);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

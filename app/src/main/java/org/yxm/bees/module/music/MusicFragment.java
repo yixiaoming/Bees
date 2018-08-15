@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
@@ -40,6 +41,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
     private ImageView mBtnNextSong;
     private ImageView mBtnPlayStop;
     private ImageView mSongCover;
+    private SeekBar mSeecbar;
 
     private List<SongEntity> mSongList;
     private int mCurSoneIndex;
@@ -94,6 +96,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
             SongEntity song = mSongList.get(mCurSoneIndex);
             MusicServiceManager.getInstance().getService().playPauseMusic(song);
         });
+        mSeecbar = root.findViewById(R.id.music_seekbar);
     }
 
     @SuppressLint("CheckResult")
@@ -116,8 +119,10 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
                         mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
                         startCoverRotateAnim();
                     } else if (eventMsg.state == MusicEvent.STATE_PAUSE) {
-                        stopCoverRotateAnim();
                         mBtnPlayStop.setImageResource(R.drawable.ic_play_music);
+                        stopCoverRotateAnim();
+                    } else if (eventMsg.state == MusicEvent.STATE_UPDATE_PROGRESS) {
+                        mSeecbar.setProgress(eventMsg.progress);
                     }
                 }
             }
