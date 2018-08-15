@@ -49,8 +49,9 @@ public class SwipeCloseActivity extends AppCompatActivity {
             case MotionEvent.ACTION_DOWN:
                 mStartX = ev.getX();
                 mStartY = ev.getY();
-                if (mStartX < screenWidth / 3) {
+                if (mStartX < screenWidth / 4) {
                     mMoveFlag = MoveStatus.START_MOVE;
+                    return false;
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -64,10 +65,8 @@ public class SwipeCloseActivity extends AppCompatActivity {
                 if (mDistanceX > 0
                         && (Math.abs(mDistanceX) > Math.abs(mDistanceY))) {
                     mDecorView.setX(mDistanceX);
-                } else {
-                    mDecorView.setX(0);
                 }
-                return true;
+                return false;
             case MotionEvent.ACTION_UP:
                 mEndX = ev.getX();
                 mEndY = ev.getY();
