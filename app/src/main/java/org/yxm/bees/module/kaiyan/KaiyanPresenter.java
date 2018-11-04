@@ -1,7 +1,7 @@
 package org.yxm.bees.module.kaiyan;
 
 import org.yxm.bees.base.BasePresenter;
-import org.yxm.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.model.IKaiyanModel;
 import org.yxm.bees.model.impl.KaiyanModel;
 

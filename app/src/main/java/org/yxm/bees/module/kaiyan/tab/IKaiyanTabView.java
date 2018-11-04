@@ -1,6 +1,6 @@
 package org.yxm.bees.module.kaiyan.tab;
 
-import org.yxm.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 
 import java.util.List;
 

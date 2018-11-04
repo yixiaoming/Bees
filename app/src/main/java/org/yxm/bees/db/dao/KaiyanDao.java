@@ -5,8 +5,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import org.yxm.entity.kaiyan.KaiyanCategory;
-import org.yxm.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 
 import java.util.List;
 

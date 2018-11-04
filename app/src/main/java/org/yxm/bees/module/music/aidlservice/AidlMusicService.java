@@ -9,10 +9,10 @@ import android.support.annotation.Nullable;
 
 import org.yxm.bees.IMusicPlayer;
 import org.yxm.bees.net.TingNetManager;
-import org.yxm.entity.ting.PaySongEntity;
-import org.yxm.rxbus.RxBus;
-import org.yxm.rxbus.events.MusicEvent;
-import org.yxm.utils.LogUtil;
+import org.yxm.bees.entity.ting.PaySongEntity;
+import org.yxm.lib.common.rxbus.RxBus;
+import org.yxm.lib.common.rxbus.events.MusicEvent;
+import org.yxm.lib.common.utils.LogUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +81,7 @@ public class AidlMusicService extends Service {
 
             @Override
             public void onFailure(Call<PaySongEntity> call, Throwable t) {
-                LogUtil.d(TAG, "onFailure");
+                LogUtils.d(TAG, "onFailure");
                 postPauseEvent();
             }
         });

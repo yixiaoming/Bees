@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.yxm.bees.net.api.OneApi;
-import org.yxm.entity.oneapi.OneApiListEntity;
+import org.yxm.bees.entity.oneapi.OneApiListEntity;
 
 import retrofit2.Call;
 import retrofit2.Callback;

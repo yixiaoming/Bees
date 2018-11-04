@@ -6,9 +6,9 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.yxm.bees.net.api.GankApi;
-import org.yxm.entity.gankio.GankBaseEntity;
-import org.yxm.entity.gankio.GankCategoryEntity;
-import org.yxm.entity.gankio.GankEntity;
+import org.yxm.bees.entity.gankio.GankBaseEntity;
+import org.yxm.bees.entity.gankio.GankCategoryEntity;
+import org.yxm.bees.entity.gankio.GankEntity;
 
 import java.util.List;
 

@@ -1,1 +1,1 @@
-include ':app', ':lib-common', ':lib-base', ':lib-domain'
+include ':app', ':lib_common', ':lib_base', ':lib_network', ':lib_async'

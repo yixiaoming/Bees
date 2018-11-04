@@ -19,11 +19,11 @@ import android.widget.SeekBar;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.base.GlideApp;
-import org.yxm.entity.ting.SongBillListEntity;
-import org.yxm.entity.ting.SongEntity;
-import org.yxm.rxbus.RxBus;
-import org.yxm.rxbus.events.MusicEvent;
-import org.yxm.utils.ToastUtil;
+import org.yxm.bees.entity.ting.SongBillListEntity;
+import org.yxm.bees.entity.ting.SongEntity;
+import org.yxm.lib.common.rxbus.RxBus;
+import org.yxm.lib.common.rxbus.events.MusicEvent;
+import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +90,7 @@ public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
         mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
         mBtnPlayStop.setOnClickListener(v -> {
             if (MusicServiceManager.getInstance().getService() == null) {
-                ToastUtil.s(getContext(), "播放器还没准备好-.-");
+                ToastUtils.s(getContext(), "播放器还没准备好-.-");
                 return;
             }
             SongEntity song = mSongList.get(mCurSoneIndex);

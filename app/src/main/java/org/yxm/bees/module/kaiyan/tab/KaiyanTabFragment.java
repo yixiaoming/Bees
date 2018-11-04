@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.entity.kaiyan.KaiyanCategory;
-import org.yxm.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
-import org.yxm.utils.ToastUtil;
+import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.List;
 
@@ -116,7 +116,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
 
     @Override
     public void onInitNetDataFailed(Throwable t) {
-        ToastUtil.s(getContext(), "加载开眼数据失败：" + t);
+        ToastUtils.s(getContext(), "加载开眼数据失败：" + t);
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -129,7 +129,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
 
     @Override
     public void onRefreshFailed(Throwable t) {
-        ToastUtil.s(getContext(), "刷新数据失败：" + t);
+        ToastUtils.s(getContext(), "刷新数据失败：" + t);
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -142,7 +142,7 @@ public class KaiyanTabFragment extends BaseMvpFragment<IKaiyanTabView, KaiyanTab
 
     @Override
     public void onLoadmoreFailed(Throwable t) {
-        ToastUtil.s(getContext(), "加载更多数据失败：" + t);
+        ToastUtils.s(getContext(), "加载更多数据失败：" + t);
         mRefreshLayout.setRefreshing(false);
     }
 }

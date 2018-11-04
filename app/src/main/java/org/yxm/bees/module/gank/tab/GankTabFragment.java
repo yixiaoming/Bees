@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.entity.gankio.GankEntity;
-import org.yxm.entity.gankio.GankTabEntity;
+import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
-import org.yxm.utils.ToastUtil;
+import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
 
     @Override
     public void onInitDataFailed(Throwable e) {
-        ToastUtil.s(getContext(), e.toString());
+        ToastUtils.s(getContext(), e.toString());
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -117,7 +117,7 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
 
     @Override
     public void onRefreshFailed(Throwable e) {
-        ToastUtil.s(getContext(), e.toString());
+        ToastUtils.s(getContext(), e.toString());
         mRefreshLayout.setRefreshing(false);
     }
 
@@ -130,13 +130,13 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
 
     @Override
     public void onLoadMoreFailed(Throwable e) {
-        ToastUtil.s(getContext(), e.toString());
+        ToastUtils.s(getContext(), e.toString());
         mRefreshLayout.setLoadingmoreing(false);
     }
 
     @Override
     public void showToast(String msg) {
-        ToastUtil.s(getContext(), msg);
+        ToastUtils.s(getContext(), msg);
     }
 
     @Override

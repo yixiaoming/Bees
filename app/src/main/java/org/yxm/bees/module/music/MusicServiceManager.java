@@ -8,7 +8,7 @@ import android.os.IBinder;
 
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.module.music.service.MusicService;
-import org.yxm.utils.LogUtil;
+import org.yxm.lib.common.utils.LogUtils;
 
 public class MusicServiceManager {
 
@@ -63,7 +63,7 @@ public class MusicServiceManager {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            LogUtil.d(TAG, "onServiceDisconnected: " + name);
+            LogUtils.d(TAG, "onServiceDisconnected: " + name);
         }
     }
 }

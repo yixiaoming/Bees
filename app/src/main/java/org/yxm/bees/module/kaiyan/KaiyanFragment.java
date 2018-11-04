@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
-import org.yxm.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.module.kaiyan.tab.KaiyanTabFragment;
-import org.yxm.utils.ToastUtil;
+import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,7 @@ public class KaiyanFragment extends BaseMvpFragment<IKaiyanView, KaiyanPresenter
 
     @Override
     public void initNetDataFailed(Throwable t) {
-        ToastUtil.s(getContext(), "error:" + t);
+        ToastUtils.s(getContext(), "error:" + t);
     }
 
 

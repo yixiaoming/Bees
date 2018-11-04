@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.db.dao.GankDao;
-import org.yxm.entity.gankio.GankBaseEntity;
-import org.yxm.entity.gankio.GankEntity;
-import org.yxm.entity.gankio.GankTabEntity;
+import org.yxm.bees.entity.gankio.GankBaseEntity;
+import org.yxm.bees.entity.gankio.GankEntity;
+import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.model.IGankModel;
 import org.yxm.bees.net.RetrofitManager;
 

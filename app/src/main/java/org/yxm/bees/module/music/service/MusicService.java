@@ -8,10 +8,10 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import org.yxm.bees.net.TingNetManager;
-import org.yxm.entity.ting.PaySongEntity;
-import org.yxm.entity.ting.SongEntity;
-import org.yxm.rxbus.RxBus;
-import org.yxm.rxbus.events.MusicEvent;
+import org.yxm.bees.entity.ting.PaySongEntity;
+import org.yxm.bees.entity.ting.SongEntity;
+import org.yxm.lib.common.rxbus.RxBus;
+import org.yxm.lib.common.rxbus.events.MusicEvent;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -9,7 +9,7 @@ import android.os.IBinder;
 import org.yxm.bees.IMusicPlayer;
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.module.music.aidlservice.AidlMusicService;
-import org.yxm.utils.LogUtil;
+import org.yxm.lib.common.utils.LogUtils;
 
 public class AidlMusicServiceManager {
 
@@ -55,13 +55,13 @@ public class AidlMusicServiceManager {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            LogUtil.d(TAG, "onServiceConcted:" + name);
+            LogUtils.d(TAG, "onServiceConcted:" + name);
             mMusicPlayer = IMusicPlayer.Stub.asInterface(service);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            LogUtil.d(TAG, "onServiceDisconnected: " + name);
+            LogUtils.d(TAG, "onServiceDisconnected: " + name);
         }
     }
 }

@@ -72,5 +72,5 @@ dependencies {
     implementation "fm.jiecao:jiecaovideoplayer:${rootProject.ext.JIECAO_VIDEO_VERSION}"
     // debug使用，轻松查看数据库和sp
     debugImplementation "com.amitshekhar.android:debug-db:${rootProject.ext.AMITSHEKHAR_DEBUG_VERSION}"
-    implementation project(':lib-base')
+    implementation project(':lib_base')
 }

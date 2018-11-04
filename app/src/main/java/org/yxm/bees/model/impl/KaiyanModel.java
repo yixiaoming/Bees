@@ -5,9 +5,9 @@ import android.annotation.SuppressLint;
 
 import org.yxm.bees.db.AppDatabase;
 import org.yxm.bees.db.dao.KaiyanDao;
-import org.yxm.entity.kaiyan.KaiyanCategory;
-import org.yxm.entity.kaiyan.KaiyanVideoItem;
-import org.yxm.entity.kaiyan.KaiyanVideoList;
+import org.yxm.bees.entity.kaiyan.KaiyanCategory;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
+import org.yxm.bees.entity.kaiyan.KaiyanVideoList;
 import org.yxm.bees.model.IKaiyanModel;
 import org.yxm.bees.net.RetrofitManager;
 

@@ -1,9 +1,9 @@
 package org.yxm.bees.net;
 
-import org.yxm.entity.ting.PaySongEntity;
-import org.yxm.entity.ting.RecommandSongListEntity;
-import org.yxm.entity.ting.SearchSongEntity;
-import org.yxm.entity.ting.SongBillListEntity;
+import org.yxm.bees.entity.ting.PaySongEntity;
+import org.yxm.bees.entity.ting.RecommandSongListEntity;
+import org.yxm.bees.entity.ting.SearchSongEntity;
+import org.yxm.bees.entity.ting.SongBillListEntity;
 
 import java.util.HashMap;
 import java.util.Map;
