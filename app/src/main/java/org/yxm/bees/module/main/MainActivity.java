@@ -15,6 +15,7 @@ import org.yxm.bees.module.gank.GankFragment;
 import org.yxm.bees.module.music.MusicFragment;
 import org.yxm.bees.module.personal.PersonalFragment;
 import org.yxm.bees.util.BottomNavigationViewHelper;
+import org.yxm.lib.volley.VolleyManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +134,6 @@ public class MainActivity extends BaseMvpActivity
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             }
         }
-
         // 要隐藏的fragment
         if (mCurrentFragment != null) {
             transaction.hide(mCurrentFragment);
