@@ -1,7 +1,5 @@
 package org.yxm.lib.async;
 
-import android.support.annotation.NonNull;
-
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -118,7 +116,7 @@ public final class ThreadManager {
         private int threadNum;
 
         @Override
-        public Thread newThread(@NonNull Runnable runnable) {
+        public Thread newThread(Runnable runnable) {
             Thread thread = new Thread(runnable, "Bees-Thread-" + threadNum) {
                 @Override
                 public void run() {

@@ -31,4 +31,5 @@ dependencies {
     api project(':lib_common')
     api project(':lib_async')
     api project(':lib_network')
+    api project(':lib_view')
 }

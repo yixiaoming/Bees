@@ -23,7 +23,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
 
     testImplementation "junit:junit:${rootProject.ext.JUNIT_VERSION}"
     androidTestImplementation "com.android.support.test:runner:${rootProject.ext.TEST_RUNNER_VERSION}"

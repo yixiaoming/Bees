@@ -1,7 +1,6 @@
 package org.yxm.lib.common.utils;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 /**
@@ -10,7 +9,7 @@ import android.widget.Toast;
 
 public class ToastUtils {
 
-    public static void s(Context context, @StringRes int strid) {
+    public static void s(Context context, int strid) {
         Toast.makeText(context, strid, Toast.LENGTH_SHORT).show();
     }
 
@@ -18,7 +17,7 @@ public class ToastUtils {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static void l(Context context, @StringRes int strid) {
+    public static void l(Context context, int strid) {
         Toast.makeText(context, strid, Toast.LENGTH_LONG).show();
     }
 
