@@ -1,8 +1,9 @@
 package org.yxm.bees.net;
 
-import org.yxm.bees.net.api.GankApi;
-import org.yxm.bees.net.api.KaiyanApi;
-import org.yxm.bees.net.api.TingApi;
+import org.yxm.bees.net.api.IGankApi;
+import org.yxm.bees.net.api.IKaiyanApi;
+import org.yxm.bees.net.api.ITingApi;
+import org.yxm.bees.net.api.IWanApi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,10 +21,12 @@ public class RetrofitManager {
     private Retrofit mGankRetrofit;
     private Retrofit mKaiyanRetrofit;
     private Retrofit mTingRetrofit;
+    private Retrofit mWanRetrofit;
 
-    private GankApi mGankApi;
-    private KaiyanApi mKaiyanApi;
-    private TingApi mTingApi;
+    private IGankApi mGankApi;
+    private IKaiyanApi mKaiyanApi;
+    private ITingApi mTingApi;
+    private IWanApi mIWanApi;
 
     private RetrofitManager() {
         if (mOkHttpClient == null) {
@@ -39,30 +42,39 @@ public class RetrofitManager {
         }
         if (mGankRetrofit == null) {
             mGankRetrofit = new Retrofit.Builder()
-                    .baseUrl(GankApi.BASE_URL)
+                    .baseUrl(IGankApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
-            mGankApi = mGankRetrofit.create(GankApi.class);
+            mGankApi = mGankRetrofit.create(IGankApi.class);
         }
         if (mKaiyanRetrofit == null) {
             mKaiyanRetrofit = new Retrofit.Builder()
-                    .baseUrl(KaiyanApi.BASE_URL)
+                    .baseUrl(IKaiyanApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
-            mKaiyanApi = mKaiyanRetrofit.create(KaiyanApi.class);
+            mKaiyanApi = mKaiyanRetrofit.create(IKaiyanApi.class);
         }
         if (mTingRetrofit == null) {
             mTingRetrofit = new Retrofit.Builder()
-                    .baseUrl(TingApi.BASE_URL)
+                    .baseUrl(ITingApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
-            mTingApi = mTingRetrofit.create(TingApi.class);
+            mTingApi = mTingRetrofit.create(ITingApi.class);
+        }
+        if (mWanRetrofit == null) {
+            mWanRetrofit = new Retrofit.Builder()
+                    .baseUrl(IWanApi.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(mOkHttpClient)
+                    .build();
+            mIWanApi = mWanRetrofit.create(IWanApi.class);
         }
     }
 
@@ -77,16 +89,20 @@ public class RetrofitManager {
         return instance;
     }
 
-    public GankApi getGankApi() {
+    public IGankApi getGankApi() {
         return mGankApi;
     }
 
-    public KaiyanApi getKaiyanApi(){
+    public IKaiyanApi getKaiyanApi() {
         return mKaiyanApi;
     }
 
-    public TingApi getThingApi(){
+    public ITingApi getThingApi() {
         return mTingApi;
+    }
+
+    public IWanApi getWanApi() {
+        return mIWanApi;
     }
 
 }

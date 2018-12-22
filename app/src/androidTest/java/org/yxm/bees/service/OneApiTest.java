@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.yxm.bees.net.api.OneApi;
+import org.yxm.bees.net.api.IOneApi;
 import org.yxm.bees.entity.oneapi.OneApiListEntity;
 
 import retrofit2.Call;
@@ -32,7 +32,7 @@ public class OneApiTest {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        OneApi service = retrofit.create(OneApi.class);
+        IOneApi service = retrofit.create(IOneApi.class);
         Call<OneApiListEntity> call = service.getOneApiList();
         call.enqueue(new Callback<OneApiListEntity>() {
             @Override

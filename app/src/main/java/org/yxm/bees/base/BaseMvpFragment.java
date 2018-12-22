@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
  * Created by yixiaoming on 2018/4/6.
  */
 
-public abstract class BaseMvpFragment<V, T extends BasePresenter<V>> extends Fragment {
+public abstract class BaseMvpFragment<V, P extends BasePresenter<V>> extends Fragment {
 
-    protected T mPresenter;
+    protected P mPresenter;
 
-    protected abstract T createPresenter();
+    protected abstract P createPresenter();
 
     @Override
     public void onAttach(Context context) {

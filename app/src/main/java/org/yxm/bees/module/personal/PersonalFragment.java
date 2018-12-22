@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,18 @@ import android.widget.Toast;
 
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
+import org.yxm.bees.entity.wan.WanArticleEntity;
+import org.yxm.bees.entity.wan.WanBaseEntity;
+import org.yxm.bees.entity.wan.WanPageEntity;
+import org.yxm.bees.net.RetrofitManager;
 import org.yxm.lib.views.PullToRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yxm on 2018.8.11.
@@ -57,6 +64,25 @@ public class PersonalFragment extends BaseMvpFragment<IPersonalView, PersonalPre
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call =
+                RetrofitManager.getInstance().getWanApi().listAuthorArticles(409, 1);
+        call.enqueue(new Callback<WanBaseEntity<WanPageEntity<WanArticleEntity>>>() {
+            @Override
+            public void onResponse(Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call,
+                                   Response<WanBaseEntity<WanPageEntity<WanArticleEntity>>> response) {
+                if (response.isSuccessful()) {
+                    for (WanArticleEntity entity : response.body().data.datas) {
+                        Log.d(TAG, "onResponse: " + entity);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
     private void initViews(View root) {
@@ -71,7 +97,6 @@ public class PersonalFragment extends BaseMvpFragment<IPersonalView, PersonalPre
         PersonalRecyclerAdapter adapter = new PersonalRecyclerAdapter(list);
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        mRecyclerView.setAdapter(adapter);
-
 
         ArrayAdapter adapter2 = new ArrayAdapter<>(getContext(),
                 R.layout.personal_list_item,

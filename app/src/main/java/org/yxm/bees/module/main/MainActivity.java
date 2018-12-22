@@ -14,8 +14,8 @@ import org.yxm.bees.module.kaiyan.KaiyanFragment;
 import org.yxm.bees.module.gank.GankFragment;
 import org.yxm.bees.module.music.MusicFragment;
 import org.yxm.bees.module.personal.PersonalFragment;
+import org.yxm.bees.module.wanandroid.WanFragment;
 import org.yxm.bees.util.BottomNavigationViewHelper;
-import org.yxm.lib.volley.VolleyManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,8 @@ public class MainActivity extends BaseMvpActivity
     private BottomNavigationView mBottomNavView;
     private Fragment mCurrentFragment;
 
-    public static final String TAG_FRAGMENT_NEWS = "tag_fragment_news";
+    public static final String TAG_FRAGMENT_WAN = "tag_fragment_wan";
+    public static final String TAG_FRAGMENT_GANK = "tag_fragment_news";
     public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
     public static final String TAG_FRAGMENT_MUSIC = "tag_fragment_music";
     public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
@@ -36,7 +37,8 @@ public class MainActivity extends BaseMvpActivity
     private static List<String> mFragmetnIndex = new ArrayList<>(4);
 
     static {
-        mFragmetnIndex.add(TAG_FRAGMENT_NEWS);
+        mFragmetnIndex.add(TAG_FRAGMENT_WAN);
+        mFragmetnIndex.add(TAG_FRAGMENT_GANK);
         mFragmetnIndex.add(TAG_FRAGMENT_VIDEO);
         mFragmetnIndex.add(TAG_FRAGMENT_MUSIC);
         mFragmetnIndex.add(TAG_FRAGMENT_PERSONAL);
@@ -68,27 +70,29 @@ public class MainActivity extends BaseMvpActivity
         BottomNavigationViewHelper.disableShiftMode(mBottomNavView);
         mBottomNavView.setOnNavigationItemSelectedListener(
                 item -> {
+                    JCVideoPlayer.releaseAllVideos();
                     switch (item.getItemId()) {
-                        case R.id.action_news:
-                            showFragment(TAG_FRAGMENT_NEWS);
-                            JCVideoPlayer.releaseAllVideos();
+                        case R.id.action_wan:
+                            showFragment(TAG_FRAGMENT_WAN);
+                            break;
+                        case R.id.action_gank:
+                            showFragment(TAG_FRAGMENT_GANK);
                             return true;
                         case R.id.action_video:
                             showFragment(TAG_FRAGMENT_VIDEO);
                             return true;
                         case R.id.action_music:
                             showFragment(TAG_FRAGMENT_MUSIC);
-                            JCVideoPlayer.releaseAllVideos();
                             return true;
                         case R.id.action_personal:
                             showFragment(TAG_FRAGMENT_PERSONAL);
-                            JCVideoPlayer.releaseAllVideos();
                             return true;
                     }
+
                     return false;
                 });
         mBottomNavView.getMenu().getItem(0).setCheckable(true);
-        showFragment(TAG_FRAGMENT_NEWS);
+        showFragment(TAG_FRAGMENT_WAN);
     }
 
     private void showFragment(String fragmentTag) {
@@ -120,7 +124,10 @@ public class MainActivity extends BaseMvpActivity
 
         // 要显示的fragment
         if (fragment == null) {
-            if (fragmentTag.equals(TAG_FRAGMENT_NEWS)) {
+            if (fragmentTag.equals(TAG_FRAGMENT_WAN)) {
+                fragment = WanFragment.newInstance();
+                transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+            } else if (fragmentTag.equals(TAG_FRAGMENT_GANK)) {
                 fragment = GankFragment.newInstance();
                 transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
             } else if (fragmentTag.equals(TAG_FRAGMENT_VIDEO)) {

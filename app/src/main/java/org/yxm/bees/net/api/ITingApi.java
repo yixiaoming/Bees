@@ -12,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
-public interface TingApi {
+public interface ITingApi {
 
     String BASE_URL = "http://tingapi.ting.baidu.com/";
     String SUB_URL = "v1/restserver/ting";

@@ -17,6 +17,6 @@ public interface GankDao {
     List<GankEntity> getLastDatas(String type);
 
     @Insert
-    void insertAll(List<GankEntity> gankEntitys);
+    void insertAll(List<GankEntity> gankEntities);
 
 }

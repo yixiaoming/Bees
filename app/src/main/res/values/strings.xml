@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Bees</string>
     <!--底部bar-->
+    <string name="title_wan">Wan</string>
     <string name="title_news">干货</string>
     <string name="title_video">视频</string>
     <string name="title_photo">音乐</string>

@@ -6,7 +6,7 @@ import org.yxm.bees.entity.oneapi.OneApiListEntity;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface OneApi {
+public interface IOneApi {
 
     @GET("api/onelist/idlist")
     Call<OneApiListEntity> getOneApiList();

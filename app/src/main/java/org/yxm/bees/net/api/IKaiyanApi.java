@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Created by yxm on 2018.7.29.
  */
 
-public interface KaiyanApi {
+public interface IKaiyanApi {
 
     public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
 
