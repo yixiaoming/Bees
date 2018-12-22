@@ -45,6 +45,7 @@
 
     <dimen name="song_play_control_layout_height">80dp</dimen>
     <dimen name="song_play_small_btn_padding">15dp</dimen>
+    <dimen name="normal_recycler_item_title_size">18sp</dimen>
 
 
 </resources>

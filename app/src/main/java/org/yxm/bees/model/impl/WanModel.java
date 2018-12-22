@@ -1,15 +1,19 @@
 package org.yxm.bees.model.impl;
 
+import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanBaseEntity;
+import org.yxm.bees.entity.wan.WanPageEntity;
 import org.yxm.bees.entity.wan.WanTabEntity;
 import org.yxm.bees.model.IWanModel;
 import org.yxm.bees.net.RetrofitManager;
 import org.yxm.bees.net.api.IWanApi;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -32,5 +36,43 @@ public class WanModel implements IWanModel {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<WanArticleEntity> syncGetWanArticleDatas(int authorId) {
+        IWanApi wanApi = RetrofitManager.getInstance().getWanApi();
+        Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call = wanApi.listAuthorArticles(authorId, 0);
+        try {
+            Response<WanBaseEntity<WanPageEntity<WanArticleEntity>>> response = call.execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body().data.datas;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void asyncGetWanArticleDatas(int authorId,
+                                        LoadDataListener<List<WanArticleEntity>> loadDataListener) {
+        IWanApi wanApi = RetrofitManager.getInstance().getWanApi();
+        Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call = wanApi.listAuthorArticles(authorId, 0);
+        call.enqueue(new Callback<WanBaseEntity<WanPageEntity<WanArticleEntity>>>() {
+            @Override
+            public void onResponse(Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call,
+                                   Response<WanBaseEntity<WanPageEntity<WanArticleEntity>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    loadDataListener.onSuccess(0, response.body().data.datas);
+                } else {
+                    loadDataListener.onSuccess(-1, Collections.emptyList());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call, Throwable t) {
+                loadDataListener.onFialed(0, t);
+            }
+        });
     }
 }

@@ -1,5 +1,8 @@
 package org.yxm.lib.async;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,12 +21,16 @@ public final class ThreadManager {
     private static final int DEFAULT_POOL_SIZE = 8;
     private static final int DEFAULT_PRIORITY = android.os.Process.THREAD_PRIORITY_BACKGROUND;
 
+    private static Handler sMainHandler;
+
     private ExecutorService mDefaultExcutor;
     private ExecutorService mIoExecutor;
     private ExecutorService mSingleExecutor;
     private ExecutorService mScheduleExecutor;
 
+
     private ThreadManager() {
+        sMainHandler = new Handler(Looper.getMainLooper());
         ThreadFactory threadFactory = new DefaultThreadFactory();
         mDefaultExcutor = Executors.newFixedThreadPool(DEFAULT_POOL_SIZE, threadFactory);
     }
@@ -52,6 +59,10 @@ public final class ThreadManager {
         if (mScheduleExecutor != null) {
             mScheduleExecutor.shutdownNow();
         }
+    }
+
+    public void runOnUiThread(Runnable runnable) {
+        sMainHandler.post(runnable);
     }
 
     public void run(Runnable runnable) {
