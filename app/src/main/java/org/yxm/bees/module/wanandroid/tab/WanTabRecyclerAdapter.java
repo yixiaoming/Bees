@@ -40,6 +40,11 @@ public class WanTabRecyclerAdapter extends RecyclerView.Adapter<WanTabRecyclerAd
         return mDatas.size();
     }
 
+    public void setDatas(List<WanArticleEntity> datas) {
+        mDatas = datas;
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTitle;
 

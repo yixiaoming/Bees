@@ -74,4 +74,7 @@ dependencies {
     // debug使用，轻松查看数据库和sp
     debugImplementation "com.amitshekhar.android:debug-db:${rootProject.ext.AMITSHEKHAR_DEBUG_VERSION}"
     implementation project(':lib_base')
+
+    implementation "android.arch.lifecycle:extensions:${rootProject.ext.LIFECYCLE_VERSION}"
+    annotationProcessor "android.arch.lifecycle:compiler:${rootProject.ext.LIFECYCLE_VERSION}"
 }
