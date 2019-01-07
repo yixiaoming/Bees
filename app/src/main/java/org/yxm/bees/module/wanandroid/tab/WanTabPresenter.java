@@ -19,13 +19,7 @@ public class WanTabPresenter extends BasePresenter<IWanTabView> {
         }
     }
 
-    public void startLoadData(int authorId) {
-//        ThreadManager.getInstance().runIo(() -> {
-//            List<WanArticleEntity> datas = mWanModel.syncGetWanArticleDatas(authorId);
-//            ThreadManager.getInstance().runOnUiThread(() ->
-//                    mView.get().onLoadDataFinish(datas));
-//        });
-
+    public void startLoadData(int authorId, int page) {
         mWanModel.asyncGetWanArticleDatas(authorId,
                 new IWanModel.LoadDataListener<List<WanArticleEntity>>() {
                     @Override
@@ -39,18 +33,6 @@ public class WanTabPresenter extends BasePresenter<IWanTabView> {
                     public void onFialed(int code, Throwable throwable) {
 
                     }
-                });
-
-        new AsyncTask<String, Void, List<WanArticleEntity>>() {
-            @Override
-            protected List<WanArticleEntity> doInBackground(String... params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(List<WanArticleEntity> wanArticleEntities) {
-                super.onPostExecute(wanArticleEntities);
-            }
-        }.execute();
+                }, page);
     }
 }

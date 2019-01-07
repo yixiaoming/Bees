@@ -16,9 +16,11 @@ public interface IWanModel {
 
         void onFialed(int code, Throwable throwable);
     }
+
     List<WanTabEntity> getWanTabs();
 
     List<WanArticleEntity> syncGetWanArticleDatas(int authorId);
 
-    void asyncGetWanArticleDatas(int authorId, LoadDataListener<List<WanArticleEntity>> loadDataListener);
+    void asyncGetWanArticleDatas(int authorId, LoadDataListener<List<WanArticleEntity>> loadDataListener,
+                                 int page);
 }

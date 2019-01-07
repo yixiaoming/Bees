@@ -3,8 +3,7 @@ package org.yxm.bees.module.wanandroid;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.os.Handler;
-import android.os.Looper;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanTabEntity;
@@ -46,15 +45,44 @@ public class WanViewModel extends ViewModel {
         return mWanArticleLiveData;
     }
 
-    public void loadWanArticles(int authorId) {
-        ThreadManager.getInstance().runIo(() -> {
-            IWanModel mModel = new WanModel();
-            List<WanArticleEntity> datas = mModel.syncGetWanArticleDatas(authorId);
-            ThreadManager.getInstance().runOnUiThread(() -> {
-                if (datas != null) {
+    public void loadWanArticles(int authorId, int page, SwipeRefreshLayout swipeRefreshLayout) {
+        IWanModel mModel = new WanModel();
+        mModel.asyncGetWanArticleDatas(authorId, new IWanModel.LoadDataListener<List<WanArticleEntity>>() {
+            @Override
+            public void onSuccess(int code, List<WanArticleEntity> datas) {
+                if (datas != null && datas.size() > 0) {
                     mWanArticleLiveData.setValue(datas);
                 }
-            });
-        });
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFialed(int code, Throwable throwable) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, page);
+    }
+
+    public void onRefreshArticles(int authorId,
+                                  int page,
+                                  SwipeRefreshLayout swipeRefreshLayout) {
+        IWanModel mModel = new WanModel();
+        mModel.asyncGetWanArticleDatas(authorId, new IWanModel.LoadDataListener<List<WanArticleEntity>>() {
+            @Override
+            public void onSuccess(int code, List<WanArticleEntity> datas) {
+                if (datas != null && datas.size() > 0) {
+                    List<WanArticleEntity> finalDatas = mWanArticleLiveData.getValue();
+                    finalDatas.addAll(0, datas);
+                    mWanArticleLiveData.setValue(finalDatas);
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFialed(int code, Throwable throwable) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }, page);
+
     }
 }

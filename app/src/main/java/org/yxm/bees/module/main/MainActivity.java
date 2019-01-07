@@ -29,7 +29,7 @@ public class MainActivity extends BaseMvpActivity
     private Fragment mCurrentFragment;
 
     public static final String TAG_FRAGMENT_WAN = "tag_fragment_wan";
-    public static final String TAG_FRAGMENT_GANK = "tag_fragment_news";
+    public static final String TAG_FRAGMENT_GANK = "tag_fragment_gank";
     public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
     public static final String TAG_FRAGMENT_MUSIC = "tag_fragment_music";
     public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
@@ -37,9 +37,9 @@ public class MainActivity extends BaseMvpActivity
     private static List<String> mFragmetnIndex = new ArrayList<>(4);
 
     static {
-        mFragmetnIndex.add(TAG_FRAGMENT_WAN);
         mFragmetnIndex.add(TAG_FRAGMENT_GANK);
         mFragmetnIndex.add(TAG_FRAGMENT_VIDEO);
+        mFragmetnIndex.add(TAG_FRAGMENT_WAN);
         mFragmetnIndex.add(TAG_FRAGMENT_MUSIC);
         mFragmetnIndex.add(TAG_FRAGMENT_PERSONAL);
     }
@@ -91,8 +91,7 @@ public class MainActivity extends BaseMvpActivity
 
                     return false;
                 });
-        mBottomNavView.getMenu().getItem(0).setCheckable(true);
-        showFragment(TAG_FRAGMENT_WAN);
+        showFragment(TAG_FRAGMENT_GANK);
     }
 
     private void showFragment(String fragmentTag) {
@@ -120,6 +119,7 @@ public class MainActivity extends BaseMvpActivity
                         R.anim.slide_left_in,
                         R.anim.slide_right_out);
             }
+            mBottomNavView.getMenu().getItem(nextIndex).setChecked(true);
         }
 
         // 要显示的fragment

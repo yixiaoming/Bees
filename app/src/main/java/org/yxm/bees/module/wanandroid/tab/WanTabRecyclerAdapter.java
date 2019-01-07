@@ -15,6 +15,7 @@ import java.util.List;
 
 public class WanTabRecyclerAdapter extends RecyclerView.Adapter<WanTabRecyclerAdapter.ViewHolder> {
 
+    private static final int DEFAULT_PAGE_COUNT = 20;
     private List<WanArticleEntity> mDatas;
 
     public WanTabRecyclerAdapter(List<WanArticleEntity> datas) {
@@ -43,6 +44,10 @@ public class WanTabRecyclerAdapter extends RecyclerView.Adapter<WanTabRecyclerAd
     public void setDatas(List<WanArticleEntity> datas) {
         mDatas = datas;
         notifyDataSetChanged();
+    }
+
+    public int getPage() {
+        return (mDatas.size() / DEFAULT_PAGE_COUNT) + 1;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

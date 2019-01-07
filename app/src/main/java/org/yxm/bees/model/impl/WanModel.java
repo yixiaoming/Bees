@@ -55,9 +55,11 @@ public class WanModel implements IWanModel {
 
     @Override
     public void asyncGetWanArticleDatas(int authorId,
-                                        LoadDataListener<List<WanArticleEntity>> loadDataListener) {
+                                        LoadDataListener<List<WanArticleEntity>> loadDataListener,
+                                        int page) {
         IWanApi wanApi = RetrofitManager.getInstance().getWanApi();
-        Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call = wanApi.listAuthorArticles(authorId, 0);
+        Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call = wanApi.listAuthorArticles(authorId,
+                page);
         call.enqueue(new Callback<WanBaseEntity<WanPageEntity<WanArticleEntity>>>() {
             @Override
             public void onResponse(Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> call,
