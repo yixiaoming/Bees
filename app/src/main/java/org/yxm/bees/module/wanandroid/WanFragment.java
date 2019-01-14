@@ -1,6 +1,5 @@
 package org.yxm.bees.module.wanandroid;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +42,8 @@ public class WanFragment extends BaseMvpFragment<IWanView, WanPresenter>
         super.onCreate(savedInstanceState);
 
         WanViewModel model = ViewModelProviders.of(this).get(WanViewModel.class);
-        model.getWanTabLiveData().observe(this, new Observer<List<WanTabEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<WanTabEntity> wanTabEntities) {
-                onInitTabLayout(wanTabEntities);
-            }
+        model.getWanTabLiveData().observe(this, wanTabEntities -> {
+            onInitTabLayout(wanTabEntities);
         });
     }
 
@@ -86,9 +81,11 @@ public class WanFragment extends BaseMvpFragment<IWanView, WanPresenter>
             tabFragments.add(WanTabFragment.newInstance(entity.id));
         }
 
-        mPagerAdapter = new WanPagerAdapter(getChildFragmentManager(), tabTitles, tabFragments);
-        mViewpager.setAdapter(mPagerAdapter);
+        if (mPagerAdapter == null) {
+            mPagerAdapter = new WanPagerAdapter(getChildFragmentManager(), tabTitles, tabFragments);
+        }
 
+        mViewpager.setAdapter(mPagerAdapter);
         mTablayout.setTabsFromPagerAdapter(mPagerAdapter);
         mTablayout.setupWithViewPager(mViewpager);
         mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);

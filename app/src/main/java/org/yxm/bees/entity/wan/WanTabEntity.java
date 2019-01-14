@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "t_wantab")
+@Entity(tableName = "t_wan_tab")
 public class WanTabEntity {
 
     @PrimaryKey

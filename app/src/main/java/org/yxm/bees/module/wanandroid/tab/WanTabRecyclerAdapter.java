@@ -50,6 +50,10 @@ public class WanTabRecyclerAdapter extends RecyclerView.Adapter<WanTabRecyclerAd
         return (mDatas.size() / DEFAULT_PAGE_COUNT) + 1;
     }
 
+    public int getPageSize() {
+        return DEFAULT_PAGE_COUNT;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTitle;
 

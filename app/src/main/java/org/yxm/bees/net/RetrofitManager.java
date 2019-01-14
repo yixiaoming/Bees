@@ -3,7 +3,7 @@ package org.yxm.bees.net;
 import org.yxm.bees.net.api.IGankApi;
 import org.yxm.bees.net.api.IKaiyanApi;
 import org.yxm.bees.net.api.ITingApi;
-import org.yxm.bees.net.api.IWanApi;
+import org.yxm.bees.module.wanandroid.repo.network.IWanApi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

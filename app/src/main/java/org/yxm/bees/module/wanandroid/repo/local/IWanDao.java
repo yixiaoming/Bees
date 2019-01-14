@@ -1,4 +1,4 @@
-package org.yxm.bees.db.dao;
+package org.yxm.bees.module.wanandroid.repo.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
@@ -10,10 +10,10 @@ import org.yxm.bees.entity.wan.WanTabEntity;
 import java.util.List;
 
 @Dao
-public interface WanDao {
+public interface IWanDao {
 
-    String WAN_TAB_TABLE_NAME = "t_wantab";
-    String WAN_ARTICLE_TABLE_NAME = "t_wanarticle";
+    String WAN_TAB_TABLE_NAME = "t_wan_tab";
+    String WAN_ARTICLE_TABLE_NAME = "t_wan_article";
 
     @Insert
     void insertWanTabs(List<WanTabEntity> datas);
@@ -27,9 +27,9 @@ public interface WanDao {
     @Insert
     void insertWanArticle(WanArticleEntity entity);
 
-    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " where id=:id")
+    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE id=:id")
     WanArticleEntity findWanArticleEntityById(int id);
 
-    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE chapter_id =:chapterId limit 10")
-    List<WanArticleEntity> getWanArticles(int chapterId);
+    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE chapter_id =:chapterId limit :size")
+    List<WanArticleEntity> getWanArticles(int chapterId, int size);
 }

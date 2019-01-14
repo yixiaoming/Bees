@@ -1,4 +1,4 @@
-package org.yxm.bees.model;
+package org.yxm.bees.module.wanandroid.repo.local;
 
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanTabEntity;
@@ -21,6 +21,7 @@ public interface IWanModel {
 
     List<WanArticleEntity> syncGetWanArticleDatas(int authorId);
 
-    void asyncGetWanArticleDatas(int authorId, LoadDataListener<List<WanArticleEntity>> loadDataListener,
+    void asyncGetWanArticleDatas(int authorId,
+                                 LoadDataListener<List<WanArticleEntity>> loadDataListener,
                                  int page);
 }

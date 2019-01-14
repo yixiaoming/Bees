@@ -9,7 +9,7 @@ import android.content.Context;
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.conversion.DateConversionFactory;
 import org.yxm.bees.db.dao.KaiyanDao;
-import org.yxm.bees.db.dao.WanDao;
+import org.yxm.bees.module.wanandroid.repo.local.IWanDao;
 import org.yxm.bees.entity.gankio.GankEntity;
 import org.yxm.bees.db.dao.GankDao;
 import org.yxm.bees.entity.kaiyan.KaiyanCategory;
@@ -31,7 +31,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract KaiyanDao getKaiyanDao();
 
-    public abstract WanDao getWanDao();
+    public abstract IWanDao getWanDao();
 
     public static AppDatabase getInstance() {
         if (sInstance == null) {

@@ -6,7 +6,7 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.yxm.bees.db.AppDatabase;
-import org.yxm.bees.db.dao.WanDao;
+import org.yxm.bees.module.wanandroid.repo.local.IWanDao;
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanArticleWithTag;
 import org.yxm.bees.entity.wan.WanBaseEntity;
@@ -15,7 +15,6 @@ import org.yxm.bees.entity.wan.WanTabEntity;
 import org.yxm.bees.net.RetrofitManager;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +63,7 @@ public class WanApiTest {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            WanDao wanDao = AppDatabase.getInstance().getWanDao();
+                            IWanDao wanDao = AppDatabase.getInstance().getWanDao();
                             for (WanArticleEntity entity : response.body().data.datas) {
                                 if (null == wanDao.findWanArticleEntityById(entity.id)) {
                                     wanDao.insertWanArticle(entity);

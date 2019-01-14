@@ -1,12 +1,11 @@
-package org.yxm.bees.model.impl;
+package org.yxm.bees.module.wanandroid.repo.local;
 
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanBaseEntity;
 import org.yxm.bees.entity.wan.WanPageEntity;
 import org.yxm.bees.entity.wan.WanTabEntity;
-import org.yxm.bees.model.IWanModel;
 import org.yxm.bees.net.RetrofitManager;
-import org.yxm.bees.net.api.IWanApi;
+import org.yxm.bees.module.wanandroid.repo.network.IWanApi;
 
 import java.io.IOException;
 import java.util.Collections;

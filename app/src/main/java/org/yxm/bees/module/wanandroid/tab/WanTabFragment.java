@@ -55,11 +55,8 @@ public class WanTabFragment extends Fragment {
         }
         if (mAuthorId != 0) {
             mWanViewModel = ViewModelProviders.of(this).get(WanViewModel.class);
-            mWanViewModel.getWanArticleLiveData(mAuthorId).observe(this, new Observer<List<WanArticleEntity>>() {
-                @Override
-                public void onChanged(@Nullable List<WanArticleEntity> datas) {
-                    mWanTabAdapter.setDatas(datas);
-                }
+            mWanViewModel.getWanArticleLiveData().observe(this, datas -> {
+                mWanTabAdapter.setDatas(datas);
             });
         }
     }
@@ -93,7 +90,8 @@ public class WanTabFragment extends Fragment {
 
     private void initDatas() {
         if (mAuthorId != 0) {
-            mWanViewModel.loadWanArticles(mAuthorId, mWanTabAdapter.getPage(), mSwipeRefreshLayout);
+            mWanViewModel.loadWanArticles(mAuthorId, mWanTabAdapter.getPage(), mWanTabAdapter.getPageSize(),
+                    mSwipeRefreshLayout);
         }
     }
 

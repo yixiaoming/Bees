@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7b9c07cbb897fbf02ceebe35da60ae09",
+    "identityHash": "c54c39f90fb49b49683aaef08f3135ee",
     "entities": [
       {
         "tableName": "t_gank",
@@ -233,7 +233,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "t_wantab",
+        "tableName": "t_wan_tab",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `course_id` INTEGER NOT NULL, `name` TEXT, `order` INTEGER NOT NULL, `visible` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -277,7 +277,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "t_wanarticle",
+        "tableName": "t_wan_article",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `author` TEXT, `chapter_id` INTEGER NOT NULL, `chapter_name` TEXT, `collect` INTEGER NOT NULL, `desc` TEXT, `envelope_pic` TEXT, `fresh` INTEGER NOT NULL, `link` TEXT, `nice_date` TEXT, `origin` TEXT, `publish_time` INTEGER NOT NULL, `title` TEXT, `zan` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -377,7 +377,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7b9c07cbb897fbf02ceebe35da60ae09\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c54c39f90fb49b49683aaef08f3135ee\")"
     ]
   }
 }

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
 
-@Entity(tableName = "t_wanarticle")
+@Entity(tableName = "t_wan_article")
 public class WanArticleEntity {
     @PrimaryKey
     public int id;

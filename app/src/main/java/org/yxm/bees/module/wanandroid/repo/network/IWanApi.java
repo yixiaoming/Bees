@@ -1,4 +1,4 @@
-package org.yxm.bees.net.api;
+package org.yxm.bees.module.wanandroid.repo.network;
 
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanArticleWithTag;
