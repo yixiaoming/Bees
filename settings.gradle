@@ -1,4 +1,7 @@
 include ':app'
+include ':lib_annotation:lib_processor'
+include ':lib_annotation:lib_apt'
+include ':lib_annotation:lib_bindview'
 include ':lib_common'
 include ':lib_base'
 include ':lib_network'

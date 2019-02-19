@@ -32,4 +32,6 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:${rootProject.ext.RXJAVA_VERSION}"
     api "io.reactivex.rxjava2:rxandroid:${rootProject.ext.RXANDROID_VERSION}"
     //api "com.jakewharton.rxrelay2:rxrelay:${rootProject.ext.RXRELAY_VERSION}"
+
+    api "org.greenrobot:eventbus:${rootProject.ext.EVENTBUS_VERSION}"
 }

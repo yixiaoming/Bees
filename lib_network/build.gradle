@@ -28,5 +28,19 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:${rootProject.ext.TEST_RUNNER_VERSION}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${rootProject.ext.TEST_ESPRESSO_VERSION}"
 
-    api project(':lib_volley')
+    // retrofit
+    api "com.squareup.retrofit2:retrofit:${rootProject.ext.RETROFIT_VERSION}"
+    api("com.squareup.retrofit2:retrofit:${rootProject.ext.RETROFIT_VERSION}") {
+        // 这里排除调okhttp库，外部使用更新的版本
+        exclude module: 'okhttp'
+    }
+    api "com.squareup.retrofit2:converter-gson:${rootProject.ext.RETROFIT_VERSION}"
+    api "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.RETROFIT_VERSION}"
+
+    // okhttp
+    api "com.squareup.okhttp3:okhttp:${rootProject.ext.OKHTTP_VERSION}"
+
+    // rxJava2.0
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.RXJAVA_VERSION}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.RXANDROID_VERSION}"
 }

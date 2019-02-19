@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import org.yxm.lib.apt.BindViewTools;
 
 public class MainActivity extends BaseMvpActivity
         implements IMainView {
@@ -50,6 +51,7 @@ public class MainActivity extends BaseMvpActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
+        BindViewTools.bind(this);
         initViews();
     }
 
