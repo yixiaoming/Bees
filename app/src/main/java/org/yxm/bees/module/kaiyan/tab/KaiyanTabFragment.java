@@ -16,9 +16,9 @@ import org.yxm.bees.entity.kaiyan.KaiyanCategory;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
 import org.yxm.bees.module.common.PullRefreshLoadMoreLayout;
 import org.yxm.bees.module.common.SwipeStopVideoListener;
-import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.List;
+import org.yxm.bees.utils.ToastUtils;
 
 /**
  * Created by yxm on 2018.7.29.

@@ -7,12 +7,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import org.yxm.bees.module.music.event.MusicEvent;
 import org.yxm.bees.net.TingNetManager;
 import org.yxm.bees.entity.ting.PaySongEntity;
 import org.yxm.bees.entity.ting.SongEntity;
-import org.yxm.lib.common.rxbus.RxBus;
-import org.yxm.lib.common.rxbus.events.MusicEvent;
 
+import org.yxm.lib.rxbus.RxBus;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

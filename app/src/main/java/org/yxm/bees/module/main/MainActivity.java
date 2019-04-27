@@ -15,13 +15,12 @@ import org.yxm.bees.module.gank.GankFragment;
 import org.yxm.bees.module.music.MusicFragment;
 import org.yxm.bees.module.personal.PersonalFragment;
 import org.yxm.bees.module.wanandroid.WanFragment;
-import org.yxm.bees.util.BottomNavigationViewHelper;
+import org.yxm.bees.utils.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import org.yxm.lib.apt.BindViewTools;
 
 public class MainActivity extends BaseMvpActivity
         implements IMainView {
@@ -51,7 +50,6 @@ public class MainActivity extends BaseMvpActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
 
-        BindViewTools.bind(this);
         initViews();
     }
 

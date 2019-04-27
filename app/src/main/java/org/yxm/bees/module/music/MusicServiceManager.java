@@ -8,7 +8,7 @@ import android.os.IBinder;
 
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.module.music.service.MusicService;
-import org.yxm.lib.common.utils.LogUtils;
+import org.yxm.bees.utils.LogUtils;
 
 public class MusicServiceManager {
 

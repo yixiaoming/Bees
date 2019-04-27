@@ -16,20 +16,19 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import org.yxm.bees.R;
 import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.ting.SongBillListEntity;
 import org.yxm.bees.entity.ting.SongEntity;
-import org.yxm.lib.common.rxbus.RxBus;
-import org.yxm.lib.common.rxbus.events.MusicEvent;
-import org.yxm.lib.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
+import org.yxm.bees.module.music.event.MusicEvent;
+import org.yxm.bees.utils.ToastUtils;
+import org.yxm.lib.rxbus.RxBus;
 
 @SuppressLint("NewApi")
 public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>

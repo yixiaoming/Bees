@@ -73,7 +73,6 @@ dependencies {
     implementation "fm.jiecao:jiecaovideoplayer:${rootProject.ext.JIECAO_VIDEO_VERSION}"
     // debug使用，轻松查看数据库和sp
     debugImplementation "com.amitshekhar.android:debug-db:${rootProject.ext.AMITSHEKHAR_DEBUG_VERSION}"
-    implementation project(':lib_base')
 
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:${rootProject.ext.LIFECYCLE_VERSION}"
@@ -90,10 +89,12 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:${rootProject.ext.DAGGER_VERSION}"
     annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.DAGGER_VERSION}"
 
-    // custom annotation
-    implementation project(':lib_annotation:lib_bindview')
-    implementation project(':lib_annotation:lib_apt')
-    annotationProcessor project(":lib_annotation:lib_processor")
     // custom
-    implementation project(':lib_volley')
+    implementation project(':components:lib_volley')
+
+    implementation project(':components:lib_rxbus')
+
+    implementation project(':components:lib_async')
+    implementation project(':components:lib_network')
+    implementation project(':components:lib_view')
 }
