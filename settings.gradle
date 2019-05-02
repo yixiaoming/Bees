@@ -1,6 +1,12 @@
 include ':app'
+
+// 基础库
 include ':components:lib_async'
 include ':components:lib_network'
 include ':components:lib_view'
 include ':components:lib_volley'
 include ':components:lib_rxbus'
+
+// 模块相关
+include ':modules:lib_base'
+include ':modules:lib_personal'

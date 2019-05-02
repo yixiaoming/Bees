@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.wan.WanTabEntity;
 import org.yxm.bees.module.wanandroid.tab.WanTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.yxm.modules.base.BaseMvpFragment;
 
 /**
  * WanAndroid 开放网站内容

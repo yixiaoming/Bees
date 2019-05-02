@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.gankio.GankTabEntity;
 import org.yxm.bees.module.gank.tab.GankTabFragment;
 
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import org.yxm.modules.base.BaseMvpFragment;
 
 public class GankFragment extends BaseMvpFragment<IGankView, GankPresenter>
         implements IGankView {

@@ -1,4 +1,4 @@
-package org.yxm.bees.base;
+package org.yxm.modules.base;
 
 import java.lang.ref.WeakReference;
 

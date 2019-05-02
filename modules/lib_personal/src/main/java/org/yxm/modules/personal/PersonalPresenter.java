@@ -1,5 +1,4 @@
-package org.yxm.bees.module.personal;
-
+package org.yxm.modules.personal;
 
 import org.yxm.modules.base.BasePresenter;
 

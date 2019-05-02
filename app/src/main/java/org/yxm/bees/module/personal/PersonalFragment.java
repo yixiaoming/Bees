@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.BaseMvpFragment;
 import org.yxm.bees.entity.wan.WanArticleEntity;
 import org.yxm.bees.entity.wan.WanBaseEntity;
 import org.yxm.bees.entity.wan.WanPageEntity;
@@ -23,6 +22,7 @@ import org.yxm.lib.views.PullToRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.yxm.modules.base.BaseMvpFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

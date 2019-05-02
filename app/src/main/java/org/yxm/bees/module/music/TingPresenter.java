@@ -1,9 +1,9 @@
 package org.yxm.bees.module.music;
 
-import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.entity.ting.SongBillListEntity;
 import org.yxm.bees.model.ITingModel;
 import org.yxm.bees.model.impl.TingModel;
+import org.yxm.modules.base.BasePresenter;
 
 public class TingPresenter extends BasePresenter<IMusicView> {
 

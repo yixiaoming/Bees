@@ -1,4 +1,4 @@
-package org.yxm.bees.base;
+package org.yxm.modules.base;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

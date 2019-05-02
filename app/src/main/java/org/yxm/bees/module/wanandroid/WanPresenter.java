@@ -3,13 +3,13 @@ package org.yxm.bees.module.wanandroid;
 import android.os.Handler;
 import android.os.Looper;
 
-import org.yxm.bees.base.BasePresenter;
 import org.yxm.bees.entity.wan.WanTabEntity;
 import org.yxm.bees.module.wanandroid.repo.local.IWanModel;
 import org.yxm.bees.module.wanandroid.repo.local.WanModel;
 import org.yxm.lib.async.ThreadManager;
 
 import java.util.List;
+import org.yxm.modules.base.BasePresenter;
 
 /**
  * 与WanFragment关联的Presenter

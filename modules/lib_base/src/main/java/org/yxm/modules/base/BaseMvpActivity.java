@@ -1,4 +1,4 @@
-package org.yxm.bees.base;
+package org.yxm.modules.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
