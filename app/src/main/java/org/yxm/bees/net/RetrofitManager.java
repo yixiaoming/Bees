@@ -1,6 +1,5 @@
 package org.yxm.bees.net;
 
-import org.yxm.bees.net.api.IGankApi;
 import org.yxm.bees.net.api.IKaiyanApi;
 import org.yxm.bees.net.api.ITingApi;
 import org.yxm.bees.module.wanandroid.repo.network.IWanApi;
@@ -18,12 +17,10 @@ public class RetrofitManager {
 
     private static volatile RetrofitManager instance;
     private OkHttpClient mOkHttpClient;
-    private Retrofit mGankRetrofit;
     private Retrofit mKaiyanRetrofit;
     private Retrofit mTingRetrofit;
     private Retrofit mWanRetrofit;
 
-    private IGankApi mGankApi;
     private IKaiyanApi mKaiyanApi;
     private ITingApi mTingApi;
     private IWanApi mIWanApi;
@@ -39,15 +36,6 @@ public class RetrofitManager {
                         return chain.proceed(newRequest);
                     })
                     .build();
-        }
-        if (mGankRetrofit == null) {
-            mGankRetrofit = new Retrofit.Builder()
-                    .baseUrl(IGankApi.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .client(mOkHttpClient)
-                    .build();
-            mGankApi = mGankRetrofit.create(IGankApi.class);
         }
         if (mKaiyanRetrofit == null) {
             mKaiyanRetrofit = new Retrofit.Builder()
@@ -87,10 +75,6 @@ public class RetrofitManager {
             }
         }
         return instance;
-    }
-
-    public IGankApi getGankApi() {
-        return mGankApi;
     }
 
     public IKaiyanApi getKaiyanApi() {

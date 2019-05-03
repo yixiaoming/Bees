@@ -17,7 +17,7 @@ import org.yxm.bees.module.wanandroid.tab.WanTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.yxm.modules.base.BaseMvpFragment;
+import org.yxm.modules.base.mvp.BaseMvpFragment;
 
 /**
  * WanAndroid 开放网站内容

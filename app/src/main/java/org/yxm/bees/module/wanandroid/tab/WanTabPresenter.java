@@ -6,7 +6,7 @@ import org.yxm.bees.module.wanandroid.repo.local.WanModel;
 import org.yxm.lib.async.ThreadManager;
 
 import java.util.List;
-import org.yxm.modules.base.BasePresenter;
+import org.yxm.modules.base.mvp.BasePresenter;
 
 public class WanTabPresenter extends BasePresenter<IWanTabView> {
     private IWanModel mWanModel;

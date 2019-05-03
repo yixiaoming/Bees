@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--下拉刷新，加载更多-->
+  <string name="pull_to_refresh">继续下拉</string>
+  <string name="release_to_refresh">松开刷新</string>
+  <string name="refreshing">正在刷新</string>
+  <string name="push_to_loadmore">继续上拉</string>
+  <string name="release_to_loadmore">松开加载</string>
+  <string name="loadmoreing">正在加载</string>
+</resources>

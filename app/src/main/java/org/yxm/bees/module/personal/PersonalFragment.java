@@ -22,7 +22,7 @@ import org.yxm.lib.views.PullToRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.yxm.modules.base.BaseMvpFragment;
+import org.yxm.modules.base.mvp.BaseMvpFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

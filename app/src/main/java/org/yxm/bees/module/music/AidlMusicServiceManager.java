@@ -9,7 +9,7 @@ import android.os.IBinder;
 import org.yxm.bees.IMusicPlayer;
 import org.yxm.bees.base.BeesApp;
 import org.yxm.bees.module.music.aidlservice.AidlMusicService;
-import org.yxm.bees.utils.LogUtils;
+import org.yxm.modules.base.utils.LogUtils;
 
 public class AidlMusicServiceManager {
 

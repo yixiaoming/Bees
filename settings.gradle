@@ -10,3 +10,4 @@ include ':components:lib_rxbus'
 // 模块相关
 include ':modules:lib_base'
 include ':modules:lib_personal'
+include ':modules:lib_gank'

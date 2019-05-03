@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import org.yxm.bees.utils.ToastUtils;
-import org.yxm.modules.base.BaseMvpFragment;
+import org.yxm.modules.base.mvp.BaseMvpFragment;
+import org.yxm.modules.base.utils.ToastUtils;
 
 /**
  * Created by yxm on 2018.7.29.

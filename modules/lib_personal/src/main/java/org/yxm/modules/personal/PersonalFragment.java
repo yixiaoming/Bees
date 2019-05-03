@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import org.yxm.modules.base.BaseMvpFragment;
+import org.yxm.modules.base.mvp.BaseMvpFragment;
 
 /**
  * Created by yxm on 2018.8.11.

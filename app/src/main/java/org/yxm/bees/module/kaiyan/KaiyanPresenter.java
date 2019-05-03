@@ -5,7 +5,7 @@ import org.yxm.bees.model.IKaiyanModel;
 import org.yxm.bees.model.impl.KaiyanModel;
 
 import java.util.List;
-import org.yxm.modules.base.BasePresenter;
+import org.yxm.modules.base.mvp.BasePresenter;
 
 /**
  * Created by yxm on 2018.7.29.

@@ -2,88 +2,8 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c54c39f90fb49b49683aaef08f3135ee",
+    "identityHash": "c6b4e914e147f51cf6d212adba856d53",
     "entities": [
-      {
-        "tableName": "t_gank",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gankid` TEXT, `create_at` TEXT, `desc` TEXT, `published_at` TEXT, `source` TEXT, `type` TEXT, `url` TEXT, `used` INTEGER, `who` TEXT, `images` TEXT)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "gankid",
-            "columnName": "gankid",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "createdAt",
-            "columnName": "create_at",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "desc",
-            "columnName": "desc",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "publishedAt",
-            "columnName": "published_at",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "source",
-            "columnName": "source",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "url",
-            "columnName": "url",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "used",
-            "columnName": "used",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "who",
-            "columnName": "who",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "images",
-            "columnName": "images",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
       {
         "tableName": "t_kaiyan_category",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `bg_picture` TEXT, `header_image` TEXT, `author_id` TEXT, PRIMARY KEY(`id`))",
@@ -377,7 +297,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c54c39f90fb49b49683aaef08f3135ee\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c6b4e914e147f51cf6d212adba856d53\")"
     ]
   }
 }

@@ -12,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.yxm.bees.R;
-import org.yxm.bees.base.GlideApp;
 import org.yxm.bees.entity.kaiyan.KaiyanVideoItem;
-import org.yxm.bees.module.common.WebViewActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +22,8 @@ import java.util.Locale;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import org.yxm.modules.base.activity.WebViewActivity;
+import org.yxm.modules.base.glide.GlideApp;
 
 /**
  * Created by yxm on 2018.7.29.

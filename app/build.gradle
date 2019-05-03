@@ -100,4 +100,6 @@ dependencies {
 
     implementation project(':modules:lib_base')
     implementation project(':modules:lib_personal')
+
+    implementation project(':modules:lib_gank')
 }
