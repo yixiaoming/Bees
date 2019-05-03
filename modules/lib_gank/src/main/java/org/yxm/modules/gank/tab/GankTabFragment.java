@@ -17,7 +17,6 @@ import org.yxm.modules.base.view.PullRefreshLoadMoreLayout;
 import org.yxm.modules.gank.R;
 import org.yxm.modules.gank.entity.GankEntity;
 import org.yxm.modules.gank.entity.GankTabEntity;
-import org.yxm.modules.gank.view.SwipeStopVideoListener;
 
 public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresenter>
         implements IGankTabView {
@@ -87,7 +86,6 @@ public class GankTabFragment extends BaseMvpFragment<IGankTabView, GankTabPresen
         mAdapter = new GankTabRecyclerAdapter(new ArrayList<GankEntity>());
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerview.addOnScrollListener(new SwipeStopVideoListener());
     }
 
     @Override

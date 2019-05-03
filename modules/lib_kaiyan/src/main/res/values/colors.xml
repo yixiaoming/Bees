@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="white">#FFFFFF</color>
+  <color name="grey800">#424242</color>
+
+  <color name="tablayout_text_checked_color">#EEB300</color>
+  <color name="bottombar_text_checked_color">@color/grey800</color>
+</resources>

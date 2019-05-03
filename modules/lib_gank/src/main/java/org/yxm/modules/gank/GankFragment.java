@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import java.util.ArrayList;
 import java.util.List;
 import org.yxm.modules.base.mvp.BaseMvpFragment;
@@ -53,13 +52,6 @@ public class GankFragment extends BaseMvpFragment<IGankView, GankPresenter>
     private void initViews(View root) {
         mTablayout = root.findViewById(R.id.main_tablayout);
         mViewpager = root.findViewById(R.id.main_viewpager);
-        mViewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                JCVideoPlayer.releaseAllVideos();
-            }
-        });
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import org.yxm.bees.R;
-import org.yxm.bees.module.kaiyan.KaiyanFragment;
 import org.yxm.bees.module.music.MusicFragment;
 import org.yxm.bees.module.personal.PersonalFragment;
 import org.yxm.bees.module.wanandroid.WanFragment;
@@ -21,6 +20,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import org.yxm.modules.base.mvp.BaseMvpActivity;
 import org.yxm.modules.base.mvp.BasePresenter;
 import org.yxm.modules.gank.GankFragment;
+import org.yxm.modules.kaiyan.KaiyanFragment;
 
 public class MainActivity extends BaseMvpActivity
         implements IMainView {

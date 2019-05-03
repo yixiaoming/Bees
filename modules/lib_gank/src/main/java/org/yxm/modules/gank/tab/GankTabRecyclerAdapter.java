@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import java.util.List;
 import org.yxm.modules.base.activity.WebViewActivity;
 import org.yxm.modules.base.glide.GlideApp;
@@ -18,7 +17,6 @@ import org.yxm.modules.gank.tab.viewholder.ViewHolderBigImg;
 import org.yxm.modules.gank.tab.viewholder.ViewHolderNoImg;
 import org.yxm.modules.gank.tab.viewholder.ViewHolderOneImg;
 import org.yxm.modules.gank.tab.viewholder.ViewHolderThreeImg;
-import org.yxm.modules.gank.tab.viewholder.ViewHolderVideo;
 
 public class GankTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements View.OnClickListener {
@@ -77,11 +75,6 @@ public class GankTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         .inflate(R.layout.gank_recycler_item_view_big_img, parent, false);
                 view.setOnClickListener(this);
                 return new ViewHolderBigImg(view);
-            case ITEMVIEW_TYPE_VIDEO:
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.gank_recycler_item_view_video, parent, false);
-                view.setOnClickListener(this);
-                return new ViewHolderVideo(view);
             default:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.gank_recycler_item_view_no_img, parent, false);
@@ -102,8 +95,6 @@ public class GankTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             bindThreeImgViewHolder((ViewHolderThreeImg) holder, position);
         } else if (holder instanceof ViewHolderBigImg) {
             bindBigImgViewHolder((ViewHolderBigImg) holder, position);
-        } else if (holder instanceof ViewHolderVideo) {
-            bindVideoViewHolder((ViewHolderVideo) holder, position);
         }
     }
 
@@ -152,21 +143,6 @@ public class GankTabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         GlideApp.with(holder.mPhoto.getContext())
                 .load(item.url)
                 .into(holder.mPhoto);
-    }
-
-    private void bindVideoViewHolder(ViewHolderVideo holder, int position) {
-        GankEntity item = mDatas.get(position);
-        holder.mAuthor.setText(item.who);
-        holder.mDate.setText(item.publishedAt.substring(0, 10));
-
-        boolean setup = holder.videoPlayer.setUp("http://gslb.miaopai.com/stream/ed5HCfnhovu3tyIQAiv60Q__.mp4",
-                JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-        holder.videoPlayer.setKeepScreenOn(false);
-        if (setup) {
-            GlideApp.with(holder.videoPlayer.getContext())
-                    .load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg")
-                    .into(holder.videoPlayer.thumbImageView);
-        }
     }
 
     @Override

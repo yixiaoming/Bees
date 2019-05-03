@@ -1,8 +1,7 @@
-package org.yxm.bees.net.api;
-
-import java.util.List;
+package org.yxm.modules.kaiyan.net.api;
 
 import io.reactivex.Observable;
+import java.util.List;
 import org.yxm.modules.kaiyan.entity.KaiyanCategory;
 import org.yxm.modules.kaiyan.entity.KaiyanVideoList;
 import retrofit2.Call;
@@ -22,14 +21,14 @@ public interface IKaiyanApi {
 
     @GET("api/v3/categories/videoList")
     Call<KaiyanVideoList> getVideoList(
-            @Query("id") int id
+        @Query("id") int id
     );
 
     @GET("api/v3/categories/videoList")
     Call<KaiyanVideoList> getVideoList(
-            @Query("id") int id,
-            @Query("start") int start,
-            @Query("num") int num
+        @Query("id") int id,
+        @Query("start") int start,
+        @Query("num") int num
     );
 
     @GET("api/v4/categories/")
@@ -37,13 +36,13 @@ public interface IKaiyanApi {
 
     @GET("api/v3/categories/videoList")
     Observable<KaiyanVideoList> getVideoListRx(
-            @Query("id") int id
+        @Query("id") int id
     );
 
     @GET("api/v3/categories/videoList")
     Observable<KaiyanVideoList> getVideoListRx(
-            @Query("id") int id,
-            @Query("start") int start,
-            @Query("num") int num
+        @Query("id") int id,
+        @Query("start") int start,
+        @Query("num") int num
     );
 }
