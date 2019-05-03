@@ -9,8 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import org.yxm.bees.R;
 import org.yxm.bees.module.music.MusicFragment;
-import org.yxm.bees.module.personal.PersonalFragment;
-import org.yxm.bees.module.wanandroid.WanFragment;
 import org.yxm.bees.utils.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
@@ -21,6 +19,8 @@ import org.yxm.modules.base.mvp.BaseMvpActivity;
 import org.yxm.modules.base.mvp.BasePresenter;
 import org.yxm.modules.gank.GankFragment;
 import org.yxm.modules.kaiyan.KaiyanFragment;
+import org.yxm.modules.personal.PersonalFragment;
+import org.yxm.modules.wan.WanFragment;
 
 public class MainActivity extends BaseMvpActivity
         implements IMainView {

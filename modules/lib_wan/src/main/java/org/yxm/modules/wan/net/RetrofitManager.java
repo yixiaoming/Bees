@@ -1,8 +1,11 @@
-package org.yxm.bees.net;
+package org.yxm.modules.wan.net;
 
+import java.io.IOException;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.yxm.bees.net.api.ITingApi;
+import okhttp3.Response;
+import org.yxm.modules.wan.repo.network.IWanApi;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,30 +17,35 @@ public class RetrofitManager {
 
     private static volatile RetrofitManager instance;
     private OkHttpClient mOkHttpClient;
+    private Retrofit mKaiyanRetrofit;
     private Retrofit mTingRetrofit;
+    private Retrofit mWanRetrofit;
 
-    private ITingApi mTingApi;
+    private IWanApi mIWanApi;
 
     private RetrofitManager() {
         if (mOkHttpClient == null) {
             mOkHttpClient = new OkHttpClient.Builder()
-                    .addInterceptor(chain -> {
-                        Request newRequest = chain.request().newBuilder()
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            Request newRequest = chain.request().newBuilder()
                                 .removeHeader(UA_KEY)
                                 .addHeader(UA_KEY, UA_VALUE)
                                 .build();
-                        return chain.proceed(newRequest);
+                            return chain.proceed(newRequest);
+                        }
                     })
                     .build();
         }
-        if (mTingRetrofit == null) {
-            mTingRetrofit = new Retrofit.Builder()
-                    .baseUrl(ITingApi.BASE_URL)
+        if (mWanRetrofit == null) {
+            mWanRetrofit = new Retrofit.Builder()
+                    .baseUrl(IWanApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(mOkHttpClient)
                     .build();
-            mTingApi = mTingRetrofit.create(ITingApi.class);
+            mIWanApi = mWanRetrofit.create(IWanApi.class);
         }
     }
 
@@ -52,8 +60,8 @@ public class RetrofitManager {
         return instance;
     }
 
-    public ITingApi getThingApi() {
-        return mTingApi;
+    public IWanApi getWanApi() {
+        return mIWanApi;
     }
 
 }

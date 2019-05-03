@@ -97,10 +97,12 @@ dependencies {
     implementation project(':components:lib_async')
     implementation project(':components:lib_network')
     implementation project(':components:lib_view')
+    implementation project(':components:lib_runtime')
 
     implementation project(':modules:lib_base')
     implementation project(':modules:lib_personal')
 
     implementation project(':modules:lib_gank')
     implementation project(':modules:lib_kaiyan')
+    implementation project(':modules:lib_wan')
 }

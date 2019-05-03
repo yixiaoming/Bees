@@ -27,7 +27,7 @@
         android:progressDrawable="@drawable/webview_progress"
         android:visibility="gone"/>
 
-    <org.yxm.bees.module.common.NestedScrollWebView
+    <org.yxm.modules.base.view.NestedScrollWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
