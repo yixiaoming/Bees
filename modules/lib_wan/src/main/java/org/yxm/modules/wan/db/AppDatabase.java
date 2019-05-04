@@ -14,8 +14,6 @@ import org.yxm.modules.wan.repo.local.IWanDao;
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
 
-  public static final String TAG = "AppDatabase";
-
   public static final String DB_NAME = "wan.db";
 
   private static AppDatabase sInstance;

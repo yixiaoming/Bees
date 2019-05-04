@@ -13,8 +13,6 @@ import org.yxm.modules.gank.entity.GankEntity;
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
 
-  public static final String TAG = "AppDatabase";
-
   public static final String DB_NAME = "gank.db";
 
   private static AppDatabase sInstance;
