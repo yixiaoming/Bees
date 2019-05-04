@@ -26,15 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".module.music.service.MusicService"/>
-
-        <service
-            android:name=".module.music.aidlservice.AidlMusicService"
-            android:exported="true"
-            android:process=":remote">
-        </service>
     </application>
 
 

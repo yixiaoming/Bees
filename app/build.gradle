@@ -105,4 +105,5 @@ dependencies {
     implementation project(':modules:lib_gank')
     implementation project(':modules:lib_kaiyan')
     implementation project(':modules:lib_wan')
+    implementation project(':modules:lib_ting')
 }
