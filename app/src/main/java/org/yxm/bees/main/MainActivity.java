@@ -1,4 +1,4 @@
-package org.yxm.bees.module.main;
+package org.yxm.bees.main;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -8,12 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import org.yxm.bees.R;
-import org.yxm.bees.utils.BottomNavigationViewHelper;
+import org.yxm.bees.helper.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import org.yxm.modules.base.mvp.BaseMvpActivity;
 import org.yxm.modules.base.mvp.BasePresenter;
 import org.yxm.modules.gank.GankFragment;
@@ -70,7 +69,6 @@ public class MainActivity extends BaseMvpActivity
         BottomNavigationViewHelper.disableShiftMode(mBottomNavView);
         mBottomNavView.setOnNavigationItemSelectedListener(
                 item -> {
-                    JCVideoPlayer.releaseAllVideos();
                     switch (item.getItemId()) {
                         case R.id.action_wan:
                             showFragment(TAG_FRAGMENT_WAN);
@@ -144,6 +142,7 @@ public class MainActivity extends BaseMvpActivity
         // 要隐藏的fragment
         if (mCurrentFragment != null) {
             transaction.hide(mCurrentFragment);
+            mCurrentFragment.onPause();
         }
 
         transaction.show(fragment);
@@ -159,6 +158,5 @@ public class MainActivity extends BaseMvpActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        JCVideoPlayer.releaseAllVideos();
     }
 }

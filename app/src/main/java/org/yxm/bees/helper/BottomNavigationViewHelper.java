@@ -1,4 +1,4 @@
-package org.yxm.bees.utils;
+package org.yxm.bees.helper;
 
 import android.annotation.SuppressLint;
 import android.support.design.bottomnavigation.LabelVisibilityMode;

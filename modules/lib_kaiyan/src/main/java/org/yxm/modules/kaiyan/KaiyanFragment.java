@@ -97,5 +97,9 @@ public class KaiyanFragment extends BaseMvpFragment<IKaiyanView, KaiyanPresenter
         ToastUtils.s(getContext(), "error:" + t);
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
 }

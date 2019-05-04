@@ -62,32 +62,9 @@ dependencies {
     implementation "com.android.support:design:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:support-annotations:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
 
-    // Room
-    implementation "android.arch.persistence.room:runtime:${rootProject.ext.ROOM_VERSION}"
-    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.ROOM_VERSION}"
-    implementation "android.arch.lifecycle:reactivestreams:${rootProject.ext.ROOM_VERSION}"
-    // Glide
-    implementation "com.github.bumptech.glide:glide:${rootProject.ext.GLIDE_VERSION}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE_VERSION}"
-    // jiecao视频播放器
-    implementation "fm.jiecao:jiecaovideoplayer:${rootProject.ext.JIECAO_VIDEO_VERSION}"
-    // debug使用，轻松查看数据库和sp
-    debugImplementation "com.amitshekhar.android:debug-db:${rootProject.ext.AMITSHEKHAR_DEBUG_VERSION}"
-
     // Lifecycle
     implementation "android.arch.lifecycle:extensions:${rootProject.ext.LIFECYCLE_VERSION}"
     annotationProcessor "android.arch.lifecycle:compiler:${rootProject.ext.LIFECYCLE_VERSION}"
-
-    // butterknife
-//    implementation "com.jakewharton:butterknife:${rootProject.ext.BUTTERKNIFE_VERSION}"
-//    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.BUTTERKNIFE_VERSION}"
-
-    // dagger
-    implementation "com.google.dagger:dagger:${rootProject.ext.DAGGER_VERSION}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.DAGGER_VERSION}"
-    implementation "com.google.dagger:dagger-android:${rootProject.ext.DAGGER_VERSION}"
-    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.DAGGER_VERSION}"
-    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.DAGGER_VERSION}"
 
     // custom
     implementation project(':components:lib_volley')

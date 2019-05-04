@@ -1,4 +1,4 @@
-package org.yxm.bees.module.main;
+package org.yxm.bees.main;
 
 import org.yxm.modules.base.mvp.BasePresenter;
 
