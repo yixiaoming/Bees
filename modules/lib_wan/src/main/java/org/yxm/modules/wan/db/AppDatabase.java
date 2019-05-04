@@ -13,26 +13,27 @@ import org.yxm.modules.wan.repo.local.IWanDao;
 @Database(entities = {WanTabEntity.class, WanArticleEntity.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
-    public static final String TAG = "AppDatabase";
 
-    public static final String DB_NAME = "wan.db";
+  public static final String TAG = "AppDatabase";
 
-    private static AppDatabase sInstance;
+  public static final String DB_NAME = "wan.db";
 
-    public abstract IWanDao getWanDao();
+  private static AppDatabase sInstance;
 
-    public static AppDatabase getInstance(Context context) {
+  public abstract IWanDao getWanDao();
+
+  public static AppDatabase getInstance(Context context) {
+    if (sInstance == null) {
+      synchronized (AppDatabase.class) {
         if (sInstance == null) {
-            synchronized (AppDatabase.class) {
-                if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext());
-                }
-            }
+          sInstance = buildDatabase(context.getApplicationContext());
         }
-        return sInstance;
+      }
     }
+    return sInstance;
+  }
 
-    private static AppDatabase buildDatabase(Context appContext) {
-        return Room.databaseBuilder(appContext, AppDatabase.class, DB_NAME).build();
-    }
+  private static AppDatabase buildDatabase(Context appContext) {
+    return Room.databaseBuilder(appContext, AppDatabase.class, DB_NAME).build();
+  }
 }

@@ -6,17 +6,17 @@ import java.util.List;
 
 public class WanArticleWithTag {
 
-    @Embedded
-    public WanArticleEntity article;
+  @Embedded
+  public WanArticleEntity article;
 
-    @Relation(parentColumn = "id", entityColumn = "article_id")
-    public List<Tag> tags;
+  @Relation(parentColumn = "id", entityColumn = "article_id")
+  public List<Tag> tags;
 
-    @Override
-    public String toString() {
-        return "WanArticleWithTag{" +
-                "article=" + article +
-                ", tags=" + tags +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "WanArticleWithTag{" +
+        "article=" + article +
+        ", tags=" + tags +
+        '}';
+  }
 }

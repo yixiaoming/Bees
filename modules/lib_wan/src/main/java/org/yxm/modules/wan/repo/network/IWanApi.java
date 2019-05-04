@@ -15,21 +15,21 @@ import retrofit2.http.Path;
  */
 public interface IWanApi {
 
-    String BASE_URL = "http://wanandroid.com";
+  String BASE_URL = "http://wanandroid.com";
 
-    @GET(value = "/wxarticle/chapters/json")
-    Call<WanBaseEntity<List<WanTabEntity>>> listWanTabs();
+  @GET(value = "/wxarticle/chapters/json")
+  Call<WanBaseEntity<List<WanTabEntity>>> listWanTabs();
 
-    @GET(value = "/wxarticle/list/{authorId}/{page}/json")
-    Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> listAuthorArticles(
-        @Path("authorId") int authorId,
-        @Path("page") int page
-    );
+  @GET(value = "/wxarticle/list/{authorId}/{page}/json")
+  Call<WanBaseEntity<WanPageEntity<WanArticleEntity>>> listAuthorArticles(
+      @Path("authorId") int authorId,
+      @Path("page") int page
+  );
 
-    @GET(value = "/wxarticle/list/{authorId}/{page}/json")
-    Call<WanBaseEntity<WanPageEntity<WanArticleWithTag>>> listAuthorArticleWithTag(
-        @Path("authorId") int authorId,
-        @Path("page") int page
-    );
+  @GET(value = "/wxarticle/list/{authorId}/{page}/json")
+  Call<WanBaseEntity<WanPageEntity<WanArticleWithTag>>> listAuthorArticleWithTag(
+      @Path("authorId") int authorId,
+      @Path("page") int page
+  );
 
 }

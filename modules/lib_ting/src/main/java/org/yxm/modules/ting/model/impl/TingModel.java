@@ -8,18 +8,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TingModel implements ITingModel {
-    @Override
-    public void getSongBillListNetData(int type, int size, int offset, final ILoadDataLisener<SongBillListEntity> listener) {
-        TingNetManager.getSongBillListData(type, size, offset, new Callback<SongBillListEntity>() {
-            @Override
-            public void onResponse(Call<SongBillListEntity> call, Response<SongBillListEntity> response) {
-                listener.onSuccess(response.body());
-            }
 
-            @Override
-            public void onFailure(Call<SongBillListEntity> call, Throwable t) {
-                listener.onFailed(t);
-            }
-        });
-    }
+  @Override
+  public void getSongBillListNetData(int type, int size, int offset,
+      final ILoadDataLisener<SongBillListEntity> listener) {
+    TingNetManager.getSongBillListData(type, size, offset, new Callback<SongBillListEntity>() {
+      @Override
+      public void onResponse(Call<SongBillListEntity> call, Response<SongBillListEntity> response) {
+        listener.onSuccess(response.body());
+      }
+
+      @Override
+      public void onFailure(Call<SongBillListEntity> call, Throwable t) {
+        listener.onFailed(t);
+      }
+    });
+  }
 }

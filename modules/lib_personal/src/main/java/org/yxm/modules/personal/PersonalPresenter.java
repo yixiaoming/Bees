@@ -7,4 +7,5 @@ import org.yxm.modules.base.mvp.BasePresenter;
  */
 
 public class PersonalPresenter extends BasePresenter<IPersonalView> {
+
 }

@@ -14,44 +14,44 @@ import org.yxm.modules.base.mvp.BaseMvpFragment;
  */
 
 public class PersonalFragment extends BaseMvpFragment<IPersonalView, PersonalPresenter>
-        implements IPersonalView {
+    implements IPersonalView {
 
-    public static final String TAG = "PersonalFragment";
+  public static final String TAG = "PersonalFragment";
 
-    private ListView mListView;
+  private ListView mListView;
 
-    @Override
-    protected PersonalPresenter createPresenter() {
-        return new PersonalPresenter();
-    }
+  @Override
+  protected PersonalPresenter createPresenter() {
+    return new PersonalPresenter();
+  }
 
-    public static PersonalFragment newInstance() {
-        PersonalFragment fragment = new PersonalFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+  public static PersonalFragment newInstance() {
+    PersonalFragment fragment = new PersonalFragment();
+    Bundle bundle = new Bundle();
+    fragment.setArguments(bundle);
+    return fragment;
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.personal_fragment, container, false);
-        initViews(root);
-        return root;
-    }
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View root = inflater.inflate(R.layout.personal_fragment, container, false);
+    initViews(root);
+    return root;
+  }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
 
-    }
+  }
 
-    private void initViews(View root) {
-    }
+  private void initViews(View root) {
+  }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+  @Override
+  public void onResume() {
+    super.onResume();
+  }
 }

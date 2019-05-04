@@ -8,26 +8,26 @@ import android.util.Log;
 
 public class LogUtils {
 
-    private static final boolean DEBUG = true;
-    public static String TAG = "Bees";
+  private static final boolean DEBUG = true;
+  public static String TAG = "Bees";
 
-    public static void d(String tag, String msg) {
-        if (DEBUG) {
-            Log.d(tag, msg);
-        }
+  public static void d(String tag, String msg) {
+    if (DEBUG) {
+      Log.d(tag, msg);
     }
+  }
 
-    public static void d(String msg) {
-        d(TAG, msg);
-    }
+  public static void d(String msg) {
+    d(TAG, msg);
+  }
 
-    public static void e(String tag, String msg) {
-        if (DEBUG) {
-            Log.e(tag, msg);
-        }
+  public static void e(String tag, String msg) {
+    if (DEBUG) {
+      Log.e(tag, msg);
     }
+  }
 
-    public static void e(String msg) {
-        e(TAG, msg);
-    }
+  public static void e(String msg) {
+    e(TAG, msg);
+  }
 }

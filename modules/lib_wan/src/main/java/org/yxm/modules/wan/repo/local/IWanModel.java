@@ -9,18 +9,18 @@ import org.yxm.modules.wan.entity.WanTabEntity;
  */
 public interface IWanModel {
 
-    public interface LoadDataListener<T> {
+  public interface LoadDataListener<T> {
 
-        void onSuccess(int code, T datas);
+    void onSuccess(int code, T datas);
 
-        void onFialed(int code, Throwable throwable);
-    }
+    void onFialed(int code, Throwable throwable);
+  }
 
-    List<WanTabEntity> getWanTabs();
+  List<WanTabEntity> getWanTabs();
 
-    List<WanArticleEntity> syncGetWanArticleDatas(int authorId);
+  List<WanArticleEntity> syncGetWanArticleDatas(int authorId);
 
-    void asyncGetWanArticleDatas(int authorId,
-        LoadDataListener<List<WanArticleEntity>> loadDataListener,
-        int page);
+  void asyncGetWanArticleDatas(int authorId,
+      LoadDataListener<List<WanArticleEntity>> loadDataListener,
+      int page);
 }

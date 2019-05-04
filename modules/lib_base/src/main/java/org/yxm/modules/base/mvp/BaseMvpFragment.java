@@ -9,20 +9,20 @@ import android.support.v4.app.Fragment;
 
 public abstract class BaseMvpFragment<V, P extends BasePresenter<V>> extends Fragment {
 
-    protected P mPresenter;
+  protected P mPresenter;
 
-    protected abstract P createPresenter();
+  protected abstract P createPresenter();
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mPresenter = createPresenter();
-        mPresenter.attachView((V) this);
-    }
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    mPresenter = createPresenter();
+    mPresenter.attachView((V) this);
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mPresenter.detachView();
-    }
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    mPresenter.detachView();
+  }
 }

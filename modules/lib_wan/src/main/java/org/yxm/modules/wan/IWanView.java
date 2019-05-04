@@ -8,5 +8,5 @@ import org.yxm.modules.wan.entity.WanTabEntity;
  */
 public interface IWanView {
 
-    void onInitTabLayout(List<WanTabEntity> tabs);
+  void onInitTabLayout(List<WanTabEntity> tabs);
 }

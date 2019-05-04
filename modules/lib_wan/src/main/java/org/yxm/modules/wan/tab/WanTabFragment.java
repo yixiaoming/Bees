@@ -24,84 +24,85 @@ import org.yxm.modules.wan.entity.WanArticleEntity;
  */
 public class WanTabFragment extends Fragment {
 
-    private static final String TAG = "WanTabFragment";
-    public static final String BUNDLE_KEY_AUTHORID = "authorid";
+  private static final String TAG = "WanTabFragment";
+  public static final String BUNDLE_KEY_AUTHORID = "authorid";
 
-    private int mAuthorId;
+  private int mAuthorId;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-    private WanTabRecyclerAdapter mWanTabAdapter;
+  private SwipeRefreshLayout mSwipeRefreshLayout;
+  private RecyclerView mRecyclerView;
+  private WanTabRecyclerAdapter mWanTabAdapter;
 
-    private WanViewModel mWanViewModel;
+  private WanViewModel mWanViewModel;
 
-    public static WanTabFragment newInstance(int authorId) {
-        Bundle args = new Bundle();
-        args.putInt(BUNDLE_KEY_AUTHORID, authorId);
-        WanTabFragment fragment = new WanTabFragment();
-        fragment.setArguments(args);
-        return fragment;
+  public static WanTabFragment newInstance(int authorId) {
+    Bundle args = new Bundle();
+    args.putInt(BUNDLE_KEY_AUTHORID, authorId);
+    WanTabFragment fragment = new WanTabFragment();
+    fragment.setArguments(args);
+    return fragment;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    if (getArguments() != null) {
+      mAuthorId = getArguments().getInt(BUNDLE_KEY_AUTHORID, 0);
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mAuthorId = getArguments().getInt(BUNDLE_KEY_AUTHORID, 0);
-        }
-        if (mAuthorId != 0) {
-            mWanViewModel = ViewModelProviders.of(this).get(WanViewModel.class);
-            mWanViewModel.getWanArticleLiveData().observe(this,
-                new Observer<List<WanArticleEntity>>() {
-                    @Override
-                    public void onChanged(@Nullable List<WanArticleEntity> datas) {
-                        mWanTabAdapter.setDatas(datas);
-                    }
-                });
-        }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.wantab_fragment_layout, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViews(view);
-        initDatas();
-    }
-
-    private void initViews(View rootView) {
-        mSwipeRefreshLayout = rootView.findViewById(R.id.wantab_swipe_refresh_layout);
-        mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+    if (mAuthorId != 0) {
+      mWanViewModel = ViewModelProviders.of(this).get(WanViewModel.class);
+      mWanViewModel.getWanArticleLiveData().observe(this,
+          new Observer<List<WanArticleEntity>>() {
             @Override
-            public void onRefresh() {
-                WanTabFragment.this.onRefreshData();
+            public void onChanged(@Nullable List<WanArticleEntity> datas) {
+              mWanTabAdapter.setDatas(datas);
             }
-        });
-        mRecyclerView = rootView.findViewById(R.id.wantab_recyclerview);
-
-        mWanTabAdapter = new WanTabRecyclerAdapter(Collections.<WanArticleEntity>emptyList());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mWanTabAdapter);
+          });
     }
+  }
 
-    private void initDatas() {
-        if (mAuthorId != 0) {
-            mWanViewModel.loadWanArticles(mAuthorId, mWanTabAdapter.getPage(), mWanTabAdapter.getPageSize(),
-                    mSwipeRefreshLayout);
-        }
-    }
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.wantab_fragment_layout, container, false);
+  }
 
-    private void onRefreshData() {
-        if (mAuthorId != 0) {
-            mWanViewModel.onRefreshArticles(mAuthorId, mWanTabAdapter.getPage(), mSwipeRefreshLayout);
-        }
+  @Override
+  public void onViewCreated(@NonNull View view,
+      @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    initViews(view);
+    initDatas();
+  }
+
+  private void initViews(View rootView) {
+    mSwipeRefreshLayout = rootView.findViewById(R.id.wantab_swipe_refresh_layout);
+    mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        WanTabFragment.this.onRefreshData();
+      }
+    });
+    mRecyclerView = rootView.findViewById(R.id.wantab_recyclerview);
+
+    mWanTabAdapter = new WanTabRecyclerAdapter(Collections.<WanArticleEntity>emptyList());
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    mRecyclerView.setAdapter(mWanTabAdapter);
+  }
+
+  private void initDatas() {
+    if (mAuthorId != 0) {
+      mWanViewModel
+          .loadWanArticles(mAuthorId, mWanTabAdapter.getPage(), mWanTabAdapter.getPageSize(),
+              mSwipeRefreshLayout);
     }
+  }
+
+  private void onRefreshData() {
+    if (mAuthorId != 0) {
+      mWanViewModel.onRefreshArticles(mAuthorId, mWanTabAdapter.getPage(), mSwipeRefreshLayout);
+    }
+  }
 }

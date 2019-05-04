@@ -8,19 +8,20 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListStringConversion {
-    @TypeConverter
-    public static List<String> strToStrList(String data) {
-        if (data == null) {
-            return Collections.emptyList();
-        }
 
-        Type listype = new TypeToken<List<String>>() {
-        }.getType();
-        return new Gson().fromJson(data, listype);
+  @TypeConverter
+  public static List<String> strToStrList(String data) {
+    if (data == null) {
+      return Collections.emptyList();
     }
 
-    @TypeConverter
-    public static String listStrToStr(List<String> stringList) {
-        return new Gson().toJson(stringList);
-    }
+    Type listype = new TypeToken<List<String>>() {
+    }.getType();
+    return new Gson().fromJson(data, listype);
+  }
+
+  @TypeConverter
+  public static String listStrToStr(List<String> stringList) {
+    return new Gson().toJson(stringList);
+  }
 }

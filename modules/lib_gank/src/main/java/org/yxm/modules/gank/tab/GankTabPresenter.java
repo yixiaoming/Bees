@@ -9,66 +9,66 @@ import org.yxm.modules.gank.model.IGankModel;
 
 public class GankTabPresenter extends BasePresenter<IGankTabView> {
 
-    private IGankModel mGankModel;
+  private IGankModel mGankModel;
 
-    public GankTabPresenter(Context context) {
-        this.mGankModel = new GankModel(context);
-    }
+  public GankTabPresenter(Context context) {
+    this.mGankModel = new GankModel(context);
+  }
 
-    public void loadData(String type) {
-        mGankModel.loadLocalData(type, new IGankModel.LoadDataListener() {
+  public void loadData(String type) {
+    mGankModel.loadLocalData(type, new IGankModel.LoadDataListener() {
 
-            @Override
-            public void onSuccess(List<GankEntity> contents) {
-                if (mView.get() != null) {
-                    mView.get().onInitDataSuccess(contents);
-                }
-            }
+      @Override
+      public void onSuccess(List<GankEntity> contents) {
+        if (mView.get() != null) {
+          mView.get().onInitDataSuccess(contents);
+        }
+      }
 
-            @Override
-            public void onFailed(Throwable e) {
-                if (mView.get() != null) {
-                    mView.get().onInitDataFailed(e);
-                }
-            }
-        });
-    }
+      @Override
+      public void onFailed(Throwable e) {
+        if (mView.get() != null) {
+          mView.get().onInitDataFailed(e);
+        }
+      }
+    });
+  }
 
-    public void doRefresh(String type) {
-        mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
+  public void doRefresh(String type) {
+    mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
-            @Override
-            public void onSuccess(List<GankEntity> contents) {
-                if (mView.get() != null) {
-                    mView.get().onRefreshSuccess(contents);
-                }
-            }
+      @Override
+      public void onSuccess(List<GankEntity> contents) {
+        if (mView.get() != null) {
+          mView.get().onRefreshSuccess(contents);
+        }
+      }
 
-            @Override
-            public void onFailed(Throwable e) {
-                if (mView.get() != null) {
-                    mView.get().onRefreshFailed(e);
-                }
-            }
-        });
-    }
+      @Override
+      public void onFailed(Throwable e) {
+        if (mView.get() != null) {
+          mView.get().onRefreshFailed(e);
+        }
+      }
+    });
+  }
 
-    public void doLoadmore(String type) {
-        mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
+  public void doLoadmore(String type) {
+    mGankModel.loadNetData(type, new IGankModel.LoadDataListener() {
 
-            @Override
-            public void onSuccess(List<GankEntity> contents) {
-                if (mView.get() != null) {
-                    mView.get().onLoadMoreSuccess(contents);
-                }
-            }
+      @Override
+      public void onSuccess(List<GankEntity> contents) {
+        if (mView.get() != null) {
+          mView.get().onLoadMoreSuccess(contents);
+        }
+      }
 
-            @Override
-            public void onFailed(Throwable e) {
-                if (mView.get() != null) {
-                    mView.get().onLoadMoreFailed(e);
-                }
-            }
-        });
-    }
+      @Override
+      public void onFailed(Throwable e) {
+        if (mView.get() != null) {
+          mView.get().onLoadMoreFailed(e);
+        }
+      }
+    });
+  }
 }

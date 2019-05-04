@@ -5,17 +5,17 @@ import org.yxm.modules.gank.entity.GankEntity;
 
 public interface IGankTabView {
 
-    void onInitDataSuccess(List<GankEntity> datas);
+  void onInitDataSuccess(List<GankEntity> datas);
 
-    void onInitDataFailed(Throwable e);
+  void onInitDataFailed(Throwable e);
 
-    void onRefreshSuccess(List<GankEntity> datas);
+  void onRefreshSuccess(List<GankEntity> datas);
 
-    void onRefreshFailed(Throwable e);
+  void onRefreshFailed(Throwable e);
 
-    void onLoadMoreSuccess(List<GankEntity> datas);
+  void onLoadMoreSuccess(List<GankEntity> datas);
 
-    void onLoadMoreFailed(Throwable e);
+  void onLoadMoreFailed(Throwable e);
 
-    void showToast(String msg);
+  void showToast(String msg);
 }

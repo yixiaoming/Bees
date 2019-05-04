@@ -10,24 +10,25 @@ import org.yxm.modules.wan.entity.WanTabEntity;
 @Dao
 public interface IWanDao {
 
-    String WAN_TAB_TABLE_NAME = "t_wan_tab";
-    String WAN_ARTICLE_TABLE_NAME = "t_wan_article";
+  String WAN_TAB_TABLE_NAME = "t_wan_tab";
+  String WAN_ARTICLE_TABLE_NAME = "t_wan_article";
 
-    @Insert
-    void insertWanTabs(List<WanTabEntity> datas);
+  @Insert
+  void insertWanTabs(List<WanTabEntity> datas);
 
-    @Query(value = "SELECT * FROM " + WAN_TAB_TABLE_NAME)
-    List<WanTabEntity> getWantabs();
+  @Query(value = "SELECT * FROM " + WAN_TAB_TABLE_NAME)
+  List<WanTabEntity> getWantabs();
 
-    @Insert
-    void insertWanArticles(List<WanArticleEntity> datas);
+  @Insert
+  void insertWanArticles(List<WanArticleEntity> datas);
 
-    @Insert
-    void insertWanArticle(WanArticleEntity entity);
+  @Insert
+  void insertWanArticle(WanArticleEntity entity);
 
-    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE id=:id")
-    WanArticleEntity findWanArticleEntityById(int id);
+  @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE id=:id")
+  WanArticleEntity findWanArticleEntityById(int id);
 
-    @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME + " WHERE chapter_id =:chapterId limit :size")
-    List<WanArticleEntity> getWanArticles(int chapterId, int size);
+  @Query(value = "SELECT * FROM " + WAN_ARTICLE_TABLE_NAME
+      + " WHERE chapter_id =:chapterId limit :size")
+  List<WanArticleEntity> getWanArticles(int chapterId, int size);
 }

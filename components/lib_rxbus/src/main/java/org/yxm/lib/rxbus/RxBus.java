@@ -10,34 +10,35 @@ import io.reactivex.subjects.Subject;
 
 public class RxBus {
 
-    private static volatile RxBus instance;
-    private final Subject<Object> mBus;
+  private static volatile RxBus instance;
+  private final Subject<Object> mBus;
 
-    private RxBus() {
-        mBus = PublishSubject.create().toSerialized();
-    }
+  private RxBus() {
+    mBus = PublishSubject.create().toSerialized();
+  }
 
-    public static RxBus get() {
-        return Holder.BUS;
-    }
+  public static RxBus get() {
+    return Holder.BUS;
+  }
 
-    public void post(Object obj) {
-        mBus.onNext(obj);
-    }
+  public void post(Object obj) {
+    mBus.onNext(obj);
+  }
 
-    public <T> Observable<T> toObservable(Class<T> tClass) {
-        return mBus.ofType(tClass);
-    }
+  public <T> Observable<T> toObservable(Class<T> tClass) {
+    return mBus.ofType(tClass);
+  }
 
-    public Observable<Object> toObservable() {
-        return mBus;
-    }
+  public Observable<Object> toObservable() {
+    return mBus;
+  }
 
-    public boolean hasObservers() {
-        return mBus.hasObservers();
-    }
+  public boolean hasObservers() {
+    return mBus.hasObservers();
+  }
 
-    private static class Holder {
-        private static final RxBus BUS = new RxBus();
-    }
+  private static class Holder {
+
+    private static final RxBus BUS = new RxBus();
+  }
 }

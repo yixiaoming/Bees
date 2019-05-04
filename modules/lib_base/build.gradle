@@ -27,7 +27,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
 
-
     // Glide
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.GLIDE_VERSION}"
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.GLIDE_VERSION}"

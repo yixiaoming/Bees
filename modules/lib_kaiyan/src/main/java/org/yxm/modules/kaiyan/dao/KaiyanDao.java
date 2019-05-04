@@ -15,18 +15,18 @@ import org.yxm.modules.kaiyan.entity.KaiyanVideoItem;
 @Dao
 public interface KaiyanDao {
 
-    String CATETORY_TABLE_NAME = "t_kaiyan_category";
-    String VIDEO_TABLE_NAME = "t_kaiyan_video";
+  String CATETORY_TABLE_NAME = "t_kaiyan_category";
+  String VIDEO_TABLE_NAME = "t_kaiyan_video";
 
-    @Query("SELECT * FROM " + CATETORY_TABLE_NAME)
-    List<KaiyanCategory> getCategoryes();
+  @Query("SELECT * FROM " + CATETORY_TABLE_NAME)
+  List<KaiyanCategory> getCategoryes();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCatetories(List<KaiyanCategory> categories);
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  void insertCatetories(List<KaiyanCategory> categories);
 
-    @Query("SELECT * FROM " + VIDEO_TABLE_NAME + " WHERE tab_id=:typeId LIMIT 15")
-    List<KaiyanVideoItem> getVideos(int typeId);
+  @Query("SELECT * FROM " + VIDEO_TABLE_NAME + " WHERE tab_id=:typeId LIMIT 15")
+  List<KaiyanVideoItem> getVideos(int typeId);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertVideos(List<KaiyanVideoItem> items);
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  void insertVideos(List<KaiyanVideoItem> items);
 }

@@ -13,28 +13,29 @@ import org.yxm.modules.kaiyan.entity.KaiyanVideoItem;
 @Database(entities = {KaiyanCategory.class, KaiyanVideoItem.class}, version = 1)
 @TypeConverters({DateConversionFactory.class})
 public abstract class AppDatabase extends RoomDatabase {
-    public static final String TAG = "AppDatabase";
 
-    public static final String DB_NAME = "kaiyan.db";
+  public static final String TAG = "AppDatabase";
 
-    private static AppDatabase sInstance;
+  public static final String DB_NAME = "kaiyan.db";
 
-    public abstract KaiyanDao getKaiyanDao();
+  private static AppDatabase sInstance;
 
-    public static AppDatabase getInstance(Context context) {
+  public abstract KaiyanDao getKaiyanDao();
+
+  public static AppDatabase getInstance(Context context) {
+    if (sInstance == null) {
+      synchronized (AppDatabase.class) {
         if (sInstance == null) {
-            synchronized (AppDatabase.class) {
-                if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext());
-                }
-            }
+          sInstance = buildDatabase(context.getApplicationContext());
         }
-        return sInstance;
+      }
     }
+    return sInstance;
+  }
 
-    private static AppDatabase buildDatabase(Context appContext) {
-        return Room.databaseBuilder(appContext, AppDatabase.class, DB_NAME).build();
-    }
+  private static AppDatabase buildDatabase(Context appContext) {
+    return Room.databaseBuilder(appContext, AppDatabase.class, DB_NAME).build();
+  }
 
 
 }

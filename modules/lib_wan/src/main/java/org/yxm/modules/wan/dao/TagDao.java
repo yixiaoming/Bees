@@ -9,10 +9,10 @@ import org.yxm.modules.wan.entity.Tag;
 @Dao
 public interface TagDao {
 
-    @Insert
-    void insertTags(List<Tag> tags);
+  @Insert
+  void insertTags(List<Tag> tags);
 
-    @Query("SELECT * FROM Tag WHERE article_id=:articleId")
-    void getTagsWithArticleId(int articleId);
+  @Query("SELECT * FROM Tag WHERE article_id=:articleId")
+  void getTagsWithArticleId(int articleId);
 
 }

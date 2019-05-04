@@ -11,15 +11,15 @@ import org.yxm.modules.gank.R;
 
 public class ViewHolderNoImg extends RecyclerView.ViewHolder {
 
-    public TextView mContent;
-    public TextView mAuthor;
-    public TextView mDate;
+  public TextView mContent;
+  public TextView mAuthor;
+  public TextView mDate;
 
-    public ViewHolderNoImg(View itemView) {
-        super(itemView);
-        mContent = itemView.findViewById(R.id.desc);
-        mAuthor = itemView.findViewById(R.id.author);
-        mDate = itemView.findViewById(R.id.date);
-    }
+  public ViewHolderNoImg(View itemView) {
+    super(itemView);
+    mContent = itemView.findViewById(R.id.desc);
+    mAuthor = itemView.findViewById(R.id.author);
+    mDate = itemView.findViewById(R.id.date);
+  }
 
 }

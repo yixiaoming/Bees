@@ -5,4 +5,5 @@ package org.yxm.modules.personal;
  */
 
 public interface IPersonalView {
+
 }

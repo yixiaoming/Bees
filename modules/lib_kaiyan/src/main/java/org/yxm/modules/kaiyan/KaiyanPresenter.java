@@ -13,49 +13,49 @@ import org.yxm.modules.kaiyan.model.KaiyanModel;
 
 public class KaiyanPresenter extends BasePresenter<IKaiyanView> {
 
-    private IKaiyanModel kaiyanModel;
+  private IKaiyanModel kaiyanModel;
 
-    public KaiyanPresenter(Context context) {
-        kaiyanModel = new KaiyanModel(context);
-    }
+  public KaiyanPresenter(Context context) {
+    kaiyanModel = new KaiyanModel(context);
+  }
 
-    public void loadTabFragments() {
-        if (mView.get() != null) {
-            kaiyanModel.loadLocalCatetories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
-                @Override
-                public void onSuccess(List<KaiyanCategory> categories) {
-                    if (mView.get() != null) {
-                        mView.get().initLocalDataSuccess(categories);
-                    }
-                }
-
-                @Override
-                public void onFailed(Throwable t) {
-                    if (mView.get() != null) {
-                        mView.get().initLocalDataFailed(t);
-                    }
-                }
-            });
+  public void loadTabFragments() {
+    if (mView.get() != null) {
+      kaiyanModel.loadLocalCatetories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
+        @Override
+        public void onSuccess(List<KaiyanCategory> categories) {
+          if (mView.get() != null) {
+            mView.get().initLocalDataSuccess(categories);
+          }
         }
-    }
 
-    public void loadNetCategories() {
-        if (mView.get() != null) {
-            kaiyanModel.loadNetCategories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
-                @Override
-                public void onSuccess(List<KaiyanCategory> categories) {
-                    if (mView.get() != null) {
-                        mView.get().initLocalDataSuccess(categories);
-                    }
-                }
-
-                @Override
-                public void onFailed(Throwable t) {
-                    if (mView.get() != null) {
-                        mView.get().initNetDataFailed(t);
-                    }
-                }
-            });
+        @Override
+        public void onFailed(Throwable t) {
+          if (mView.get() != null) {
+            mView.get().initLocalDataFailed(t);
+          }
         }
+      });
     }
+  }
+
+  public void loadNetCategories() {
+    if (mView.get() != null) {
+      kaiyanModel.loadNetCategories(new IKaiyanModel.LoadDataListener<List<KaiyanCategory>>() {
+        @Override
+        public void onSuccess(List<KaiyanCategory> categories) {
+          if (mView.get() != null) {
+            mView.get().initLocalDataSuccess(categories);
+          }
+        }
+
+        @Override
+        public void onFailed(Throwable t) {
+          if (mView.get() != null) {
+            mView.get().initNetDataFailed(t);
+          }
+        }
+      });
+    }
+  }
 }

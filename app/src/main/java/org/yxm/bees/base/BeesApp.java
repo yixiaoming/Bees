@@ -2,7 +2,6 @@ package org.yxm.bees.base;
 
 import android.app.Application;
 import android.content.Context;
-
 import org.yxm.components.runtime.AppRuntime;
 import org.yxm.lib.volley.VolleyManager;
 

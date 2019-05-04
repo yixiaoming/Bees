@@ -5,10 +5,11 @@ package org.yxm.modules.ting.event;
  */
 
 public class MusicEvent {
-    public static final int STATE_PLAY = 1;
-    public static final int STATE_PAUSE = 2;
-    public static final int STATE_UPDATE_PROGRESS = 3;
 
-    public int state;
-    public int progress;
+  public static final int STATE_PLAY = 1;
+  public static final int STATE_PAUSE = 2;
+  public static final int STATE_UPDATE_PROGRESS = 3;
+
+  public int state;
+  public int progress;
 }

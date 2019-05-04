@@ -6,6 +6,6 @@ package org.yxm.bees.config;
 
 public class AppConfig {
 
-    public static boolean DEBUG = true;
+  public static boolean DEBUG = true;
 
 }

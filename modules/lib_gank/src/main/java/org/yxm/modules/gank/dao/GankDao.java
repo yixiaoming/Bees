@@ -9,12 +9,12 @@ import org.yxm.modules.gank.entity.GankEntity;
 @Dao
 public interface GankDao {
 
-    String TABLE_NAME = "t_gank";
+  String TABLE_NAME = "t_gank";
 
-    @Query("SELECT * FROM " + TABLE_NAME + " WHERE type=:type LIMIT 15")
-    List<GankEntity> getLastDatas(String type);
+  @Query("SELECT * FROM " + TABLE_NAME + " WHERE type=:type LIMIT 15")
+  List<GankEntity> getLastDatas(String type);
 
-    @Insert
-    void insertAll(List<GankEntity> gankEntities);
+  @Insert
+  void insertAll(List<GankEntity> gankEntities);
 
 }

@@ -12,29 +12,29 @@ import java.util.List;
 
 public class KaiyanPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<String> mTitles;
-    private List<Fragment> mFragments;
+  private List<String> mTitles;
+  private List<Fragment> mFragments;
 
-    public KaiyanPagerAdapter(FragmentManager childFragmentManager,
-                              List<String> titles, List<Fragment> fragments) {
-        super(childFragmentManager);
-        mTitles = titles;
-        mFragments = fragments;
-    }
+  public KaiyanPagerAdapter(FragmentManager childFragmentManager,
+      List<String> titles, List<Fragment> fragments) {
+    super(childFragmentManager);
+    mTitles = titles;
+    mFragments = fragments;
+  }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
+  @Nullable
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return mTitles.get(position);
+  }
 
-    @Override
-    public Fragment getItem(int position) {
-        return mFragments.get(position);
-    }
+  @Override
+  public Fragment getItem(int position) {
+    return mFragments.get(position);
+  }
 
-    @Override
-    public int getCount() {
-        return mFragments.size();
-    }
+  @Override
+  public int getCount() {
+    return mFragments.size();
+  }
 }

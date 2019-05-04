@@ -30,174 +30,174 @@ import org.yxm.modules.ting.event.MusicEvent;
 
 @SuppressLint("NewApi")
 public class MusicFragment extends BaseMvpFragment<IMusicView, TingPresenter>
-        implements IMusicView {
+    implements IMusicView {
 
-    private static final String TAG = "MusicFragment";
+  private static final String TAG = "MusicFragment";
 
-    private ImageView mBtnPreSong;
-    private ImageView mBtnNextSong;
-    private ImageView mBtnPlayStop;
-    private ImageView mSongCover;
-    private SeekBar mSeecbar;
+  private ImageView mBtnPreSong;
+  private ImageView mBtnNextSong;
+  private ImageView mBtnPlayStop;
+  private ImageView mSongCover;
+  private SeekBar mSeecbar;
 
-    private List<SongEntity> mSongList;
-    private int mCurSoneIndex;
+  private List<SongEntity> mSongList;
+  private int mCurSoneIndex;
 
 
-    private ObjectAnimator mCoverAnimator;
+  private ObjectAnimator mCoverAnimator;
 
-    @Override
-    protected TingPresenter createPresenter() {
-        return new TingPresenter();
-    }
+  @Override
+  protected TingPresenter createPresenter() {
+    return new TingPresenter();
+  }
 
-    public static MusicFragment newInstance() {
-        Bundle bundle = new Bundle();
-        MusicFragment fragment = new MusicFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+  public static MusicFragment newInstance() {
+    Bundle bundle = new Bundle();
+    MusicFragment fragment = new MusicFragment();
+    fragment.setArguments(bundle);
+    return fragment;
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View root = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.music_fragment_layout, container, false);
-        initViews(root);
-        return root;
-    }
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View root = LayoutInflater.from(container.getContext())
+        .inflate(R.layout.music_fragment_layout, container, false);
+    initViews(root);
+    return root;
+  }
 
-    private void initViews(View root) {
-        mSongCover = root.findViewById(R.id.song_cover);
-        mBtnPreSong = root.findViewById(R.id.btn_pre_song);
-        mBtnPreSong.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCurSoneIndex = MusicFragment.this.getPreSongIndex();
-                SongEntity song = mSongList.get(mCurSoneIndex);
-                MusicServiceManager.getInstance().getService().playNextMusic(song);
-                MusicFragment.this.updateSongCover(song);
-            }
-        });
-        mBtnNextSong = root.findViewById(R.id.btn_next_song);
-        mBtnNextSong.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCurSoneIndex = MusicFragment.this.getNextSongIndex();
-                SongEntity song = mSongList.get(mCurSoneIndex);
-                MusicServiceManager.getInstance().getService().playNextMusic(song);
-                MusicFragment.this.updateSongCover(song);
-            }
-        });
-        mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
-        mBtnPlayStop.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MusicServiceManager.getInstance().getService() == null) {
-                    ToastUtils.s(MusicFragment.this.getContext(), "播放器还没准备好-.-");
-                    return;
-                }
-                SongEntity song = mSongList.get(mCurSoneIndex);
-                MusicServiceManager.getInstance().getService().playPauseMusic(song);
-            }
-        });
-        mSeecbar = root.findViewById(R.id.music_seekbar);
-    }
-
-    @SuppressLint("CheckResult")
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mPresenter.doInitMusicList();
-        // rxbux注册控制play和stop按钮显示
-        RxBus.get().toObservable().map(new Function<Object, MusicEvent>() {
-            @Override
-            public MusicEvent apply(Object o) throws Exception {
-                return (MusicEvent) o;
-            }
-        }).subscribe(new Consumer<MusicEvent>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void accept(MusicEvent eventMsg) throws Exception {
-                if (eventMsg != null) {
-                    if (eventMsg.state == MusicEvent.STATE_PLAY) {
-                        mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
-                        startCoverRotateAnim();
-                    } else if (eventMsg.state == MusicEvent.STATE_PAUSE) {
-                        mBtnPlayStop.setImageResource(R.drawable.ic_play_music);
-                        stopCoverRotateAnim();
-                    } else if (eventMsg.state == MusicEvent.STATE_UPDATE_PROGRESS) {
-                        mSeecbar.setProgress(eventMsg.progress);
-                    }
-                }
-            }
-        });
-
-        MusicServiceManager.getInstance().init();
-    }
-
-    private void startCoverRotateAnim() {
-        if (mCoverAnimator == null) {
-            mCoverAnimator = ObjectAnimator.ofFloat(mSongCover, "rotation", 0f, 360.0f);
-            mCoverAnimator.setDuration(10000);
-            mCoverAnimator.setInterpolator(new LinearInterpolator());
-            mCoverAnimator.setRepeatCount(-1);
-            mCoverAnimator.setRepeatMode(ValueAnimator.RESTART);
-            mCoverAnimator.start();
+  private void initViews(View root) {
+    mSongCover = root.findViewById(R.id.song_cover);
+    mBtnPreSong = root.findViewById(R.id.btn_pre_song);
+    mBtnPreSong.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mCurSoneIndex = MusicFragment.this.getPreSongIndex();
+        SongEntity song = mSongList.get(mCurSoneIndex);
+        MusicServiceManager.getInstance().getService().playNextMusic(song);
+        MusicFragment.this.updateSongCover(song);
+      }
+    });
+    mBtnNextSong = root.findViewById(R.id.btn_next_song);
+    mBtnNextSong.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mCurSoneIndex = MusicFragment.this.getNextSongIndex();
+        SongEntity song = mSongList.get(mCurSoneIndex);
+        MusicServiceManager.getInstance().getService().playNextMusic(song);
+        MusicFragment.this.updateSongCover(song);
+      }
+    });
+    mBtnPlayStop = root.findViewById(R.id.btn_play_stop);
+    mBtnPlayStop.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (MusicServiceManager.getInstance().getService() == null) {
+          ToastUtils.s(MusicFragment.this.getContext(), "播放器还没准备好-.-");
+          return;
         }
-        mCoverAnimator.resume();
-    }
+        SongEntity song = mSongList.get(mCurSoneIndex);
+        MusicServiceManager.getInstance().getService().playPauseMusic(song);
+      }
+    });
+    mSeecbar = root.findViewById(R.id.music_seekbar);
+  }
 
-    private void stopCoverRotateAnim() {
-        if (mCoverAnimator != null) {
-            mCoverAnimator.pause();
+  @SuppressLint("CheckResult")
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    mPresenter.doInitMusicList();
+    // rxbux注册控制play和stop按钮显示
+    RxBus.get().toObservable().map(new Function<Object, MusicEvent>() {
+      @Override
+      public MusicEvent apply(Object o) throws Exception {
+        return (MusicEvent) o;
+      }
+    }).subscribe(new Consumer<MusicEvent>() {
+      @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+      @Override
+      public void accept(MusicEvent eventMsg) throws Exception {
+        if (eventMsg != null) {
+          if (eventMsg.state == MusicEvent.STATE_PLAY) {
+            mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
+            startCoverRotateAnim();
+          } else if (eventMsg.state == MusicEvent.STATE_PAUSE) {
+            mBtnPlayStop.setImageResource(R.drawable.ic_play_music);
+            stopCoverRotateAnim();
+          } else if (eventMsg.state == MusicEvent.STATE_UPDATE_PROGRESS) {
+            mSeecbar.setProgress(eventMsg.progress);
+          }
         }
-    }
+      }
+    });
 
-    @Override
-    public void onInitMusicListSuccess(SongBillListEntity songBillListEntity) {
-        if (mSongList == null) {
-            mSongList = new ArrayList<>();
-        }
-        mSongList.addAll(songBillListEntity.song_list);
-        mCurSoneIndex = 0;
-        if (MusicServiceManager.getInstance().getService() != null
-                && MusicServiceManager.getInstance().getService().getCurSong() != null) {
-            updateSongCover(MusicServiceManager.getInstance().getService().getCurSong());
-            if (MusicServiceManager.getInstance().getService().isMediaPlaying()) {
-                mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
-                startCoverRotateAnim();
-            }
-            SongEntity serviceCurSong = (MusicServiceManager.getInstance().getService().getCurSong());
-            for (int i = 0; i < mSongList.size(); i++) {
-                SongEntity song = mSongList.get(i);
-                if (TextUtils.equals(song.song_id, serviceCurSong.song_id)) {
-                    mCurSoneIndex = i;
-                }
-            }
-        } else {
-            updateSongCover(mSongList.get(mCurSoneIndex));
-        }
-    }
+    MusicServiceManager.getInstance().init();
+  }
 
-    private int getNextSongIndex() {
-        if (mCurSoneIndex == mSongList.size() - 1) {
-            return 0;
-        }
-        return mCurSoneIndex + 1;
+  private void startCoverRotateAnim() {
+    if (mCoverAnimator == null) {
+      mCoverAnimator = ObjectAnimator.ofFloat(mSongCover, "rotation", 0f, 360.0f);
+      mCoverAnimator.setDuration(10000);
+      mCoverAnimator.setInterpolator(new LinearInterpolator());
+      mCoverAnimator.setRepeatCount(-1);
+      mCoverAnimator.setRepeatMode(ValueAnimator.RESTART);
+      mCoverAnimator.start();
     }
+    mCoverAnimator.resume();
+  }
 
-    private int getPreSongIndex() {
-        if (mCurSoneIndex == 0) {
-            return mSongList.size() - 1;
-        }
-        return mCurSoneIndex - 1;
+  private void stopCoverRotateAnim() {
+    if (mCoverAnimator != null) {
+      mCoverAnimator.pause();
     }
+  }
 
-    private void updateSongCover(SongEntity songEntity) {
-        GlideApp.with(this)
-                .load(songEntity.pic_big)
-                .into(mSongCover);
+  @Override
+  public void onInitMusicListSuccess(SongBillListEntity songBillListEntity) {
+    if (mSongList == null) {
+      mSongList = new ArrayList<>();
     }
+    mSongList.addAll(songBillListEntity.song_list);
+    mCurSoneIndex = 0;
+    if (MusicServiceManager.getInstance().getService() != null
+        && MusicServiceManager.getInstance().getService().getCurSong() != null) {
+      updateSongCover(MusicServiceManager.getInstance().getService().getCurSong());
+      if (MusicServiceManager.getInstance().getService().isMediaPlaying()) {
+        mBtnPlayStop.setImageResource(R.drawable.ic_pause_music);
+        startCoverRotateAnim();
+      }
+      SongEntity serviceCurSong = (MusicServiceManager.getInstance().getService().getCurSong());
+      for (int i = 0; i < mSongList.size(); i++) {
+        SongEntity song = mSongList.get(i);
+        if (TextUtils.equals(song.song_id, serviceCurSong.song_id)) {
+          mCurSoneIndex = i;
+        }
+      }
+    } else {
+      updateSongCover(mSongList.get(mCurSoneIndex));
+    }
+  }
+
+  private int getNextSongIndex() {
+    if (mCurSoneIndex == mSongList.size() - 1) {
+      return 0;
+    }
+    return mCurSoneIndex + 1;
+  }
+
+  private int getPreSongIndex() {
+    if (mCurSoneIndex == 0) {
+      return mSongList.size() - 1;
+    }
+    return mCurSoneIndex - 1;
+  }
+
+  private void updateSongCover(SongEntity songEntity) {
+    GlideApp.with(this)
+        .load(songEntity.pic_big)
+        .into(mSongCover);
+  }
 }

@@ -8,9 +8,10 @@ import org.yxm.modules.kaiyan.entity.KaiyanCategory;
  */
 
 public interface IKaiyanView {
-    void initLocalDataSuccess(List<KaiyanCategory> categories);
 
-    void initLocalDataFailed(Throwable t);
+  void initLocalDataSuccess(List<KaiyanCategory> categories);
 
-    void initNetDataFailed(Throwable t);
+  void initLocalDataFailed(Throwable t);
+
+  void initNetDataFailed(Throwable t);
 }

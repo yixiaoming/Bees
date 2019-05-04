@@ -9,23 +9,23 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public abstract class BaseMvpActivity<V, T extends BasePresenter<V>>
-        extends AppCompatActivity {
+    extends AppCompatActivity {
 
-    protected T mPresenter;
+  protected T mPresenter;
 
-    protected abstract T createPresenter();
+  protected abstract T createPresenter();
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPresenter = createPresenter();
-        mPresenter.attachView((V) this);
-    }
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mPresenter = createPresenter();
+    mPresenter.attachView((V) this);
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.detachView();
+  }
 
 }

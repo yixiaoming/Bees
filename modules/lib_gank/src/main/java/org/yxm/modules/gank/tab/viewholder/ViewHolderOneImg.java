@@ -12,17 +12,17 @@ import org.yxm.modules.gank.R;
 
 public class ViewHolderOneImg extends RecyclerView.ViewHolder {
 
-    public ImageView mPhoto;
-    public TextView mContent;
-    public TextView mAuthor;
-    public TextView mDate;
+  public ImageView mPhoto;
+  public TextView mContent;
+  public TextView mAuthor;
+  public TextView mDate;
 
-    public ViewHolderOneImg(View itemView) {
-        super(itemView);
-        mPhoto = itemView.findViewById(R.id.img);
-        mContent = itemView.findViewById(R.id.desc);
-        mAuthor = itemView.findViewById(R.id.author);
-        mDate = itemView.findViewById(R.id.date);
-    }
+  public ViewHolderOneImg(View itemView) {
+    super(itemView);
+    mPhoto = itemView.findViewById(R.id.img);
+    mContent = itemView.findViewById(R.id.desc);
+    mAuthor = itemView.findViewById(R.id.author);
+    mDate = itemView.findViewById(R.id.date);
+  }
 
 }

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_drawerlayout"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/main_drawerlayout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <FrameLayout
+      android:id="@+id/main_content_framelayout"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
 
-        <FrameLayout
-            android:id="@+id/main_content_framelayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:background="@color/grey500"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/grey500"/>
+    <android.support.design.widget.BottomNavigationView
+      android:id="@+id/main_bottom_nav_bar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/main_bottom_nav_bar_height"
+      android:paddingTop="2dp"
+      app:itemTextColor="#332522"
+      app:menu="@menu/bottom_navigation_menu"/>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/main_bottom_nav_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/main_bottom_nav_bar_height"
-            android:paddingTop="2dp"
-            app:itemTextColor="#332522"
-            app:menu="@menu/bottom_navigation_menu"/>
+  </LinearLayout>
 
-    </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/id_navigationview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        app:itemTextColor="@color/colorPrimary"/>
+  <android.support.design.widget.NavigationView
+    android:id="@+id/id_navigationview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="left"
+    app:itemTextColor="@color/colorPrimary"/>
 
 </android.support.v4.widget.DrawerLayout>

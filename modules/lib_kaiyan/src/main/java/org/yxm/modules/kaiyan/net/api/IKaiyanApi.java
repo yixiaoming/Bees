@@ -14,35 +14,35 @@ import retrofit2.http.Query;
 
 public interface IKaiyanApi {
 
-    public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
+  public static final String BASE_URL = "http://baobab.kaiyanapp.com/";
 
-    @GET("api/v4/categories/")
-    Call<List<KaiyanCategory>> getCategories();
+  @GET("api/v4/categories/")
+  Call<List<KaiyanCategory>> getCategories();
 
-    @GET("api/v3/categories/videoList")
-    Call<KaiyanVideoList> getVideoList(
-        @Query("id") int id
-    );
+  @GET("api/v3/categories/videoList")
+  Call<KaiyanVideoList> getVideoList(
+      @Query("id") int id
+  );
 
-    @GET("api/v3/categories/videoList")
-    Call<KaiyanVideoList> getVideoList(
-        @Query("id") int id,
-        @Query("start") int start,
-        @Query("num") int num
-    );
+  @GET("api/v3/categories/videoList")
+  Call<KaiyanVideoList> getVideoList(
+      @Query("id") int id,
+      @Query("start") int start,
+      @Query("num") int num
+  );
 
-    @GET("api/v4/categories/")
-    Observable<List<KaiyanCategory>> getCategoriesRx();
+  @GET("api/v4/categories/")
+  Observable<List<KaiyanCategory>> getCategoriesRx();
 
-    @GET("api/v3/categories/videoList")
-    Observable<KaiyanVideoList> getVideoListRx(
-        @Query("id") int id
-    );
+  @GET("api/v3/categories/videoList")
+  Observable<KaiyanVideoList> getVideoListRx(
+      @Query("id") int id
+  );
 
-    @GET("api/v3/categories/videoList")
-    Observable<KaiyanVideoList> getVideoListRx(
-        @Query("id") int id,
-        @Query("start") int start,
-        @Query("num") int num
-    );
+  @GET("api/v3/categories/videoList")
+  Observable<KaiyanVideoList> getVideoListRx(
+      @Query("id") int id,
+      @Query("start") int start,
+      @Query("num") int num
+  );
 }

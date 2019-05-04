@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <android.support.v7.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="@dimen/song_cover_margin_top"
+    app:cardCornerRadius="@dimen/song_cover_radius">
+
+    <ImageView
+      android:id="@+id/song_cover"
+      android:layout_width="@dimen/song_cover_width"
+      android:layout_height="@dimen/song_cover_width"
+      android:src="@mipmap/bees_logo"/>
+  </android.support.v7.widget.CardView>
+
+  <SeekBar
+    android:id="@+id/music_seekbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@id/control_layout"
+    android:layout_marginLeft="30dp"
+    android:layout_marginTop="-20dp"
+    android:layout_marginRight="30dp"
+    android:visibility="gone"/>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/song_cover_margin_top"
-        app:cardCornerRadius="@dimen/song_cover_radius">
+  <LinearLayout
+    android:id="@+id/control_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/song_play_control_layout_height"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="80dp">
 
-        <ImageView
-            android:id="@+id/song_cover"
-            android:layout_width="@dimen/song_cover_width"
-            android:layout_height="@dimen/song_cover_width"
-            android:src="@mipmap/bees_logo"/>
-    </android.support.v7.widget.CardView>
+    <ImageView
+      android:id="@+id/btn_pre_song"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:padding="@dimen/song_play_small_btn_padding"
+      app:srcCompat="@drawable/ic_skip_pre_music"/>
 
-    <SeekBar
-        android:id="@+id/music_seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/control_layout"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="-20dp"
-        android:layout_marginRight="30dp"
-        android:visibility="gone"/>
+    <ImageView
+      android:id="@+id/btn_play_stop"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:padding="5dp"
+      app:srcCompat="@drawable/ic_play_music"/>
 
-    <LinearLayout
-        android:id="@+id/control_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/song_play_control_layout_height"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp">
-
-        <ImageView
-            android:id="@+id/btn_pre_song"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/song_play_small_btn_padding"
-            app:srcCompat="@drawable/ic_skip_pre_music"/>
-
-        <ImageView
-            android:id="@+id/btn_play_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            app:srcCompat="@drawable/ic_play_music"/>
-
-        <ImageView
-            android:id="@+id/btn_next_song"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/song_play_small_btn_padding"
-            app:srcCompat="@drawable/ic_skip_next_music"/>
-    </LinearLayout>
+    <ImageView
+      android:id="@+id/btn_next_song"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:padding="@dimen/song_play_small_btn_padding"
+      app:srcCompat="@drawable/ic_skip_next_music"/>
+  </LinearLayout>
 
 </RelativeLayout>

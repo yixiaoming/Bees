@@ -6,11 +6,11 @@ import org.yxm.modules.wan.entity.WanTabEntity;
 
 public interface IWanRepo {
 
-    List<WanTabEntity> getWanTabLocalList();
+  List<WanTabEntity> getWanTabLocalList();
 
-    List<WanTabEntity> getWanTabNetList();
+  List<WanTabEntity> getWanTabNetList();
 
-    List<WanArticleEntity> getWanArticleLocalList(int tabId, int size);
+  List<WanArticleEntity> getWanArticleLocalList(int tabId, int size);
 
-    List<WanArticleEntity> getWanArticleNetList(int tabId, int page);
+  List<WanArticleEntity> getWanArticleNetList(int tabId, int page);
 }

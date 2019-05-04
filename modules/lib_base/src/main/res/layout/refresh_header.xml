@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/refresh_header_height">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/refresh_header_height">
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+      android:id="@+id/logo_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/logo_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+      <ProgressBar
+        android:id="@+id/state_progress"
+        android:layout_width="@dimen/refresh_state_logo_width"
+        android:layout_height="@dimen/refresh_state_logo_width"
+        android:visibility="gone"/>
 
-            <ProgressBar
-                android:id="@+id/state_progress"
-                android:layout_width="@dimen/refresh_state_logo_width"
-                android:layout_height="@dimen/refresh_state_logo_width"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/state_logo"
-                android:layout_width="@dimen/refresh_state_logo_width"
-                android:layout_height="@dimen/refresh_state_logo_width"
-                android:src="@mipmap/bees_logo"/>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/state_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/logo_container"
-            android:text="@string/pull_to_refresh"
-            android:textSize="16sp"/>
+      <ImageView
+        android:id="@+id/state_logo"
+        android:layout_width="@dimen/refresh_state_logo_width"
+        android:layout_height="@dimen/refresh_state_logo_width"
+        android:src="@mipmap/bees_logo"/>
     </RelativeLayout>
+
+    <TextView
+      android:id="@+id/state_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="10dp"
+      android:layout_toRightOf="@+id/logo_container"
+      android:text="@string/pull_to_refresh"
+      android:textSize="16sp"/>
+  </RelativeLayout>
 
 </RelativeLayout>

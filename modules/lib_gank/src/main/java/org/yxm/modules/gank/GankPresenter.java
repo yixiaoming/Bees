@@ -7,13 +7,13 @@ import org.yxm.modules.gank.model.IGankModel;
 
 public class GankPresenter extends BasePresenter<IGankView> {
 
-    private IGankModel mGankModel;
+  private IGankModel mGankModel;
 
-    public GankPresenter(Context context) {
-        mGankModel = new GankModel(context);
-    }
+  public GankPresenter(Context context) {
+    mGankModel = new GankModel(context);
+  }
 
-    public void loadData() {
-        mView.get().initDataView(mGankModel.getDefaultTabs());
-    }
+  public void loadData() {
+    mView.get().initDataView(mGankModel.getDefaultTabs());
+  }
 }

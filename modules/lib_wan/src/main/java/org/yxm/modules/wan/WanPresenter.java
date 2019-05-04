@@ -14,30 +14,30 @@ import org.yxm.modules.wan.repo.local.WanModel;
  */
 public class WanPresenter extends BasePresenter<IWanView> {
 
-    private IWanModel mModel;
+  private IWanModel mModel;
 
-    public WanPresenter() {
-        mModel = new WanModel();
-    }
+  public WanPresenter() {
+    mModel = new WanModel();
+  }
 
-    /**
-     * 加载WanFragment Tablayout的数据
-     */
-    public void initTablayout() {
-        ThreadManager.getInstance().runIo(new Runnable() {
-            @Override
-            public void run() {
-                final List<WanTabEntity> tabs = mModel.getWanTabs();
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (tabs != null) {
-                            mView.get().onInitTabLayout(tabs);
-                        }
-                    }
-                });
+  /**
+   * 加载WanFragment Tablayout的数据
+   */
+  public void initTablayout() {
+    ThreadManager.getInstance().runIo(new Runnable() {
+      @Override
+      public void run() {
+        final List<WanTabEntity> tabs = mModel.getWanTabs();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+          @Override
+          public void run() {
+            if (tabs != null) {
+              mView.get().onInitTabLayout(tabs);
             }
+          }
         });
+      }
+    });
 
-    }
+  }
 }

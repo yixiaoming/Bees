@@ -4,12 +4,13 @@ import org.yxm.modules.ting.entity.ting.SongBillListEntity;
 
 public interface ITingModel {
 
-    void getSongBillListNetData(int type, int size, int offset,
-        ILoadDataLisener<SongBillListEntity> listener);
+  void getSongBillListNetData(int type, int size, int offset,
+      ILoadDataLisener<SongBillListEntity> listener);
 
-    interface ILoadDataLisener<T> {
-        void onSuccess(T t);
+  interface ILoadDataLisener<T> {
 
-        void onFailed(Throwable t);
-    }
+    void onSuccess(T t);
+
+    void onFailed(Throwable t);
+  }
 }

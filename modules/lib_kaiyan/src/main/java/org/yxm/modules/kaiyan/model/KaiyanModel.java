@@ -3,7 +3,6 @@ package org.yxm.modules.kaiyan.model;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import io.reactivex.Emitter;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;

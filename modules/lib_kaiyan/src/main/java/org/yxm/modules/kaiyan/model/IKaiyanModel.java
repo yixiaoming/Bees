@@ -6,19 +6,20 @@ package org.yxm.modules.kaiyan.model;
 
 public interface IKaiyanModel {
 
-    void loadLocalCatetories(LoadDataListener listener);
+  void loadLocalCatetories(LoadDataListener listener);
 
-    void loadNetCategories(LoadDataListener listener);
+  void loadNetCategories(LoadDataListener listener);
 
-    void loadNextPageVideos(int tabId, LoadDataListener listener);
+  void loadNextPageVideos(int tabId, LoadDataListener listener);
 
-    interface LoadDataListener<T> {
-        void onSuccess(T data);
+  interface LoadDataListener<T> {
 
-        void onFailed(Throwable t);
-    }
+    void onSuccess(T data);
 
-    void loadLocalVideos(int tabid, LoadDataListener listener);
+    void onFailed(Throwable t);
+  }
 
-    void loadNetVideos(int tabid, LoadDataListener listener);
+  void loadLocalVideos(int tabid, LoadDataListener listener);
+
+  void loadNetVideos(int tabid, LoadDataListener listener);
 }

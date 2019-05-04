@@ -8,19 +8,20 @@ import org.yxm.modules.kaiyan.entity.KaiyanVideoItem;
  */
 
 public interface IKaiyanTabView {
-    void onInitLocalDataSuccess(List<KaiyanVideoItem> datas);
 
-    void onInitLocalDataFailed(Throwable t);
+  void onInitLocalDataSuccess(List<KaiyanVideoItem> datas);
 
-    void onInitNetDataSuccess(List<KaiyanVideoItem> datas);
+  void onInitLocalDataFailed(Throwable t);
 
-    void onInitNetDataFailed(Throwable t);
+  void onInitNetDataSuccess(List<KaiyanVideoItem> datas);
 
-    void onRefreshSuccess(List<KaiyanVideoItem> datas);
+  void onInitNetDataFailed(Throwable t);
 
-    void onRefreshFailed(Throwable t);
+  void onRefreshSuccess(List<KaiyanVideoItem> datas);
 
-    void onLoadmoreSuccess(List<KaiyanVideoItem> datas);
+  void onRefreshFailed(Throwable t);
 
-    void onLoadmoreFailed(Throwable t);
+  void onLoadmoreSuccess(List<KaiyanVideoItem> datas);
+
+  void onLoadmoreFailed(Throwable t);
 }

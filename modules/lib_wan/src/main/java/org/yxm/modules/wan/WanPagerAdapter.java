@@ -11,28 +11,28 @@ import java.util.List;
  */
 public class WanPagerAdapter extends FragmentPagerAdapter {
 
-    private List<String> mTitles;
-    private List<Fragment> mFragments;
+  private List<String> mTitles;
+  private List<Fragment> mFragments;
 
-    public WanPagerAdapter(FragmentManager fm, List<String> titles, List<Fragment> fragments) {
-        super(fm);
-        this.mTitles = titles;
-        this.mFragments = fragments;
-    }
+  public WanPagerAdapter(FragmentManager fm, List<String> titles, List<Fragment> fragments) {
+    super(fm);
+    this.mTitles = titles;
+    this.mFragments = fragments;
+  }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
+  @Nullable
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return mTitles.get(position);
+  }
 
-    @Override
-    public Fragment getItem(int i) {
-        return mFragments.get(i);
-    }
+  @Override
+  public Fragment getItem(int i) {
+    return mFragments.get(i);
+  }
 
-    @Override
-    public int getCount() {
-        return mTitles.size();
-    }
+  @Override
+  public int getCount() {
+    return mTitles.size();
+  }
 }

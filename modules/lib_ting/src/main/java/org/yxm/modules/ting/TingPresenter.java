@@ -7,29 +7,30 @@ import org.yxm.modules.ting.model.impl.TingModel;
 
 public class TingPresenter extends BasePresenter<IMusicView> {
 
-    private ITingModel mModel;
-    private int mOffset = 0;
+  private ITingModel mModel;
+  private int mOffset = 0;
 
-    public TingPresenter() {
-        mModel = new TingModel();
-    }
+  public TingPresenter() {
+    mModel = new TingModel();
+  }
 
-    public void doInitMusicList() {
-        mModel.getSongBillListNetData(2, 10, mOffset, new ITingModel.ILoadDataLisener<SongBillListEntity>() {
-            @Override
-            public void onSuccess(SongBillListEntity songBillListEntity) {
-                mOffset += mOffset;
-                if (mView.get() != null) {
-                    mView.get().onInitMusicListSuccess(songBillListEntity);
-                }
+  public void doInitMusicList() {
+    mModel.getSongBillListNetData(2, 10, mOffset,
+        new ITingModel.ILoadDataLisener<SongBillListEntity>() {
+          @Override
+          public void onSuccess(SongBillListEntity songBillListEntity) {
+            mOffset += mOffset;
+            if (mView.get() != null) {
+              mView.get().onInitMusicListSuccess(songBillListEntity);
             }
+          }
 
-            @Override
-            public void onFailed(Throwable t) {
+          @Override
+          public void onFailed(Throwable t) {
 
-            }
+          }
         });
-    }
+  }
 
 
 }
