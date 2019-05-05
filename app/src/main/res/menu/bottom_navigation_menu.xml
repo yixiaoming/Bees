@@ -18,6 +18,13 @@
     android:enabled="true"
     android:icon="@drawable/ic_bottom_wan"
     android:title="@string/title_wan"
+    android:visible="false"
+    app:showAsAction="ifRoom"/>
+  <item
+    android:id="@+id/action_oneapi"
+    android:enabled="true"
+    android:icon="@drawable/ic_bottom_wan"
+    android:title="@string/title_oneapi"
     app:showAsAction="ifRoom"/>
   <item
     android:id="@+id/action_music"
@@ -25,11 +32,11 @@
     android:icon="@drawable/ic_bottom_audiotrack"
     android:title="@string/title_photo"
     app:showAsAction="ifRoom"/>
-  <item
-    android:id="@+id/action_personal"
-    android:enabled="true"
-    android:icon="@drawable/ic_bottom_person"
-    android:title="@string/title_wo"
-    android:visible="false"
-    app:showAsAction="ifRoom"/>
+  <!--<item-->
+    <!--android:id="@+id/action_personal"-->
+    <!--android:enabled="true"-->
+    <!--android:icon="@drawable/ic_bottom_person"-->
+    <!--android:title="@string/title_wo"-->
+    <!--android:visible="false"-->
+    <!--app:showAsAction="ifRoom"/>-->
 </menu>

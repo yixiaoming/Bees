@@ -17,8 +17,6 @@ public class RetrofitManager {
 
   private static volatile RetrofitManager instance;
   private OkHttpClient mOkHttpClient;
-  private Retrofit mKaiyanRetrofit;
-  private Retrofit mTingRetrofit;
   private Retrofit mWanRetrofit;
 
   private IWanApi mIWanApi;

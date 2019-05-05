@@ -67,20 +67,20 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:${rootProject.ext.LIFECYCLE_VERSION}"
 
     // custom
-    implementation project(':components:lib_volley')
+    implementation project(':common:lib_volley')
+    implementation project(':common:lib_rxbus')
+    implementation project(':common:lib_async')
+    implementation project(':common:lib_network')
+    implementation project(':common:lib_view')
+    implementation project(':common:lib_runtime')
+    implementation project(':common:lib_base_components')
 
-    implementation project(':components:lib_rxbus')
-
-    implementation project(':components:lib_async')
-    implementation project(':components:lib_network')
-    implementation project(':components:lib_view')
-    implementation project(':components:lib_runtime')
-
+    // modules
     implementation project(':modules:lib_base')
     implementation project(':modules:lib_personal')
-
     implementation project(':modules:lib_gank')
     implementation project(':modules:lib_kaiyan')
     implementation project(':modules:lib_wan')
     implementation project(':modules:lib_ting')
+    implementation project(':modules:lib_oneapi')
 }

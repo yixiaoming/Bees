@@ -60,7 +60,7 @@ public class WanViewModel extends ViewModel {
     ThreadManager.getInstance().runIo(new Runnable() {
       @Override
       public void run() {
-        IWanRepo repo = new WanRepo(swipeRefreshLayout.getContext());
+        IWanRepo repo = new WanRepo(AppRuntime.getContext());
         List<WanArticleEntity> datas = repo.getWanArticleLocalList(authorId, page * size);
         if (datas == null) {
           datas = repo.getWanArticleNetList(authorId, page);
@@ -85,7 +85,7 @@ public class WanViewModel extends ViewModel {
     ThreadManager.getInstance().runIo(new Runnable() {
       @Override
       public void run() {
-        IWanRepo repo = new WanRepo(swipeRefreshLayout.getContext());
+        IWanRepo repo = new WanRepo(AppRuntime.getContext());
         final List<WanArticleEntity> datas = repo.getWanArticleNetList(authorId, page);
         ThreadManager.getInstance().runOnUiThread(new Runnable() {
           @Override

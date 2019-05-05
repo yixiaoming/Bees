@@ -1,12 +1,13 @@
 include ':app'
 
 // 基础库
-include ':components:lib_async'
-include ':components:lib_network'
-include ':components:lib_runtime'
-include ':components:lib_view'
-include ':components:lib_volley'
-include ':components:lib_rxbus'
+include ':common:lib_base_components'
+include ':common:lib_async'
+include ':common:lib_network'
+include ':common:lib_runtime'
+include ':common:lib_view'
+include ':common:lib_volley'
+include ':common:lib_rxbus'
 
 // 模块相关
 include ':modules:lib_base'
@@ -15,3 +16,4 @@ include ':modules:lib_kaiyan'
 include ':modules:lib_personal'
 include ':modules:lib_ting'
 include ':modules:lib_wan'
+include ':modules:lib_oneapi'

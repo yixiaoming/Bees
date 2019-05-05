@@ -14,6 +14,7 @@ import org.yxm.modules.base.mvp.BaseMvpActivity;
 import org.yxm.modules.base.mvp.BasePresenter;
 import org.yxm.modules.gank.GankFragment;
 import org.yxm.modules.kaiyan.KaiyanFragment;
+import org.yxm.modules.oneapi.OneApiFragment;
 import org.yxm.modules.personal.PersonalFragment;
 import org.yxm.modules.ting.MusicFragment;
 import org.yxm.modules.wan.WanFragment;
@@ -29,6 +30,7 @@ public class MainActivity extends BaseMvpActivity
   public static final String TAG_FRAGMENT_VIDEO = "tag_fragment_video";
   public static final String TAG_FRAGMENT_MUSIC = "tag_fragment_music";
   public static final String TAG_FRAGMENT_PERSONAL = "tag_fragment_personal";
+  public static final String TAG_FRAGMENT_ONEAPI = "tag_fragment_oneapi";
 
   private static List<String> mFragmetnIndex = new ArrayList<>(4);
 
@@ -37,7 +39,8 @@ public class MainActivity extends BaseMvpActivity
     mFragmetnIndex.add(TAG_FRAGMENT_VIDEO);
     mFragmetnIndex.add(TAG_FRAGMENT_WAN);
     mFragmetnIndex.add(TAG_FRAGMENT_MUSIC);
-    mFragmetnIndex.add(TAG_FRAGMENT_PERSONAL);
+//    mFragmetnIndex.add(TAG_FRAGMENT_PERSONAL);
+    mFragmetnIndex.add(TAG_FRAGMENT_ONEAPI);
   }
 
   @Override
@@ -79,8 +82,11 @@ public class MainActivity extends BaseMvpActivity
             case R.id.action_music:
               showFragment(TAG_FRAGMENT_MUSIC);
               return true;
-            case R.id.action_personal:
-              showFragment(TAG_FRAGMENT_PERSONAL);
+//            case R.id.action_personal:
+//              showFragment(TAG_FRAGMENT_PERSONAL);
+//              return true;
+            case R.id.action_oneapi:
+              showFragment(TAG_FRAGMENT_ONEAPI);
               return true;
           }
 
@@ -133,6 +139,9 @@ public class MainActivity extends BaseMvpActivity
         transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
       } else if (fragmentTag.equals(TAG_FRAGMENT_PERSONAL)) {
         fragment = PersonalFragment.newInstance();
+        transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
+      } else if (fragmentTag.equals(TAG_FRAGMENT_ONEAPI)) {
+        fragment = OneApiFragment.newInstance();
         transaction.add(R.id.main_content_framelayout, fragment, fragmentTag);
       }
     }

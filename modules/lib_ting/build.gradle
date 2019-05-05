@@ -36,9 +36,9 @@ dependencies {
     implementation "com.android.support:design:${rootProject.ext.SUPPORT_LIBRARY_VERSION}"
 
     implementation project(':modules:lib_base')
-    implementation project(':components:lib_async')
-    implementation project(':components:lib_runtime')
-    implementation project(':components:lib_rxbus')
+    implementation project(':common:lib_async')
+    implementation project(':common:lib_runtime')
+    implementation project(':common:lib_rxbus')
 
     // Room
     implementation "android.arch.persistence.room:runtime:${rootProject.ext.ROOM_VERSION}"
